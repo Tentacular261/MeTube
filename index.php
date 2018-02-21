@@ -17,6 +17,9 @@ if (isset($_POST['logout'])) {
     }
     // Finally, destroy the session.
     session_destroy();
+
+    // Redirect to self to disable posting on refresh after logout
+    header("Location: index.php");
 }
 ?>
 <html>
