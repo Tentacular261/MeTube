@@ -34,9 +34,9 @@ if (isset($_POST['logout'])) {
         if (isset($_SESSION['username'])) { // if logged in
         ?>
 
-        <p>Welcome <?php echo $_SESSION['username'] ?></p>
+        <p>Welcome <?php echo $_SESSION['username'] ?></p> <!--welcome specific user-->
         <form method="post" action="index.php">
-            <input name="logout" type="submit" value="Logout">
+            <input name="logout" type="submit" value="Logout"> <!--Post 'logout'-->
         </form>
 
         <?php
@@ -46,16 +46,18 @@ if (isset($_POST['logout'])) {
         <form method="post" action="user/login.php">
             <input type="submit" value="Login"> <!--Empty post to login-->
         </form>
-        <p><a href="user/register.php">Register</a></p>
+        <p><a href="user/register.php">Register</a></p> <!--link to registration page-->
 
         <?php
         }
         ?>
 
+        <!--This section is format testing for the thumbnail display section being implemented later-->
         <div class="items">
             <?php for ($i=0;$i<25;$i++) { ?>
                 <img class="item" src="media/heh.png" alt="heh" height="64" width="64">
             <?php } ?>
         </div>
+
     </body>
 </html>
