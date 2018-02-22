@@ -38,6 +38,7 @@ if (isset($_POST['logout'])) {
         <form method="post" action="index.php">
             <input name="logout" type="submit" value="Logout"> <!--Post 'logout'-->
         </form>
+        <p><a href="upload.php">Upload</a></p>
 
         <?php
         } else {
