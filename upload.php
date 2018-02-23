@@ -1,4 +1,5 @@
 <?php
+session_save_path("~/metube");
 session_start();
 
 include_once "database.php";

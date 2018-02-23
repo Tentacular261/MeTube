@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php
+// TODO: Make a seperate header file
+session_save_path("~/metube");
 session_start();
 
 if (isset($_POST['logout'])) {
