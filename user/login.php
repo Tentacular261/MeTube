@@ -1,5 +1,5 @@
 <?php
-session_save_path("~/metube");
+session_save_path("/home/wzsulli/public_html/metube/session/");
 session_start(); // get session data
 
 include_once "../database.php";

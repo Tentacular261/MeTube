@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 // TODO: Make a seperate header file
-session_save_path("~/metube");
+session_save_path("/home/wzsulli/public_html/metube/session/");
 session_start();
 
 if (isset($_POST['logout'])) {
