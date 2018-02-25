@@ -12,8 +12,10 @@ if (isset($_POST['upload'])) {
         mkdir('media/',0757);
     chmod('media/',0757); // make sure the media folder has RW access to the public
 
-    if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
-        switch ($result){
+    if ($_POST['title'] == "") {
+        $ErrorMessage = "Title Field Required";
+    } else if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
+        switch ($_FILES["file"]["error"]){
     	case 1:
     		$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
     	case 2:
@@ -25,20 +27,24 @@ if (isset($_POST['upload'])) {
         }
     } else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
         $hash = md5_file($_FILES["file"]["tmp_name"]);
-        $uppath = "media/".$hash.".".pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION); // define the file's name
+        $filename = $hash.".".pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION); // define the file's name
+        $uppath = "media/".$filename; // define file path
 
-        if (file_exists($uppath)) { // don't move the file if the file already exists
-            $ErrorMessage = "The file has been uploaded before.";
+        if (file_exists($uppath) ||
+                move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
+            $db = new DatabaseConnection();
+
+            $utime = time();
+
+            $query = "INSERT INTO media (id,date,file,uploaded_by,privacy,title,description)"
+                    ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$_SESSION['username']
+                    ."','".$_POST['privacy']."','".$_POST['title']."','".$_POST['description']."')";
+
+            $db->custom_sql($query);
+
+            header("Location: index.php"); // TODO: change this to go to the media's page
         } else {
-            if (!move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
-                $ErrorMessage = "Failed to move the file into the media directory of the server.";
-            } else {
-                $db = new DatabaseConnection();
-
-                // TODO: Make a record in the database for the post
-
-                header("Location: index.php"); // TODO: change this to go to the media's page
-            }
+            $ErrorMessage = "Failed to move the file into the media directory of the server.";
         }
     } else {
         $ErrorMessage = "Uploading the file failed.";
@@ -52,6 +58,24 @@ if (isset($_POST['upload'])) {
         <input type="hidden" name="MAX_FILE_SIZE" value="104857600" />
         Uplaod Media: <label style="color:#663399"><em> (Each file limit 100MiB)</em></label><br/>
         <input  name="file" type="file" size="50" />
+        <table width="100%">
+    		<tr>
+    			<td  width="20%">Post Title:</td>
+    			<td width="80%"><input type="text" name="title"><br /></td>
+    		</tr>
+    		<tr>
+    			<td  width="20%">Post Description:</td>
+    			<td width="80%"><textarea name="description" rows="10" cols="50"></textarea><br /></td>
+    		</tr>
+            <tr>
+                <td width="20%">Visibility:</td>
+                <td width="80%"><select name="privacy">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                    <option value="contacts">Contacts</option>
+                </select></td>
+            </tr>
+        </table>
         <input value="Upload" name="upload" type="submit" />
     </p>
 </form>
