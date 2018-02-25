@@ -32,6 +32,7 @@ if (isset($_POST['upload'])) {
 
         if (file_exists($uppath) ||
                 move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
+            chmod($uppath,0757);
             $db = new DatabaseConnection();
 
             $utime = time();
