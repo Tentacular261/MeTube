@@ -4,6 +4,8 @@
 session_save_path("/home/wzsulli/public_html/metube/session/");
 session_start();
 
+include_once "database.php";
+
 if (isset($_POST['logout'])) {
     // Unset all of the session variables.
     $_SESSION = array();
@@ -57,9 +59,21 @@ if (isset($_POST['logout'])) {
 
         <!--This section is format testing for the thumbnail display section being implemented later-->
         <div class="items">
-            <?php for ($i=0;$i<25;$i++) { ?>
-                <img class="item" src="media/heh.png" alt="heh" height="64" width="64">
-            <?php } ?>
+            <?php
+            $db = new DatabaseConnection();
+
+            // TODO: Allow paging of the results
+            $result = $db->custom_sql("SELECT file,title FROM media ORDER BY date DESC");
+
+            for ($i=0;$i<min(25,$result->num_rows);$i++) {
+                $rows = $result->fetch_array();
+                echo "\n<img class=\"item\" src=\"media/"
+                    .$rows['file']
+                    ."\" alt=\""
+                    .$rows['title']
+                    ."\" height=\"64\" width=\"64\">";
+            }
+            ?>
         </div>
 
     </body>
