@@ -29,7 +29,7 @@ if (isset($_POST['logout'])) {
 <html>
     <head>
         <title>Hello World</title>
-        <link rel="stylesheet" href="css/browsing.css"
+        <link rel="stylesheet" href="css/browsing.css">
     </head>
     <body>
         <?php
