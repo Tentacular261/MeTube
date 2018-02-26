@@ -36,10 +36,13 @@ if (isset($_POST['upload'])) {
             $db = new DatabaseConnection();
 
             $utime = time();
+            $title = $db->conn->real_escape_string($_POST['title']);
+            $description = $db->conn->real_escape_string($_POST['description']);
+            $un = $db->conn->real_escape_string($_SESSION['username']);
 
             $query = "INSERT INTO media (id,date,file,uploaded_by,privacy,title,description)"
-                    ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$_SESSION['username']
-                    ."','".$_POST['privacy']."','".$_POST['title']."','".$_POST['description']."')";
+                    ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un
+                    ."','".$_POST['privacy']."','".$title."','".$description."')";
 
             $db->custom_sql($query);
 

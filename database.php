@@ -5,7 +5,9 @@ class DatabaseConnection {
     private $pass = "X#2s6nF7";              // The password to access the database
     private $dbnm = "MeTubeDatabase_99yq";   // The name of the Database
 
-    private $conn; // holds the mysqli connection for this object
+    public $conn; // holds the mysqli connection for this object
+
+    // TODO: Make the function calls in here so that the escaping doesn't have to be worried about elsewhere
 
     function __construct() {
         $this->conn = new mysqli($this->host, $this->user, $this->pass, $this->dbnm); // initialize the msquli connection

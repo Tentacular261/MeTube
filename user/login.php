@@ -9,7 +9,8 @@ if(isset($_POST['submit'])) { // process POST data if it exists
         $login_error = "One or more fields are missing.";
     } else {
         $db = new DatabaseConnection();
-        $result = $db->custom_sql("SELECT * FROM users WHERE username='".$_POST['username']."'"); // ask database to find the user info
+        $un = $db->conn->real_escape_string($_POST['username']);
+        $result = $db->custom_sql("SELECT * FROM users WHERE username='".$un."'"); // ask database to find the user info
 
         if (!$result) {
             die ("user_pass_check() failed. Could not query the database: <br />");

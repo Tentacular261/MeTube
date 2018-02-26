@@ -11,7 +11,9 @@ if(isset($_POST['register'])) { // process POST data if it exists
         $register_error = "The passwords do not match.";
     } else {
         $db = new DatabaseConnection();
-        $result = $db->custom_sql("SELECT * FROM users WHERE username='".$_POST['username']."'"); // ask database of user exists
+        $un = $db->conn->real_escape_string($_POST['username']);
+        $ps = $db->conn->real_escape_string($_POST['pass_1']);
+        $result = $db->custom_sql("SELECT * FROM users WHERE username='".$un."'"); // ask database of user exists
 
         if (!$result) {
             die ("user_pass_check() failed. Could not query the database: <br />");
@@ -20,7 +22,7 @@ if(isset($_POST['register'])) { // process POST data if it exists
         } else {
             // username checks out - insert it into the database.
             // TODO: hash passwords (possibly before leaving client, that may require JS though, and if we are using JS for that then we could do a fancy realtime check for the two password feilds matching)
-            $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$_POST['username']."','".$_POST['pass_1']."')");
+            $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$un."','".$ps."')");
             $_SESSION['username']=$_POST['username']; // log the user in
             header('Location: ../index.php'); // go back to the main page
         }
