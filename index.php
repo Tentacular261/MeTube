@@ -63,15 +63,17 @@ if (isset($_POST['logout'])) {
             $db = new DatabaseConnection();
 
             // TODO: Allow paging of the results
-            $result = $db->custom_sql("SELECT file,title FROM media ORDER BY date DESC");
+            $result = $db->custom_sql("SELECT id,file,title FROM media ORDER BY date DESC");
 
             for ($i=0;$i<min(25,$result->num_rows);$i++) {
                 $rows = $result->fetch_array();
-                echo "\n<img class=\"item\" src=\"media/"
+                echo "\n<a href=\"post.php?id="
+                    .$rows['id']
+                    ."\"><img class=\"item\" src=\"media/"
                     .$rows['file']
                     ."\" alt=\""
                     .$rows['title']
-                    ."\" height=\"64\" width=\"64\">";
+                    ."\" height=\"64\" width=\"64\"></a>";
             }
             ?>
         </div>
