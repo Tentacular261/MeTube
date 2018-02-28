@@ -63,10 +63,13 @@ if (isset($_POST['logout'])) {
             $db = new DatabaseConnection();
 
             // TODO: Allow paging of the results
-            $result = $db->custom_sql("SELECT id,file,title FROM media ORDER BY date DESC");
+            $result = $db->custom_sql("SELECT id,file,title,privacy FROM media ORDER BY date DESC");
 
-            for ($i=0;$i<min(25,$result->num_rows);$i++) {
-                $rows = $result->fetch_array();
+            for ($i=0;$i<25;$i++) {
+                do {
+                    $rows = $result->fetch_array();
+                } while ($rows != NULL && $rows['privacy'] != "public");
+                if ($rows==NULL) continue;
                 echo "\n<a href=\"post.php?id="
                     .$rows['id']
                     ."\"><img class=\"item\" src=\"media/"
