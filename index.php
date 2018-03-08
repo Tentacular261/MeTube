@@ -70,13 +70,19 @@ if (isset($_POST['logout'])) {
                     $rows = $result->fetch_array();
                 } while ($rows != NULL && $rows['privacy'] != "public");
                 if ($rows==NULL) continue;
+                $size = getimagesize("media/".$rows['file']);
+                $imgsizedef = ($size[0] > $size[1]) // specify only the size of the largest dimension of the image
+                                ? "width=\"64\""
+                                : "height=\"64\"";
                 echo "\n<a href=\"post.php?id="
                     .$rows['id']
                     ."\"><img class=\"item\" src=\"media/"
                     .$rows['file']
                     ."\" alt=\""
                     .$rows['title']
-                    ."\" height=\"64\" width=\"64\"></a>";
+                    ."\" "
+                    .$imgsizedef
+                    ."></a>";
             }
             ?>
         </div>

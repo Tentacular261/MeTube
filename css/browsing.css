@@ -2,7 +2,10 @@ div.items {
     text-align: center;
 }
 
+div.items img{
+    vertical-align: middle;
+}
+
 img.item {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 8px;
 }
