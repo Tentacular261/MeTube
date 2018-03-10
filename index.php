@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
 ?>
 <html>
     <head>
-        <title>Team 14 MeTube</title>
+        <title>|Team14 MeTube|</title>
         <link rel="stylesheet" href="css/browsing.css">
     </head>
     <body>
