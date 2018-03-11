@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php
 // TODO: Make a seperate header file
 session_save_path("/home/wzsulli/public_html/metube/session/");
@@ -26,9 +27,10 @@ if (isset($_POST['logout'])) {
     header("Location: index.php");
 }
 ?>
+
 <html>
     <head>
-        <title>|Team14 MeTube|</title>
+			<title>|Team14 MeTube|</title>
         <link rel="stylesheet" href="css/browsing.css">
     </head>
     <body>
