@@ -30,11 +30,16 @@ if (isset($_POST['logout'])) {
 
 <html>
     <head>
-			<title>|Team14 MeTube|</title>
+        <title>|Team14 MeTube|</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/browsing.css">
     </head>
     <body>
         <?php
+        include_once "navbar.php";
+
         echo '<p>Hello World</p>';
 
         if (isset($_SESSION['username'])) { // if logged in
