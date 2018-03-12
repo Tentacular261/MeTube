@@ -19,26 +19,6 @@ include_once "database.php";
     <body>
         <?php
         include_once "navbar.php";
-
-        echo '<p>Hello World</p>';
-
-        if (isset($_SESSION['username'])) { // if logged in
-        ?>
-
-        <p>Welcome <?php echo $_SESSION['username'] ?></p> <!--welcome specific user-->
-        <p><a href="upload.php">Upload</a></p>
-
-        <?php
-        } else {
-        ?>
-
-        <form method="post" action="user/login.php">
-            <input type="submit" value="Login"> <!--Empty post to login-->
-        </form>
-        <p><a href="user/register.php">Register</a></p> <!--link to registration page-->
-
-        <?php
-        }
         ?>
 
         <!--This section is format testing for the thumbnail display section being implemented later-->
