@@ -23,32 +23,15 @@ if(isset($_POST['submit'])) { // process POST data if it exists
             else {
                 $_SESSION['username']=$_POST['username']; //Set the $_SESSION['username'] (Log the user in)
                 // TODO: load the last page the user was on
-                header('Location: ../index.php');
+                header('Location: '.$_POST['return']);
+                exit;
             }
         }
     }
 }
-?>
-
-<form method="post" action="<?php echo "login.php"; ?>">
-
-	<table width="100%">
-		<tr>
-			<td  width="20%">Username:</td>
-			<td width="80%"><input class="text"  type="text" name="username"><br /></td>
-		</tr>
-		<tr>
-			<td  width="20%">Password:</td>
-			<td width="80%"><input class="text"  type="password" name="password"><br /></td>
-		</tr>
-		<tr>
-
-			<td><input name="submit" type="submit" value="Login"><input name="reset" type="reset" value="Reset"><br /></td>
-		</tr>
-	</table>
-	</form>
-
-<?php
-  if(isset($login_error))
-   {  echo "<p>".$login_error."</p>";}
+if (isset($_POST['return'])) {
+    header('Location: '.$_POST['return']);
+} else {
+    header('Location: ../index.php');
+}
 ?>

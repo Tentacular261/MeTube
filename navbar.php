@@ -38,7 +38,7 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         <!-- Login Popup -->
         <div id="login" class="modal">
 
-            <form class="modal-content animate" action="">
+            <form class="modal-content animate" method="post" action="user/login.php">
             <!-- CHANGE TO DB LOGIN -->
 
                 <div class="container">
@@ -48,18 +48,19 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     <hr>
                     <label for="uname"><b>Username</b></label>
                     <input type="text" placeholder="Enter Username"
-                           name="uname" required>
+                           name="username" required>
 
-                    <label for="psw"><b>Password</b></label>
+                    <label for="password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password"
-                           name="psw" required>
+                           name="password" required>
                     <br>
 
+                    <input type="hidden" name="return" value="<?php echo $returnto; ?>">
                     <button type="button" onclick="document.getElementById('login').style.display='none'"
                             class="cancelbtn">
                         Cancel
                     </button>
-                    <button type="submit">Login</button>
+                    <button type="submit" name="submit">Login</button>
                 </div>
             </form>
         </div>
@@ -102,6 +103,7 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     <p>By creating an account you agree to absolutely no privacy or exclusivity of content.</p>
 
                     <div class="clearfix">
+                    <input type="hidden" name="return" value="<?php echo $returnto; ?>">
                     <button type="button" onclick="document.getElementById('register').style.display='none'"
                     class="cancelbtn">
                     Cancel
