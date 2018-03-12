@@ -24,34 +24,14 @@ if(isset($_POST['register'])) { // process POST data if it exists
             // TODO: hash passwords (possibly before leaving client, that may require JS though, and if we are using JS for that then we could do a fancy realtime check for the two password feilds matching)
             $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$un."','".$ps."')");
             $_SESSION['username']=$_POST['username']; // log the user in
-            header('Location: ../index.php'); // go back to the main page
+            header('Location: '.$_POST['return']); // go back to the previous page
+            exit;
         }
     }
 }
-?>
-
-<form method="post" action="register.php">
-
-	<table width="100%">
-		<tr>
-			<td  width="20%">Username:</td>
-			<td width="80%"><input class="text"  type="text" name="username"></td>
-		</tr>
-		<tr>
-			<td  width="20%">Password:</td>
-			<td width="80%"><input class="text"  type="password" name="pass_1"></td>
-		</tr>
-        <tr>
-			<td  width="20%"> Retype Password:</td>
-			<td width="80%"><input class="text"  type="password" name="pass_2"></td>
-		</tr>
-		<tr>
-			<td><input name="register" type="submit" value="Register"></td>
-		</tr>
-	</table>
-</form>
-
-<?php
-  if(isset($register_error))
-   {  echo "<p>".$register_error."</p>";}
+if (isset($_POST['return'])) {
+    header('Location: '.$_POST['return']);
+} else {
+    header('Location: ../index.php');
+}
 ?>

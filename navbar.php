@@ -80,7 +80,7 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         <!-- Register Popup -->
         <div id="register" class="modal">
 
-            <form class="modal-content animate" action="">
+            <form class="modal-content animate" method="post" action="user/register.php">
                 <!-- CHANGE TO DB NEW USER -->
                 <div class="container">
                     <span onclick="document.getElementById('register').style.display='none'"
@@ -92,13 +92,13 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     <input type="text" placeholder="Enter Username"
                         name="username" required />
 
-                    <label for="psw"><b>Password</b></label>
+                    <label for="pass_1"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password"
-                        name="psw" required>
+                        name="pass_1" required>
 
-                    <label for="psw-repeat"><b>Repeat Password</b></label>
+                    <label for="pass_2"><b>Repeat Password</b></label>
                     <input type="password" placeholder="Repeat Password"
-                        name="psw-repeat" required>
+                        name="pass_2" required>
 
                     <p>By creating an account you agree to absolutely no privacy or exclusivity of content.</p>
 
@@ -108,7 +108,7 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     class="cancelbtn">
                     Cancel
                     </button>
-                    <button type="submit" class="registerbtn">Register</button>
+                    <button name="register" type="submit" class="registerbtn">Register</button>
                     </div>
                 </div>
             </form>
