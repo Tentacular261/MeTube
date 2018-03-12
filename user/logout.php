@@ -20,7 +20,7 @@ if (isset($_POST['logout'])) {
 
     // Redirect to last visited page
     header("Location: ".$_POST['return']);
-} else {
-    header("Location: ../index.php");
+    exit; // don't continue this script
 }
+header("Location: ../index.php");
 ?>
