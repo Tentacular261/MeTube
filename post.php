@@ -15,7 +15,11 @@ $result = $db->custom_sql("SELECT file,title,description,privacy,uploaded_by FRO
 if ($result->num_rows != 1) {
     ?>
     <head><title>ITS GONE!</title></head>
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <body>
+        <?php include_once "navbar.php"; ?>
+
         <p>The post you are looking for doesn't exist.</p>
         <p><a href="index.php">Return to index</a></p>
     </body>
@@ -33,8 +37,14 @@ if ($result->num_rows != 1) {
             (!isset($_SESSION['username']) ||
             $_SESSION['username'] != $uploader)) {
         ?>
-        <head><title>Nope</title></head>
+        <head>
+            <title>Nope</title>
+            <link rel="stylesheet" href="css/general.css">
+            <link rel="stylesheet" href="css/navbar.css">
+        </head>
         <body>
+            <?php include_once "navbar.php"; ?>
+
             <p>You don't have access to this post.</p>
             <p><a href="index.php">Return to index</a></p>
         </body>
@@ -42,9 +52,13 @@ if ($result->num_rows != 1) {
     } else { ?>
     <head>
         <title><?php echo $title; ?></title>
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/viewing.css">
     </head>
     <body>
+        <?php include_once "navbar.php"; ?>
+
         <div class="main_image">
             <img class="main" src="media/<?php echo $file; ?>">
             <div class="title"><?php echo $title; ?></div><br>
