@@ -12,8 +12,9 @@
         <a href="upload.php">Upload</a>
         <!-- TODO: make log out work -->
         <a class="right" href="index.php">Log Out</a>
-    <?php }
-    else { ?>
+    <?php
+    } else {
+    ?>
         <a class="right" href="javascript:void(0);"
         onclick="document.getElementById('register').style.display='block'">
            Register
@@ -114,10 +115,11 @@
         </script>
 
     <?php } ?>
-    <a href="javascript:void(0);" class="icon" top="true" onclick="myFunction()">&#9776;</a>
+    <a href="javascript:void(0);" class="icon" top="true" onclick="openNavbar()">&#9776;</a>
 </div>
 <script>
-function myFunction() {
+// toggles the responsive version of the Navbar
+function openNavbar() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
         x.className += " open";

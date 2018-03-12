@@ -50,6 +50,7 @@
     padding: 10px;
  }
 
+ /* User Greeting */
 .topnav a.user span {
     float: left;
     display: block;
@@ -60,19 +61,23 @@
     font-size: 16px;
 }
 
+/* highlight for non login/out buttons */
 .topnav a:not(.right):hover {
     background-color: #ddd;
     color: black;
 }
 
+/* higlight for login/out buttons */
 .topnav a.right:hover {
     opacity: 0.8;
 }
 
+/* menu button for responsive interface */
 .topnav .icon {
     display: none;
 }
 
+/* resonsive version of navbar (closed) */
 @media screen and (max-width: 600px) {
     .topnav a:not([top]) {display: none;}
     .topnav a.user {
@@ -91,6 +96,7 @@
     }
 }
 
+/* resonsive version of navbar (open) */
 @media screen and (max-width: 600px) {
     .topnav.open {position: relative;}
     .topnav.open a:not([top]) {
