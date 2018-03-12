@@ -140,3 +140,4 @@ function openNavbar() {
     }
 }
 </script>
+<!-- TODO: add an error display for debugging purposes -->
