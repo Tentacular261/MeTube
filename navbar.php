@@ -1,3 +1,10 @@
+<?php
+$returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+?>
+<form id="logout" class="modal" method="post" action="user/logout.php">
+    <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+    <input type="hidden" name="logout" value="logout">
+</form>
 
 <div class="topnav" id="myTopnav">
     <a class="user" href="user.php" top="true"> <!--TODO: create the user account control page -->
@@ -5,13 +12,16 @@
         <!-- TODO: CHANGE FOR UNIQUE USER AVATAR -->
         <span>Welcome <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : "Guest" ?></span>
     </a>
+    <a href="index.php">Home</a>
     <?php
     if (isset($_SESSION['username'])) {
     ?>
-        <a href="index.php">Home</a>
         <a href="upload.php">Upload</a>
         <!-- TODO: make log out work -->
-        <a class="right" href="index.php">Log Out</a>
+        <a class="right" href="javascript:void(0);"
+           onclick="document.getElementById(&quot;logout&quot;).submit()">
+           Log Out
+        </a>
     <?php
     } else {
     ?>

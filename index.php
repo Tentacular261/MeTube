@@ -1,31 +1,11 @@
 <!DOCTYPE html>
 
 <?php
-// TODO: Make a seperate header file
+// these two lines are needed at the start of each page
 session_save_path("/home/wzsulli/public_html/metube/session/");
 session_start();
 
 include_once "database.php";
-
-if (isset($_POST['logout'])) {
-    // Unset all of the session variables.
-    $_SESSION = array();
-
-    // If it's desired to kill the session, also delete the session cookie.
-    // Note: This will destroy the session, and not just the session data!
-    if (ini_get("session.use_cookies")) {
-        $params = session_get_cookie_params();
-        setcookie(session_name(), '', time() - 42000,
-            $params["path"], $params["domain"],
-            $params["secure"], $params["httponly"]
-        );
-    }
-    // Finally, destroy the session.
-    session_destroy();
-
-    // Redirect to self to disable posting on refresh after logout
-    header("Location: index.php");
-}
 ?>
 
 <html>
@@ -46,9 +26,6 @@ if (isset($_POST['logout'])) {
         ?>
 
         <p>Welcome <?php echo $_SESSION['username'] ?></p> <!--welcome specific user-->
-        <form method="post" action="index.php">
-            <input name="logout" type="submit" value="Logout"> <!--Post 'logout'-->
-        </form>
         <p><a href="upload.php">Upload</a></p>
 
         <?php
