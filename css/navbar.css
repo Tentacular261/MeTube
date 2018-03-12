@@ -1,27 +1,61 @@
+/* navbar */
 .topnav {
     overflow: hidden;
     background-color: #333;
 }
 
+/* generic navbar items */
 .topnav a {
     float: left;
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 25px 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
 }
 
+/* right aligned navbar items */
 .topnav a.right {
     float: right;
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 25px 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
 }
+
+/* container for user avatar and id */
+.topnav a.user {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 0px;
+    padding-right: 16px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* User avatar */
+.topnav a.user img {
+    float: left;
+    vertical-align: middle;
+    width: 49px;
+    height: 49px;
+    padding: 10px;
+ }
+
+ .topnav a.user span {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 25px 0px;
+    text-decoration: none;
+    font-size: 16px;
+ }
 
 .topnav a:hover {
     background-color: #ddd;
@@ -33,25 +67,30 @@
 }
 
 @media screen and (max-width: 600px) {
-    .topnav a:not(:first-child) {display: none;}
+    .topnav a:not([top]) {display: none;}
+    .topnav a.user {
+        float: left;
+        width: 100%;
+        display: block;
+        text-align: left;
+    }
     .topnav a.icon {
         float: right;
         display: block;
+        position: absolute;
+        padding: 25px 16px;
+        right: 0;
+        top: 0;
     }
 }
 
 @media screen and (max-width: 600px) {
     .topnav.open {position: relative;}
-    .topnav.open .icon {
-        position: absolute;
-        padding: 14px 16px;
-        font-size: 17px;
-        right: 0;
-        top: 0;
-    }
-    .topnav.open a {
-        float: none;
+    .topnav.open a:not([top]) {
+        float: left;
+        width: 100%;
         display: block;
         text-align: left;
+        padding: 16px 16px;
     }
 }
