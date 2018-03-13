@@ -63,8 +63,9 @@
 
 /* highlight for non login/out buttons */
 .topnav a:not(.right):hover {
-    background-color: #ddd;
-    color: black;
+    transition: 0.1s;
+    background-color: #522d80;
+    color: white;
 }
 
 /* higlight for login/out buttons */
