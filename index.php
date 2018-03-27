@@ -2,7 +2,7 @@
 
 <?php
 // these two lines are needed at the start of each page
-session_save_path("/home/wzsulli/public_html/metube/session/");
+session_save_path("session");
 session_start();
 
 include_once "database.php";
