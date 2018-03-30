@@ -47,13 +47,14 @@ include_once "database.php";
                 $db = new DatabaseConnection();
 
                 // TODO: Allow paging of the results
-                $result = $db->custom_sql("SELECT id,file,title,privacy FROM media ORDER BY date DESC");
+                $result = $db->custom_sql("SELECT id,file,title,privacy,uploaded_by FROM media ORDER BY date DESC");
 
                 for ($i=0;$i<25;$i++) {
                     do {
                         $rows = $result->fetch_array();
-                    } while ($rows != NULL && $rows['privacy'] != "public");
-                    if ($rows==NULL) continue;
+                    } while ($rows != NULL && $rows['privacy'] != "public" && !empty($_SESSION['username']) && $rows['uploaded_by'] == $_SESSION['username']);
+                    // TODO: handle seeing friends posts that can be seen once that is added
+                    if ($rows==NULL) break;
                     $size = getimagesize("media/".$rows['file']);
                     $imgsizedef = ($size[0] > $size[1]) // specify only the size of the largest dimension of the image
                                     ? "width=\"64\""
