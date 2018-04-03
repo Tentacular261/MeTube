@@ -10,6 +10,8 @@ $db = new DatabaseConnection();
 $getting = $db->conn->real_escape_string($_GET['id']);
 $result = $db->custom_sql("SELECT file,title,description,privacy,uploaded_by FROM media WHERE id = \"".$getting."\"");
 
+include_once 'navbar.php';
+
 if ($result->num_rows != 1) {
     include 'post/nopost.php';
 } else {

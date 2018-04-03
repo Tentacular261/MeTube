@@ -1,12 +1,8 @@
 <head>
     <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="css/general.css">
-    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/viewing.css">
 </head>
 <body>
-    <?php include_once "navbar.php"; ?>
-
     <div class="main_image">
         <img class="main" src="media/<?php echo $file; ?>">
         <div class="title"><?php echo $title; ?></div><br>
