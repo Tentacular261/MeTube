@@ -1,20 +1,29 @@
-div.main_image {
+.main_image {
     text-align: center;
     margin-top: 40px;
 }
 
-div.title {
+img.main {
+    width: 60%
+}
+
+.title {
 
 }
 
-div.user {
+.user {
     
 }
 
-div.description {
+.description {
 
 }
 
-img.main {
-    width: 60%
+.comment_section {
+
+}
+
+.comment {
+    background-color: blueviolet;
+    color: aliceblue;
 }
