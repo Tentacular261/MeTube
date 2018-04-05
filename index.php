@@ -6,20 +6,17 @@ session_save_path("session");
 session_start();
 
 include_once "database.php";
+
+include_once "navbar.php";
 ?>
 
 <html>
     <head>
         <title>|Team14 MeTube|</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/browsing.css">
     </head>
     <body>
-        <?php
-        include_once "navbar.php";
-        ?>
 
         <!-- Header Content -->
         <div class="header">
@@ -52,7 +49,7 @@ include_once "database.php";
                 for ($i=0;$i<25;$i++) {
                     do {
                         $rows = $result->fetch_array();
-                    } while ($rows != NULL && $rows['privacy'] != "public" && !empty($_SESSION['username']) && $rows['uploaded_by'] == $_SESSION['username']);
+                    } while ($rows != NULL && $rows['privacy'] != "public" && (empty($_SESSION['username']) || $rows['uploaded_by'] != $_SESSION['username']));
                     // TODO: handle seeing friends posts that can be seen once that is added
                     if ($rows==NULL) break;
                     $size = getimagesize("media/".$rows['file']);
@@ -79,6 +76,6 @@ include_once "database.php";
         <div class="footer">
             <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan,  Sadie Sweetman</i></h6>
         </div>
-
+        
     </body>
 </html>

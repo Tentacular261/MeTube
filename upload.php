@@ -54,6 +54,8 @@ if (isset($_POST['upload'])) {
         $ErrorMessage = "Uploading the file failed.";
     }
 }
+
+include_once "navbar.php";
 ?>
 
 <form method="post" action="upload.php" enctype="multipart/form-data" >
