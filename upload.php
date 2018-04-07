@@ -53,11 +53,11 @@ if (isset($_POST['upload'])) {
     } else {
         $ErrorMessage = "Uploading the file failed.";
     }
-}
+} 
 
 include_once "navbar.php";
 ?>
-
+<!--
 <form method="post" action="upload.php" enctype="multipart/form-data" >
 
     <p style="margin:0; padding:0">
@@ -85,6 +85,151 @@ include_once "navbar.php";
         <input value="Upload" name="upload" type="submit" />
     </p>
 </form>
+-->
+
+<html>
+
+	<head>
+		<title>| Upload |</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/general.css">
+		<link rel="stylesheet" href="css/upload.css">
+	</head>
+
+	<body>
+		<div class="uploadContent">
+			<div class="uploadRow">
+				<div class="uploadCol">
+					<form method="post" action="upload.php" enctype="multipart/form-data" >
+						<input type="hidden" name="MAX_FILE_SIZE" value="104857600" />
+						UPLOAD MEDIA <label style="color: var(--ltgray)"><em> (Max Size 100MiB)</em></label> <br/>
+						<input type="file" name="file" size="50" />
+
+						<input type="text" name="title" placeholder="Media Title" />
+						<input type="text" name="description" placeholder="Description" />
+						<!-- TODO: NEW KEYWORDS -->
+						<input type="text" name="keywords" placeholder="Keywords" />
+
+						<!-- TODO: NEW CATEGORY -->
+						<select id="category" name="category" />
+							<option value="" disabled selected>Category</option>
+							<option value="entertainment">Entertainment</option>
+							<option value="food">Food</option>
+							<option value="funny">Funny</option>
+							<option value="gaming">Gaming</option>
+							<option value="news">News & Politics</option>
+							<option value="people">People</option>
+							<option value="pets">Pets & Animals</option>
+							<option value="science">Science & Tech</option>
+							<option value="sports">Sports</option>
+							<option value="travel">Travel & Outdoors</option> </select>
+						<!-- TODO: NEW LISTS -->
+						<select id="lists" name="lists" />
+							<option value="" disabled selected>Add to List</option>
+							<option value="createList">Create New List... </options>
+							<option value="favorites">Favorites </option>
+							<option value="haha">Haha (Example) </option>
+							<option value="rip">RIP (Example) </option> </select>
+
+						<input type="radio" name="privacy" value="public" checked>Public               
+						<input type="radio" name="privacy" value="private">Private
+						<input type="radio" name="privacy" value="contacts">Friends <br/>
+
+						<!-- TODO: NEW RATED -->
+						<input type="checkbox" name="rated" value="rated" checked>OK to Rate <br/>
+
+						<input type="submit" name="upload" value="Upload" />
+					</form>
+				</div>
+				<div class="displayMediaCol">
+					<!-- TODO: MAKE DISPLAY CURRENT SELECTED IMAGE -->
+					<img src="http://www.tabletmag.com/wp-content/uploads/2017/05/lillabanner.jpg" alt="Media Player Goes Here" maxheight="250" maxwidth-"250">
+					<div class="uploadRow">
+						<div class="uploadCol">
+							<!-- TODO: NEW ACTION FOR UPDATE -->
+							<input type="submit" name="update" value="Update" />
+						</div>
+						<div class="uploadCol">
+							<!-- TODO: NEW ACTION FOR DELETE -->
+							<input type="submit" name="delete" value="Delete" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="userContent">
+			<div class="userContentRow">
+				<div class="userContentCol">
+					<div class="main-search">
+						<form action="/action_page.php">   <!-- TODO: CHANGE TO GIVE RESULTS -->
+							<input type="text" placeholder="Search your media..." name="search">
+							<select id="category" name="category" />
+								<option value="" disabled selected>Filter by Category</option>
+								<option value="entertainment">Entertainment</option>
+								<option value="food">Food</option>
+								<option value="funny">Funny</option>
+								<option value="gaming">Gaming</option>
+								<option value="news">News & Politics</option>
+								<option value="people">People</option>
+								<option value="pets">Pets & Animals</option>
+								<option value="science">Science & Tech</option>
+								<option value="sports">Sports</option>
+								<option value="travel">Travel & Outdoors</option> </select>
+							<select id="lists" name="lists" />
+								<option value="" disabled selected>Filter by List</option>
+								<option value="favorites">Favorites </option>
+								<option value="haha">Haha (Example) </option>
+								<option value="rip">RIP (Example) </option> </select>
+
+							<!-- TODO: SEARCH BY FILE TYPE -->
+							File Type: 
+							<input type="checkbox" name="file" value="image" checked>Images
+							<input type="checkbox" name="file" value="video" checked>Video
+							<input type="checkbox" name="file" value="audio" checked>Audio <br/>
+							Rating:
+							<input type="checkbox" name="rating" value="1">1
+							<input type="checkbox" name="rating" value="2">2
+							<input type="checkbox" name="rating" value="3">3 
+							<input type="checkbox" name="rating" value="4">4 
+							<input type="checkbox" name="rating" value="5">5 </br>
+							Privacy:
+							<input type="checkbox" name="privacy" value="public" checked>Public               
+							<input type="checkbox" name="privacy" value="private" checked>Private
+							<input type="checkbox" name="privacy" value="contacts" checked>Friends <br/>
+
+							Uploaded: </br>
+							Between<input type="date" name="date">
+							And<input type="date" name="date">
+
+							<div class="userContentRow">
+								<div class="userContentCol">
+									<!-- TODO: NEW ACTION FOR SEARCH-->
+									<input type="submit" name="search" value="Search" />
+								</div>
+								<div class="userContentCol">
+									<!-- TODO: NEW ACTION FOR RESET -->
+									<input type="submit" name="reset" value="Reset" />
+								</div>
+							</div>
+                  </form>
+               </div>
+				</div>
+
+				<div class="userContentCol">
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer Content -->
+      <div class="footer">
+            <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan,  Sadie Sweetman</i></h6>
+      </div>
+
+	</body>
+
+</html>
+
 <p>
     <?php if (isset($ErrorMessage)) echo $ErrorMessage; // tell the user of any errors from the last attempted upload ?>
 </p>

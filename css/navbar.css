@@ -2,43 +2,44 @@
 /* navbar */
 .topnav {
     overflow: hidden;
-    background-color: #333;
+    background-color: var(--ltblack);
 }
 
 /* generic navbar items */
 .topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 25px 16px;
-    text-decoration: none;
-    font-size: 16px;
+   float: left;
+   display: block;
+   color: var(--ltgray);
+   text-align: center;
+   padding: 25px 16px;
+   text-decoration: none;
+   font-size: 16px;
 }
 
 /* right aligned navbar items */
 .topnav a.right {
-    float: right;
-    display: block;
-    background-color: #f66733;
-    color: white;
-    text-align: center;
-    padding: 20px 11px;
-    margin: 5px 5px;
-    text-decoration: none;
-    font-size: 16px;
+   float: right;
+   display: block;
+   background-color: var(--orange);
+   color: white;
+   text-align: center;
+   padding: 20px 11px;
+   margin: 5px 5px;
+   text-decoration: none;
+   font-size: 16px;
+   border-radius: 4px;
 }
 
 /* container for user avatar and id */
 .topnav a.user {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 0px;
-    padding-right: 16px;
-    text-decoration: none;
-    font-size: 16px;
+   float: left;
+   display: block;
+   color: var(--ltgray);
+   text-align: center;
+   padding: 0px;
+   padding-right: 16px;
+   text-decoration: none;
+   font-size: 16px;
 }
 
 /* User avatar */
@@ -54,7 +55,7 @@
 .topnav a.user span {
     float: left;
     display: block;
-    color: #f2f2f2;
+    color: var(--ltgray);
     text-align: center;
     padding: 25px 0px;
     text-decoration: none;
@@ -64,7 +65,7 @@
 /* highlight for non login/out buttons */
 .topnav a:not(.right):hover {
     transition: 0.1s;
-    background-color: #522d80;
+    background-color: var(--purple);
     color: white;
 }
 
@@ -117,13 +118,13 @@ input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid var(--midgray);
     box-sizing: border-box;
 }
 
 /* Style default buttons */
 button {
-    background-color: #f66733;
+    background-color: var(--orange);
     color: white;
     padding: 14px 20px;
     margin: 3px 0;
@@ -139,8 +140,8 @@ button:hover {
 
 /* Style cancel button */
 .cancelbtn {
-    width: 100px;
-    background-color: #522d80;
+   width: 100px;
+   background-color: var(--purple);
 }
 
 /* Popup container styling */
@@ -172,15 +173,15 @@ span.psw {
 
 /* Popup Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--ltgray);
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
+    border: 1px solid var(--midgray);
     width: 40%;
 }
 
 /* Style horizontal ruler */
 hr {
-    border: 1px solid #f1f1f1;
+    border: 1px solid var(--ltgray);
     margin-bottom: 25px;
 }
 
@@ -189,7 +190,7 @@ hr {
     position: absolute;
     right: 25px;
     top: 0;
-    color: #000;
+    color: black;
     font-size: 35px;
     font-weight: bold;
 }

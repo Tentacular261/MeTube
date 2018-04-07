@@ -1,3 +1,22 @@
 body {
     margin: 0px;
 }
+
+/* Define colors */
+:root {
+   --orange: #f66733;
+   --purple: #522D80;
+   --drkgrayblue: #32333d;
+   --ltblack: #333;
+   --drkgray: #5b5b5b;
+   --midgray: #aeafaf;
+   --ltgray: #f6f7f7;
+}
+
+/* Style footer */
+.footer {
+   text-align: left;
+   background: var(--drkgrayblue);
+   padding: 2px 20px;
+   color: var(--midgray);
+}

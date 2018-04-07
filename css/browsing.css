@@ -1,76 +1,134 @@
 * {
-    /*box-sizing: border-box;
-    This had to get moved because it was
-    messing with the sizing of images and menus
-    making them look terrible
-
-    It is now in the two flex classes
-    */
-    font-family: Arial, Helvetica, sans-serif;
+   font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Header style */
 .header {
-    padding: 20px 10px;
-    text-align: left;
-    background: #685c53;  /* Howard's Rock color */
-    color: #522d80;  /* Regalia color */
+   padding: 5px 10px;
+   text-align: left;
+   background: var(--drkgrayblue);
+   color: var(--orange);
 }
 
 /* Reflow container */
 .flex-container {
-    display: flex;
-    flex-wrap: wrap;
+   display: flex;
+   flex-wrap: wrap;
 }
 
 /**************** Start Search column ****************/
 .search-col {
-    flex: 30%;
-    box-sizing: border-box;
-    background-color: #3a4958; /* Blue Ridge color */
-    padding: 20px;
-    border: 2px solid #333;
+   flex: 30%;
+   box-sizing: border-box;
+   background-color: var(--drkgray);
+   padding: 10px;
+   border: 2px solid var(--drkgrayblue);
+   color: var(--ltgray);
 }
 
 /* Search bar styling */
 .search-col .main-search {
-    float: left;
+   float: left;
 }
 
 /* Search bar input field */
 .search-col input[type=text] {
-    padding: 6px;
-    margin-top: 8px;
-    font-size: 12px;
-    border: none;
+   width: 100%;
+   padding: 5px 5px;
+   margin: 8px 0px 8px;
+   display: inline-block;
+   border: 1px solid var(--midgray);
+   border-radius: 4px;
+   box-sizing: border-box;
 }
 
 /* Search button */
 .search-col .main-search button {
-    float: left;
-    padding: 6px 10px;
-    margin-top: 8px;
-    margin-right: 16px;
-    background: #ddd;
-    font-size: 12px;
-    border: none;
-    cursor: pointer;
+   width: 100%;
+   background-color: var(--purple);
+   color: white;
+   padding: 10px 10px;
+   margin: 8px 0px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+/* Style all submit buttons */
+input[type=submit] {
+   width: 100%;
+   background-color: var(--purple);
+   color: white;
+   padding: 10px 10px;
+   margin: 8px 0px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+/* Style delete media button */
+input[name=delete], input[name=reset] {
+   background-color: var(--orange);
+}
+
+/* Submit button on hover style */
+input[type=submit]:hover {
+   opacity: 0.8;
+}
+
+/* Style text input */
+input[type=text], select {
+   width: 100%;
+   padding: 5px 5px;
+   margin: 8px 0px 8px;
+   display: inline-block;
+   border: 1px solid var(--midgray);
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+input[type=date] {
+   width: auto;
+   padding: 5px 5px;
+   margin: 8px 0px 8px;
+   display: inline-block;
+   border: 1px solid var(--midgray);
+   border-radius: 4px;
+   box-sizing: border-box;
+   color: var(--midgray);
+}
+
+input[type=checkbox] {
+   padding: 5px 5px;
+   
+}
+
+/* Replace default placeholder */
+::placeholder {
+   color: var(--midgray);
+   opacity: 1;
+}
+
+/* List Dropdown Placeholder*/
+option[value=""] {
+   display: none;
 }
 
 /* search button hover*/
 .search-col .main-search button:hover {
-    background: #ccc;
+    opacity: 0.8;
 }
 /****************  End Search Column  ****************/
 
+/**************** Start Media Column *****************/
 /* Media column */
 .media-col {
-    flex: 70%;
-    box-sizing: border-box;
-    background-color: #d4c99e; /* Hartwell Moon color */
-    padding: 20px;
-    border: 2px solid #333;
-    text-align: center;
+   flex: 70%;
+   box-sizing: border-box;
+   background-color: var(--ltgray); 
+   padding: 20px;
+   border: 2px solid var(--drkgrayblue);
+   text-align: center;
 }
 
 /* Media image style */
@@ -78,18 +136,11 @@
     vertical-align: middle;
     padding: 8px;
 }
-
-/* Style footer */
-.footer {
-    text-align: left;
-    background: #685c53;
-    padding: 5px 20px ;
-}
- 
+/***************** End Media Column ******************/
 
 /* Responsive "stacking" layout */
 @media (max-width: 700px) {
     .flex-container { flex-direction: column;}
     .media-col { border-top: 1px; }
- }
+}
  

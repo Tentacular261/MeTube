@@ -1,0 +1,98 @@
+﻿/* Upload Content Area */
+.uploadContent {
+   padding: 20px 10px;
+   text-align: left;
+   background: var(--drkgrayblue);
+   color: var(--orange);
+}
+
+.userContent {
+   padding: 20px 10px;
+   text-align: left;
+   background: var(--drkgray);
+   color: var(--orange);
+}
+
+.uploadRow, .userContentRow {
+   display: flex; 
+}
+
+.uploadCol, .displayMediaCol, .userContentCol {
+   flex: 50%;
+   padding: 10px;
+}
+
+/* Style file input */
+input[type=file] {
+   margin: 8px 0px 8px;
+   display: inline-block;
+}
+
+/* Style all submit buttons */
+input[type=submit] {
+   width: 100%;
+   background-color: var(--purple);
+   color: white;
+   padding: 10px 10px;
+   margin: 0px 0px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+/* Style delete media button */
+input[name=delete], input[name=reset]{
+   background-color: var(--orange);
+}
+
+/* Submit button on hover style */
+input[type=submit]:hover {
+   opacity: 0.8;
+}
+
+/* Style text input */
+input[type=text], select {
+   width: 100%;
+   padding: 5px 5px;
+   margin: 8px 0px 8px;
+   display: inline-block;
+   border: 1px solid var(--midgray);
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+input[type=date] {
+   width: 38%;
+   padding: 5px 5px;
+   margin: 8px 0px 8px;
+   display: inline-block;
+   border: 1px solid var(--midgray);
+   border-radius: 4px;
+   box-sizing: border-box;
+   color: var(--midgray);
+}
+
+/* Replace default placeholder */
+::placeholder {
+   color: var(--midgray);
+   opacity: 1;
+}
+
+/* List Dropdown Placeholder*/
+option[value=""] {
+   display: none;
+}
+
+img {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 100%;
+}
+
+/* TODO: Responsive layout for mobile */
+@media screen and (max-width: 600px) {
+   .uploadCol {
+      width: 100%;
+   }
+}
