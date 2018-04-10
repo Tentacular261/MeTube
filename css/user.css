@@ -1,0 +1,126 @@
+/* Profile Content Area */
+.profileContent {
+   display: flex;
+   padding: 20px 10px;
+   text-align: left;
+   background: var(--drkgrayblue);
+   color: var(--orange);
+}
+
+.userRow {
+   display: flex;
+}
+
+input[type=password] {
+   width: 100%;
+   padding: 5px 5px;
+   margin: 8px 0px 8px;
+   display: inline-block;
+   border: 1px solid var(--midgray);
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+/* Style all submit buttons */
+button[type=submit] {
+   width: 100%;
+   background-color: var(--purple);
+   color: white;
+   padding: 10px 10px;
+   margin: 8px 0px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+/****************Start Modal CSS***************/
+/* The Modal (background) */
+.modal {
+   display: none; /* Hidden by default */
+   position: relative; /* Stay in place */
+   z-index: 1; /* Sit on top */
+   left: 0;
+   top: 0;
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow: auto; /* Enable scroll if needed */
+   background-color: rgb(0,0,0); /* Fallback color */
+   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.passModalContent {
+   background-color: var(--ltgray);
+   margin: 15% auto; 
+   padding: 16px;
+   border: 1px solid var(--midgray);
+   width: 40%; 
+   color: black;
+}
+
+.close {
+   position: absolute;
+   right: 25px;
+   top: 0;
+   color: black;
+   font-size: 35px;
+   font-weight: bold;
+}
+
+/* Change color when hover over close button */
+.close:hover, .close:focus {
+   color: red;
+   cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+   content: "";
+   clear: both;
+   display: table;
+}
+
+/* Style default button hover */
+button:hover {
+   opacity: 0.8;
+}
+
+/* Style cancel button */
+.cancelbtn {
+   width: 100px;
+   background-color: var(--purple);
+}
+
+/* Style horizontal ruler */
+hr {
+   border: 1px solid #f1f1f1;
+   margin-bottom: 25px;
+}
+
+/* Add Zoom Animation */
+.animate {
+   -webkit-animation: animatezoom 0.6s;
+   animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+   from {
+      -webkit-transform: scale(0)
+   }
+
+   to {
+      -webkit-transform: scale(1)
+   }
+}
+
+@keyframes animatezoom {
+   from {
+      transform: scale(0)
+   }
+
+   to {
+      transform: scale(1)
+   }
+}
+
+/****************End Modal CSS***************/

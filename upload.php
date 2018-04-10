@@ -1,63 +1,64 @@
 <?php
-session_save_path("session");
-session_start();
+	session_save_path("session");
+	session_start();
 
-include_once "database.php";
+	include_once "database.php";
 
-if (!isset($_SESSION['username'])) // If the user is not logged in, redirect to the login page
-    header('Location: user/login.php');
+	if (!isset($_SESSION['username'])) // If the user is not logged in, redirect to the login page
+		 header('Location: user/login.php');
 
-if (isset($_POST['upload'])) {
-    if(!file_exists('media/')) // create media folder if it doesn't exist
-        mkdir('media/',0757);
-    chmod('media/',0757); // make sure the media folder has RW access to the public
+	if (isset($_POST['upload'])) {
+		 if(!file_exists('media/')) // create media folder if it doesn't exist
+			  mkdir('media/',0757);
+		 chmod('media/',0757); // make sure the media folder has RW access to the public
 
-    if ($_POST['title'] == "") {
-        $ErrorMessage = "Title Field Required";
-    } else if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
-        switch ($_FILES["file"]["error"]){
-    	case 1:
-    		$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
-    	case 2:
-    		$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
-    	case 3:
-    		$ErrorMessage = "UPLOAD_ERR_PARTIAL";
-    	case 4:
-    		$ErrorMessage = "UPLOAD_ERR_NO_FILE";
-        }
-    } else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
-        $hash = md5_file($_FILES["file"]["tmp_name"]);
-        $filename = $hash.".".pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION); // define the file's name
-        $uppath = "media/".$filename; // define file path
+		 if ($_POST['title'] == "") {
+			  $ErrorMessage = "Title Field Required";
+		 } else if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
+			  switch ($_FILES["file"]["error"]){
+    		case 1:
+    			$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
+    		case 2:
+    			$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
+    		case 3:
+    			$ErrorMessage = "UPLOAD_ERR_PARTIAL";
+    		case 4:
+    			$ErrorMessage = "UPLOAD_ERR_NO_FILE";
+			  }
+		 } else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
+			  $hash = md5_file($_FILES["file"]["tmp_name"]);
+			  $filename = $hash.".".pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION); // define the file's name
+			  $uppath = "media/".$filename; // define file path
 
-        if (file_exists($uppath) ||
-                move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
-            chmod($uppath,0757);
-            $db = new DatabaseConnection();
+			  if (file_exists($uppath) ||
+						 move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
+					chmod($uppath,0757);
+					$db = new DatabaseConnection();
 
-            $utime = time();
-            $title = $db->conn->real_escape_string($_POST['title']);
-            $description = $db->conn->real_escape_string($_POST['description']);
-            $un = $db->conn->real_escape_string($_SESSION['username']);
+					$utime = time();
+					$title = $db->conn->real_escape_string($_POST['title']);
+					$description = $db->conn->real_escape_string($_POST['description']);
+					$un = $db->conn->real_escape_string($_SESSION['username']);
 
-            $query = "INSERT INTO media (id,date,file,uploaded_by,privacy,title,description)"
-                    ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un
-                    ."','".$_POST['privacy']."','".$title."','".$description."')";
+					$query = "INSERT INTO media (id,date,file,uploaded_by,privacy,title,description)"
+							  ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un
+							  ."','".$_POST['privacy']."','".$title."','".$description."')";
 
-            $db->custom_sql($query);
+					$db->custom_sql($query);
 
-            header("Location: index.php"); // TODO: change this to go to the media's page
-        } else {
-            $ErrorMessage = "Failed to move the file into the media directory of the server.";
-        }
-    } else {
-        $ErrorMessage = "Uploading the file failed.";
-    }
-} 
+					header("Location: index.php"); // TODO: change this to go to the media's page
+			  } else {
+					$ErrorMessage = "Failed to move the file into the media directory of the server.";
+			  }
+		 } else {
+			  $ErrorMessage = "Uploading the file failed.";
+		 }
+	} 
 
-include_once "navbar.php";
+	include_once "navbar.php";
 ?>
-<!--
+
+<!-- SADIE NOT GONNA DELETE ZACK'S CODE
 <form method="post" action="upload.php" enctype="multipart/form-data" >
 
     <p style="margin:0; padding:0">
@@ -100,7 +101,7 @@ include_once "navbar.php";
 		<div class="uploadContent">
 			<div class="uploadRow">
 				<div class="uploadCol">
-					<form method="post" action="upload.php" enctype="multipart/form-data" >
+					<form method="post" action="upload.php" enctype="multipart/form-data">
 						<input type="hidden" name="MAX_FILE_SIZE" value="104857600" />
 						UPLOAD MEDIA <label style="color: var(--ltgray)"><em> (Max Size 100MiB)</em></label> <br/>
 						<input type="file" name="file" size="50" />
@@ -138,22 +139,15 @@ include_once "navbar.php";
 						<!-- TODO: NEW RATED -->
 						<input type="checkbox" name="rated" value="rated" checked>OK to Rate <br/>
 
-						<input type="submit" name="upload" value="Upload" />
+						<button type="submit" name="upload">Upload</button>
 					</form>
 				</div>
+
 				<div class="displayMediaCol">
-					<!-- TODO: MAKE DISPLAY CURRENT SELECTED IMAGE -->
-					<img src="http://www.tabletmag.com/wp-content/uploads/2017/05/lillabanner.jpg" alt="Media Player Goes Here" maxheight="250" maxwidth-"250">
-					<div class="uploadRow">
-						<div class="uploadCol">
-							<!-- TODO: NEW ACTION FOR UPDATE -->
-							<input type="submit" name="update" value="Update" />
-						</div>
-						<div class="uploadCol">
-							<!-- TODO: NEW ACTION FOR DELETE -->
-							<input type="submit" name="delete" value="Delete" />
-						</div>
-					</div>
+					<!-- Preview Image -->
+					<input type="file" accept="image/*, audio/*, video/*" onchange="preview_image(event)">
+					<img id="img"/>
+
 				</div>
 			</div>
 		</div>
@@ -205,11 +199,11 @@ include_once "navbar.php";
 							<div class="userContentRow">
 								<div class="userContentCol">
 									<!-- TODO: NEW ACTION FOR SEARCH-->
-									<input type="submit" name="search" value="Search" />
+									<button type="submit" name="search">Search</button>
 								</div>
 								<div class="userContentCol">
 									<!-- TODO: NEW ACTION FOR RESET -->
-									<input type="submit" name="reset" value="Reset" />
+									<button type="submit" name="reset">Reset</button>
 								</div>
 							</div>
                   </form>
@@ -226,6 +220,17 @@ include_once "navbar.php";
             <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan,  Sadie Sweetman</i></h6>
       </div>
 
+		<!-- Preview image script -->
+		<script type='text/javascript'>
+			function preview_image(event) {
+				var reader = new FileReader();
+				reader.onload = function() {
+					var output = document.getElementById('img');
+					output.src = reader.result;
+				}
+				reader.readAsDataURL(event.target.files[0]);
+			}
+		</script>
 	</body>
 
 </html>

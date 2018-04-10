@@ -1,75 +1,52 @@
 ﻿/* Upload Content Area */
 .uploadContent {
+   display: flex;
    padding: 20px 10px;
    text-align: left;
-   background: var(--drkgrayblue);
    color: var(--orange);
 }
 
+/* User Content Area */
 .userContent {
+   display: flex;
    padding: 20px 10px;
    text-align: left;
    background: var(--drkgray);
    color: var(--orange);
 }
 
+/* Defined rows style */
 .uploadRow, .userContentRow {
    display: flex; 
 }
 
+/* Defined columns style */
 .uploadCol, .displayMediaCol, .userContentCol {
    flex: 50%;
    padding: 10px;
 }
 
-/* Style file input */
-input[type=file] {
-   margin: 8px 0px 8px;
-   display: inline-block;
-}
-
 /* Style all submit buttons */
-input[type=submit] {
+button[type=submit] {
    width: 100%;
    background-color: var(--purple);
-   color: white;
-   padding: 10px 10px;
-   margin: 0px 0px;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
 }
 
 /* Style delete media button */
-input[name=delete], input[name=reset]{
+button[name=reset] {
    background-color: var(--orange);
-}
-
-/* Submit button on hover style */
-input[type=submit]:hover {
-   opacity: 0.8;
 }
 
 /* Style text input */
 input[type=text], select {
    width: 100%;
-   padding: 5px 5px;
-   margin: 8px 0px 8px;
-   display: inline-block;
    border: 1px solid var(--midgray);
-   border-radius: 4px;
-   box-sizing: border-box;
 }
 
+/* Style date input */
 input[type=date] {
    width: 38%;
-   padding: 5px 5px;
-   margin: 8px 0px 8px;
-   display: inline-block;
    border: 1px solid var(--midgray);
-   border-radius: 4px;
-   box-sizing: border-box;
-   color: var(--midgray);
 }
 
 /* Replace default placeholder */
@@ -83,16 +60,17 @@ option[value=""] {
    display: none;
 }
 
+/* Image Preview styling */
 img {
    display: block;
    margin-left: auto;
    margin-right: auto;
    width: 100%;
+   max-height: 500px; 
+   max-width: 500px;
 }
 
 /* TODO: Responsive layout for mobile */
-@media screen and (max-width: 600px) {
-   .uploadCol {
-      width: 100%;
-   }
+@media (max-width: 600px) {
+   .uploadContent { flex-direction: column; }
 }

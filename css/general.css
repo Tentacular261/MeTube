@@ -1,5 +1,12 @@
+* {
+   font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
     margin: 0px;
+    background-color: var(--drkgrayblue);
+    padding-bottom: 60px;
+    position: relative;
 }
 
 /* Define colors */
@@ -13,8 +20,35 @@ body {
    --ltgray: #f6f7f7;
 }
 
+/* Style default buttons */
+button {
+   padding: 10px 10px;
+   margin: 8px 0px;
+   border: none;
+   cursor: pointer;
+   border-radius: 4px;
+   color: white;
+}
+
+/* Style default button hover */
+button:hover {
+   opacity: 0.8;
+}
+
+input, select {
+   padding: 5px 5px;
+   margin: 8px 0px 8px;
+   display: inline-block;
+   box-sizing: border-box;
+   border-radius: 4px;
+   color: var(--midgray);
+}
+
 /* Style footer */
 .footer {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
    text-align: left;
    background: var(--drkgrayblue);
    padding: 2px 20px;

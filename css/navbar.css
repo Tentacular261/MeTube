@@ -51,7 +51,7 @@
     padding: 10px;
  }
 
- /* User Greeting */
+/* User Greeting */
 .topnav a.user span {
     float: left;
     display: block;
@@ -109,33 +109,18 @@
         padding: 16px 16px;
     }
 }
+
 /*****************End Navbar CSS***************/
 
 /****************Start Popup CSS***************/
 /* Login/register input fields*/
 input[type=text], input[type=password] {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid var(--midgray);
-    box-sizing: border-box;
 }
 
 /* Style default buttons */
 button {
-    background-color: var(--orange);
-    color: white;
-    padding: 14px 20px;
-    margin: 3px 0;
-    border: none;
-    cursor: pointer;
-    width: 100px;
-}
-
-/* Style default button hover */
-button:hover {
-    opacity: 0.8;
+   background-color: var(--orange);
 }
 
 /* Style cancel button */
