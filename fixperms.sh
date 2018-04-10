@@ -6,3 +6,5 @@ find . -type f \( -name \*.php -or -name .gitignore \) -exec chmod -v 600 '{}' +
 
 # make css and js source and .htaccess publicly readable
 find . -type f \( -name \*.css -or -name \*.js -or -name .htaccess \) -exec chmod -v 604 '{}' + | grep -v "retained"
+
+chmod -v 755 media media/* | grep -v "retained"
