@@ -104,10 +104,11 @@
 					$utime = time();
 					$title = $db->conn->real_escape_string($_POST['title']);
 					$description = $db->conn->real_escape_string($_POST['description']);
+					$category = $db->conn->real_escape_string($_POST['category']);
 					$un = $db->conn->real_escape_string($_SESSION['username']);
 
-					$query = "INSERT INTO media (id,date,file,uploaded_by,type,privacy,title,description)"
-							  ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un
+					$query = "INSERT INTO media (id,date,file,uploaded_by,category,type,privacy,title,description)"
+							  ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un."','".$category
 							  ."','".$filetype."','".$_POST['privacy']."','".$title."','".$description."')";
 
 					$db->custom_sql($query);
