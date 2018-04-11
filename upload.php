@@ -64,63 +64,63 @@
 	}
 
 	if (!isset($_SESSION['username'])) // If the user is not logged in, redirect to the login page
-		 header('Location: user/login.php');
+		header('Location: user/login.php');
 
 	if (isset($_POST['upload'])) {
-		 if(!file_exists('media/')) // create media folder if it doesn't exist
-			  mkdir('media/',0755);
-		 chmod('media/',0755); // make sure the media folder has R access to the public
+		if(!file_exists('media/')) // create media folder if it doesn't exist
+			mkdir('media/',0755);
+		chmod('media/',0755); // make sure the media folder has R access to the public
 
-		 if(!file_exists('media/thumb')) // create thumb folder if it doesn't exist
-			  mkdir('media/thumb',0755);
-		 chmod('media/thumb',0755); // make sure the thumb folder has R access to the public
+		if(!file_exists('media/thumb')) // create thumb folder if it doesn't exist
+			mkdir('media/thumb',0755);
+		chmod('media/thumb',0755); // make sure the thumb folder has R access to the public
 
-		 if ($_POST['title'] == "") {
-			  $ErrorMessage = "Title Field Required";
-		 } else if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
-			  switch ($_FILES["file"]["error"]){
-    		case 1:
-    			$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
-    		case 2:
-    			$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
-    		case 3:
-    			$ErrorMessage = "UPLOAD_ERR_PARTIAL";
-    		case 4:
-    			$ErrorMessage = "UPLOAD_ERR_NO_FILE";
-			  }
-		 } else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
-			  $hash = md5_file($_FILES["file"]["tmp_name"]);
-			  $ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-			  $filename = $hash.".".$ext; // define the file's name
-			  $uppath = "media/".$filename; // define file path
-			  $thumbpath = "media/thumb/".$filename;
-			  $filetype;
+		if ($_POST['title'] == "") {
+			$ErrorMessage = "Title Field Required";
+		} else if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
+			switch ($_FILES["file"]["error"]){
+			case 1:
+				$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
+			case 2:
+				$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
+			case 3:
+				$ErrorMessage = "UPLOAD_ERR_PARTIAL";
+			case 4:
+				$ErrorMessage = "UPLOAD_ERR_NO_FILE";
+			}
+		} else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
+			$hash = md5_file($_FILES["file"]["tmp_name"]);
+			$ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+			$filename = $hash.".".$ext; // define the file's name
+			$uppath = "media/".$filename; // define file path
+			$thumbpath = "media/thumb/".$filename;
+			$filetype;
 
-			  if (process_upload(file_exists($uppath),$ext,$uppath,$thumbpath,$filetype)) {
-					chmod($uppath,0755);
-					chmod($thumbpath,0755);
-					$db = new DatabaseConnection();
+			if (process_upload(file_exists($uppath),$ext,$uppath,$thumbpath,$filetype)) {
+				chmod($uppath,0755);
+				chmod($thumbpath,0755);
+				$db = new DatabaseConnection();
 
-					$utime = time();
-					$title = $db->conn->real_escape_string($_POST['title']);
-					$description = $db->conn->real_escape_string($_POST['description']);
-					$category = $db->conn->real_escape_string($_POST['category']);
-					$un = $db->conn->real_escape_string($_SESSION['username']);
+				$utime = time();
+				$title = $db->conn->real_escape_string($_POST['title']);
+				$description = $db->conn->real_escape_string($_POST['description']);
+				$category = $db->conn->real_escape_string($_POST['category']);
+				$un = $db->conn->real_escape_string($_SESSION['username']);
 
-					$query = "INSERT INTO media (id,date,file,uploaded_by,category,type,privacy,title,description)"
-							  ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un."','".$category
-							  ."','".$filetype."','".$_POST['privacy']."','".$title."','".$description."')";
+				$query = "INSERT INTO media (id,date,file,uploaded_by,category,type,privacy,title,description)"
+					."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un."','".$category
+					."','".$filetype."','".$_POST['privacy']."','".$title."','".$description."')";
 
-					$db->custom_sql($query);
+				$db->custom_sql($query);
 
-					header("Location: index.php"); // TODO: change this to go to the media's page
-			  } else {
-					$ErrorMessage = "Failed to move the file into the media directory of the server.";
-			  }
-		 } else {
-			  $ErrorMessage = "Uploading the file failed.";
-		 }
-	} 
+				header("Location: index.php"); // TODO: change this to go to the media's page
+			} else {
+				$ErrorMessage = "Failed to move the file into the media directory of the server.";
+			}
+		} else {
+			$ErrorMessage = "Uploading the file failed.";
+		}
+	}
 
 	include_once "navbar.php";
 ?>
