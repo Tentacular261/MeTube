@@ -22,7 +22,7 @@ include_once "navbar.php";
 
         <!-- Header Content -->
         <div class="header">
-            <img src="metube.png" alt="metubeIcon">
+            <img src="assets/metube.png" alt="metubeIcon">
         </div>
 
 		  <!-- Index Page Content -->
