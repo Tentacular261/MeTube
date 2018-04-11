@@ -1,8 +1,16 @@
+/* keep all pages from staying beheind the navbar */
+body {
+    padding-top: 69px;
+}
+
 /************Start Navbar CSS*************/
 /* navbar */
 .topnav {
     overflow: hidden;
     background-color: var(--ltblack);
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 /* generic navbar items */
@@ -100,7 +108,7 @@
 
 /* resonsive version of navbar (open) */
 @media screen and (max-width: 600px) {
-    .topnav.open {position: relative;}
+    .topnav.open {position: fixed;}
     .topnav.open a:not([top]) {
         float: left;
         width: 100%;

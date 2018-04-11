@@ -46,11 +46,9 @@ input, select {
 
 /* Style footer */
 .footer {
-   position: absolute;
-   bottom: 0;
-   width: 100%;
+   width: 90%;
    text-align: left;
    background: var(--drkgrayblue);
-   padding: 2px 20px;
+   padding: 2px 5px;
    color: var(--midgray);
 }
