@@ -8,7 +8,7 @@ if (!isset($_GET['id'])) header("Location: index.php"); // go back to the index 
 
 $db = new DatabaseConnection();
 $getting = $db->conn->real_escape_string($_GET['id']);
-$result = $db->custom_sql("SELECT file,title,description,privacy,uploaded_by FROM media WHERE id = \"".$getting."\"");
+$result = $db->custom_sql("SELECT file,title,type,description,privacy,uploaded_by FROM media WHERE id = \"".$getting."\"");
 
 include_once 'navbar.php';
 
@@ -17,6 +17,7 @@ if ($result->num_rows != 1) {
 } else {
     $row = $result->fetch_assoc();
 
+    $type        = $row['type'];
     $file        = $row['file'];
     $title       = $row['title'];
     $description = $row['description'];

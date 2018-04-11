@@ -4,13 +4,76 @@
 
 	include_once "database.php";
 
+	// function to handle the creation of the thumbnails
+	function process_upload($preexisting,$extn,$uppath,&$thumbpath,&$filetype) {
+		$ext = strtolower($extn);
+		if ($ext == "png" || // make sure the file is the one of the types we allow
+			$ext == "bmp" ||
+			$ext == "jpg" ||
+			$ext == "jpeg"||
+			$ext == "gif" ||
+			$ext == "svg" ||
+			$ext == "mp4" ||
+			$ext == "mp3"  )
+		if ($preexisting || move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
+			switch ($ext) {
+				case "png"  :
+				case "bmp"  :
+				case "jpg"  :
+				case "jpeg" :
+				case "gif"  :
+				case "svg"  :
+					// do the picture things
+					$filetype = "image";
+					if (!$preexisting) { // create the thumbnail if it doesn't exist
+						list($w,$h) = getimagesize($uppath);
+						$scale = max($w,$h);
+						$w = round(($w/$scale)*128);
+						$h = round(($h/$scale)*128);
+						system("/usr/bin/convert $uppath -resize $w"."x"."$h $thumbpath 2>&1");
+					}
+					return true;
+					break;
+
+				case "mp4" :
+					// do the video things
+					$filetype = "video";
+					if (!$preexisting) { // create the thumbnail if it doesn't exist
+						$thumbpath = preg_replace('/.[^.]*$/', '', $thumbpath).".png";
+						system("/usr/bin/ffmpeg -i $uppath -ss 00:00:01.00 -vframes 1 -f image2 $thumbpath");
+						list($w,$h) = getimagesize($thumbpath);
+						$scale = max($w,$h);
+						$w = round(($w/$scale)*128);
+						$h = round(($h/$scale)*128);
+						system("/usr/bin/convert $thumbpath -resize $w"."x"."$h $thumbpath 2>&1");
+					}
+					return true;
+					break;
+				
+				case "mp3" :
+					// do the audio things
+					$filetype = "audio";
+					return true;
+					break;
+
+				default : return false;
+				// TODO: figure out the type of file and what to use as a thumbnail
+			}
+		}
+		return false;
+	}
+
 	if (!isset($_SESSION['username'])) // If the user is not logged in, redirect to the login page
 		 header('Location: user/login.php');
 
 	if (isset($_POST['upload'])) {
 		 if(!file_exists('media/')) // create media folder if it doesn't exist
-			  mkdir('media/',0757);
-		 chmod('media/',0757); // make sure the media folder has RW access to the public
+			  mkdir('media/',0755);
+		 chmod('media/',0755); // make sure the media folder has R access to the public
+
+		 if(!file_exists('media/thumb')) // create thumb folder if it doesn't exist
+			  mkdir('media/thumb',0755);
+		 chmod('media/thumb',0755); // make sure the thumb folder has R access to the public
 
 		 if ($_POST['title'] == "") {
 			  $ErrorMessage = "Title Field Required";
@@ -27,12 +90,15 @@
 			  }
 		 } else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
 			  $hash = md5_file($_FILES["file"]["tmp_name"]);
-			  $filename = $hash.".".pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION); // define the file's name
+			  $ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+			  $filename = $hash.".".$ext; // define the file's name
 			  $uppath = "media/".$filename; // define file path
+			  $thumbpath = "media/thumb/".$filename;
+			  $filetype;
 
-			  if (file_exists($uppath) ||
-						 move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
-					chmod($uppath,0757);
+			  if (process_upload(file_exists($uppath),$ext,$uppath,$thumbpath,$filetype)) {
+					chmod($uppath,0755);
+					chmod($thumbpath,0755);
 					$db = new DatabaseConnection();
 
 					$utime = time();
@@ -40,9 +106,9 @@
 					$description = $db->conn->real_escape_string($_POST['description']);
 					$un = $db->conn->real_escape_string($_SESSION['username']);
 
-					$query = "INSERT INTO media (id,date,file,uploaded_by,privacy,title,description)"
+					$query = "INSERT INTO media (id,date,file,uploaded_by,type,privacy,title,description)"
 							  ."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un
-							  ."','".$_POST['privacy']."','".$title."','".$description."')";
+							  ."','".$filetype."','".$_POST['privacy']."','".$title."','".$description."')";
 
 					$db->custom_sql($query);
 
@@ -106,15 +172,15 @@
 					<form method="post" action="upload.php" enctype="multipart/form-data">
 						<input type="hidden" name="MAX_FILE_SIZE" value="104857600" />
 						UPLOAD MEDIA <label style="color: var(--ltgray)"><em> (Max Size 100MiB)</em></label> <br/>
-						<input type="file" name="file" size="50" />
+						<input type="file" name="file" size="50" onchange="preview_image(event)" required/>
 
-						<input type="text" name="title" placeholder="Media Title" />
-						<input type="text" name="description" placeholder="Description" />
+						<input type="text" name="title" placeholder="Media Title" required/>
+						<textarea name="description" placeholder="Description" rows="20"/></textarea>
 						<!-- TODO: NEW KEYWORDS -->
 						<input type="text" name="keywords" placeholder="Keywords" />
 
 						<!-- TODO: NEW CATEGORY -->
-						<select id="category" name="category" />
+						<select id="category" name="category" required/>
 							<option value="" disabled selected>Category</option>
 							<option value="entertainment">Entertainment</option>
 							<option value="food">Food</option>
@@ -146,8 +212,8 @@
 				</div>
 
 				<div class="displayMediaCol">
-					<!-- Preview Image -->
-					<input type="file" accept="image/*, audio/*, video/*" onchange="preview_image(event)">
+					<!-- Preview Image 
+					<input type="file" accept="image/*, audio/*, video/*" onchange="preview_image(event)"> -->
 					<img id="img"/>
 
 				</div>

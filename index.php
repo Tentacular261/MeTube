@@ -93,27 +93,30 @@ include_once "navbar.php";
                 $db = new DatabaseConnection();
 
                 // TODO: Allow paging of the results
-                $result = $db->custom_sql("SELECT id,file,title,privacy,uploaded_by FROM media ORDER BY date DESC");
+                $result = $db->custom_sql("SELECT id,file,type,title,privacy,uploaded_by FROM media ORDER BY date DESC");
 
                 for ($i=0;$i<25;$i++) {
                     do {
                         $rows = $result->fetch_array();
                     } while ($rows != NULL && $rows['privacy'] != "public" && (empty($_SESSION['username']) || $rows['uploaded_by'] != $_SESSION['username']));
                     // TODO: handle seeing friends posts that can be seen once that is added
-                    if ($rows==NULL) break;
-                    $size = getimagesize("media/".$rows['file']);
-                    $imgsizedef = ($size[0] > $size[1]) // specify only the size of the largest dimension of the image
-                                    ? "width=\"64\""
-                                    : "height=\"64\"";
+					if ($rows==NULL) break;
+
+					$id = $rows['id'];
+					$title = $rows['title'];
+					$thumb = ($rows['type'] === "image")
+								? $rows['file']
+								: (($rows['type'] === "video")
+									? preg_replace('/.[^.]*$/', '', $rows['file']).".png"
+									: "../../assets/AUDIOTHING.png");
+					
                     echo "\n<a href=\"post.php?id="
-                        .$rows['id']
-                        ."\"><img class=\"item\" src=\"media/"
-                        .$rows['file']
+                        .$id
+                        ."\"><img class=\"item\" src=\"media/thumb/"
+                        .$thumb
                         ."\" alt=\""
-                        .$rows['title']
-                        ."\" "
-                        .$imgsizedef
-                        ."></a>";
+                        .$title
+                        ."\"></a>";
                 }
                 ?>
                 <!-- TODO: Add the paging controls -->

@@ -38,9 +38,10 @@ button[name=reset] {
 }
 
 /* Style text input */
-input[type=text], select {
+input[type=text], textarea, select {
    width: 100%;
    border: 1px solid var(--midgray);
+   color: black;
 }
 
 /* Style date input */
