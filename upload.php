@@ -161,7 +161,6 @@
 
 	<head>
 		<title>| Upload |</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/general.css">
 		<link rel="stylesheet" href="css/upload.css">
 	</head>
