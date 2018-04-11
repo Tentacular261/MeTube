@@ -58,7 +58,8 @@
 	include_once "navbar.php";
 ?>
 
-<!-- SADIE NOT GONNA DELETE ZACK'S CODE
+<?php // We also don't need to send commented out code to the user.
+/**SADIE NOT GONNA DELETE ZACK'S CODE
 <form method="post" action="upload.php" enctype="multipart/form-data" >
 
     <p style="margin:0; padding:0">
@@ -86,7 +87,8 @@
         <input value="Upload" name="upload" type="submit" />
     </p>
 </form>
--->
+**/
+?>
 
 <html>
 
