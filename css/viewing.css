@@ -20,10 +20,33 @@
 }
 
 .comment_section {
+    text-align: center;
+    background-color: brown;
+    width: 70%;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
+.comment_form {
+    width: 95%;
+    text-align: right;
+    margin: auto;
+}
+
+.comment_box {
+    width: 100%;
+    border: 1px solid var(--midgray);
+    color: black;
 }
 
 .comment {
+    width: 95%;
+    margin: 0px auto;
+    text-align: left;
+    border-style: solid;
+    border-width: 1px 2px;
+    border-color: var(--midgray);
     background-color: blueviolet;
     color: aliceblue;
 }

@@ -21,5 +21,22 @@
         <div class="user"><?php echo $uploader; ?></div><br>
         <div class="description"><?php echo $description; ?></div>
     </div>
-    <p><a href="index.php">Return to index</a></p>
+    <div class="comment_section">
+        <?php if (isset($_SESSION['username'])) { ?>
+            <form class="comment_form" method="post" action="post.php?id=<?php echo $_GET['id']; ?>">
+                <textarea class="comment_box" name="words" placeholder="Write a comment" required></textarea>
+                <button class="comment_button" type="submit" name="comment">Comment</button>
+            </form>
+        <?php
+        }
+        $result = $db->custom_sql("SELECT username,comment FROM comments WHERE media_id='$getting' ORDER BY timestamp ASC");
+
+        while ($row = $result->fetch_array()) { ?>
+            <div class="comment">
+                <?php echo $row['username']; // TODO: add timestamp and user img once added ?>
+                <br>
+                <?php echo $row['comment']; ?>
+            </div>
+        <?php } ?>
+    </div>
 </body>

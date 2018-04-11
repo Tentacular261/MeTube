@@ -10,19 +10,22 @@ $db = new DatabaseConnection();
 $getting = $db->conn->real_escape_string($_GET['id']);
 $result = $db->custom_sql("SELECT file,title,type,description,privacy,uploaded_by FROM media WHERE id = \"".$getting."\"");
 
-include_once 'navbar.php';
-
 if ($result->num_rows != 1) {
+    include_once 'navbar.php';
     include 'post/nopost.php';
 } else {
     $row = $result->fetch_assoc();
-
+    
     $type        = $row['type'];
     $file        = $row['file'];
     $title       = $row['title'];
     $description = $row['description'];
     $privacy     = $row['privacy'];
     $uploader    = $row['uploaded_by'];
+    
+    include "post/comment.php";
+
+    include_once 'navbar.php';
 
     if ($privacy != "public" &&
             (!isset($_SESSION['username']) ||
