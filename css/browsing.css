@@ -1,7 +1,7 @@
 /* Header style */
 .header {
    padding: 5px 10px;
-   text-align: left;
+   text-align: center;
    background: var(--drkgrayblue);
    color: var(--orange);
 }
