@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <?php
 // these two lines are needed at the start of each page
@@ -10,7 +11,6 @@ include_once "database.php";
 include_once "navbar.php";
 ?>
 
-<html>
     <head>
         <title>|Team14 MeTube|</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,8 +34,10 @@ include_once "navbar.php";
 							<input type="text" placeholder="Search" name="search" required>
 
 							<!-- Advanced Search Collapsible Menu -->
-							<button class="advSearchCollapse">Filter</button>
-								<div class="advSearchContent">
+							<div class="advSearchCollapse">
+								<a class="advSearchCollapse" href="javascript:toggleAdvSearch()">Filter</a>
+							</div>
+								<div class="advSearchContent" id="advSearchContent">
 									<select id="category" name="category" />
 										<option value="" disabled selected>Filter by Category</option>
 										<option value="entertainment">Entertainment</option>
@@ -125,21 +127,16 @@ include_once "navbar.php";
         </div>
 
 		  <script>
-			  /* Script to collapse advanced search menu */
-			  var coll = document.getElementsByClassName("advSearchCollapse");
-			  var i;
-			  for (i = 0; i < coll.length; i++) {
-					coll[i].addEventListener("click", function() {
-						this.classList.toggle("active");
-						var content = this.nextElementSibling;
-						if (content.style.display === "block") {
-							content.style.display = "none"; 
-						} 
-						else {
-							content.style.display = "block";
-						}
-					});
+			/* Script to collapse advanced search menu */  
+			function toggleAdvSearch() {
+				var content = document.getElementById("advSearchContent");
+				if (content.style.display === "block") {
+					content.style.display = "none"; 
+				} 
+				else {
+					content.style.display = "block";
 				}
+			}
 			</script>  
 			
     </body>

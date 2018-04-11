@@ -28,12 +28,15 @@
    float: left;
 }
 
+.main-search {
+    width: 100%;
+}
+
 /* Advanced search collapsable bar */
 .advSearchCollapse {
    background-color: var(--drkgray);
    color: white;
    cursor: pointer;
-   padding: 0px 10px;
    width: 100%;
    border: none;
    text-align: right;
@@ -48,7 +51,6 @@
 
 /* Advanced search content style */
 .advSearchContent {
-   padding: 0 10px;
    display: none;
    overflow: hidden;
    background-color: var(--drkgray);
