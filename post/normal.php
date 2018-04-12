@@ -35,7 +35,7 @@
             <div class="comment">
                 <?php echo $row['username']; // TODO: add timestamp and user img once added ?>
                 <br>
-                <?php echo $row['comment']; ?>
+                <pre><?php echo $row['comment']; ?></pre>
             </div>
         <?php } ?>
     </div>
