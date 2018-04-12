@@ -12,7 +12,7 @@ include_once "navbar.php";
 ?>
 
     <head>
-        <title>|Team14 MeTube|</title>
+        <title>Team14 MeTube</title>
 		<link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/browsing.css">
     </head>

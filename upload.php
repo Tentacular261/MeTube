@@ -160,7 +160,7 @@
 <html>
 
 	<head>
-		<title>| Upload |</title>
+		<title>Upload</title>
 		<link rel="stylesheet" href="css/general.css">
 		<link rel="stylesheet" href="css/upload.css">
 	</head>
