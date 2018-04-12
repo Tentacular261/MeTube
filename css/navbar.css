@@ -6,6 +6,7 @@ body {
 /************Start Navbar CSS*************/
 /* navbar */
 .topnav {
+    z-index: 9;
     overflow: hidden;
     background-color: var(--ltblack);
     position: fixed;
@@ -153,7 +154,7 @@ span.psw {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 10; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
