@@ -100,7 +100,7 @@ include_once "navbar.php";
 				
 				$MAIN_QUERY = "SELECT SQL_CALC_FOUND_ROWS id,file,type,title,uploaded_by FROM media LEFT JOIN friends ON media.uploaded_by=friends.user WHERE privacy='public'";
 				if (!empty($_SESSION['username']))
-					$MAIN_QUERY .= " OR (privacy='private' AND uploaded_by='"
+					$MAIN_QUERY .= " OR (privacy IN ('private','friend') AND uploaded_by='"
 								.$db->conn->real_escape_string($_SESSION['username'])
 								."') OR (privacy='friend' AND friend='"
 								.$db->conn->real_escape_string($_SESSION['username'])
