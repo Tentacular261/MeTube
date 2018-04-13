@@ -12,7 +12,8 @@
 
 <html>
 	<head>
-		<title>Profile</title>
+		<title>|Profile|</title>
+		<!-- EVERYTHING is fucked -->
 		<link rel="stylesheet" href="css/general.css">
 		<link rel="stylesheet" href="css/user.css">
 	</head>
