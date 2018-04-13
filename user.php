@@ -32,6 +32,7 @@
 		<!-- Tab content -->
 		<div id="manageProfile" class="tabcontent">
 			<img src="profilePic.jpg" alt="Your profile pic is broken like your life">
+			<!-- TODO: Change action for change profile pic -->
 			<button type="button" id="profilePic">Update Profile Pic</button>
 			<button onclick="document.getElementById('passModal').style.display='block'" style="width:auto;">Change Password</button>
 
@@ -40,6 +41,7 @@
 				<form class="modal-content animate" action="/change_password.php">
 					<div class="closeContainer">
 						<span onclick="document.getElementById('passModal').style.display='none'" class="close" title="Close">&times;</span>
+						<h4>Change your password:</h4>
 					</div>
 
 					<div class="modalContainer">
@@ -53,23 +55,41 @@
 		</div>
 
 		<div id="friends" class="tabcontent">
+			<button type="button" id="addFriend" onclick="/addfriendmodal">Add</button>
+			<button type="button" id="deleteFriend" onclick="/deleteFriend">Delete</button>
+			<button type="button" id="blockFriend" onclick="/blockFriend">Block</button>
+			<button type="botton" id="unblockFriend" onclick="/unblockFriend">Unblock</button>
+
 			<div class="vertical-menu">
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+				<a href="#">Link 4</a>
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+				<a href="#">Link 4</a>
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+				<a href="#">Link 4</a>
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+				<a href="#">Link 4</a>
+				<a href="#">Link 1</a>
+				<a href="#">Link 1</a>
+				<a href="#">Link 2</a>
+				<a href="#">Link 3</a>
+				<a href="#">Link 4</a>
+				<a href="#">Link 1</a>
 			</div>
 		</div>
 
 		<div id="subscriptions" class="tabcontent">
+			<button type="button" id="addSub" onclick="/addSubModal">Subscribe</button>
+			<button type="button" id="deleteSub" onclick="/deleteSub">Unsubscribe</button>
+
 			<div class="vertical-menu">
 			<a href="#">Link 1</a>
 			<a href="#">Link 2</a>
@@ -79,6 +99,11 @@
 		</div>
 
 		<div id="groups" class="tabcontent">
+			<button type="button" id="addGroup" onclick="/addGroupModal">Create Group</button>
+			<button type="button" id="addGroupFriend" onclick="/addGroupFriendModal">Add To Group</button>
+			<button type="button" id="deleteGroupFriend" onclick="/deleteGroupFriend">Remove From Group</button>
+			<button type="botton" id="deleteGroup" onclick="/deleteGroup">Delete Group</button>
+
 			<div class="vertical-menu">
 			<a href="#">Link 1</a>
 			<a href="#">Link 2</a>
@@ -95,6 +120,7 @@
 		</div>
 	</div>
 
+	<!-- Modal script -->
 	<script>
 		// Get the modal
 		var modal = document.getElementById('passModal');
@@ -107,6 +133,7 @@
 		}
 	</script>
 
+	<!-- Tabbing Script -->
 	<script>
 		// creates default tab opened on landing
 		document.getElementById("defaultOpen").click();
@@ -132,6 +159,42 @@
 		evt.currentTarget.className += " active";
 		}
 	</script>
+
+	<!-- Password change script -->
+	<script type="text/javascript">
+      function submit_form() {
+         // Create a Promise, which allows us to wait until the form has responded,
+         // to then display results.
+         // Promises will run until we resolve or reject them.
+         return new Promise(function(resolve,reject) {
+               var xhr = new XMLHttpRequest();
+
+               xhr.onload = function() {
+                  // Promise will stop running after this function finishes
+                  resolve();
+
+                  // Hide form
+                  document.getElementById("div_to_hide").style.display = 'none';
+
+                  // display results
+                  document.getElementById("display").innerHTML = xhr.responseText;
+               };
+
+               // If there was an error, stop the Promise
+               xhr.onerror = reject;
+
+               var formData = new FormData(document.getElementById("changepassword_form"));
+
+               // Pretty sure this should be a part of the form already, but it's not, so...
+               // we add it here.
+               formData.append('submit','1');
+
+               xhr.open("POST", "user/changepassword.php");
+               xhr.send(formData);
+         });
+      }
+		// TODO: RETURN TO USER.PHP WHEN PASSWORD CHANGES -->
+    </script>
 
 	<!-- Footer Content -->
 	<div class="footer">
