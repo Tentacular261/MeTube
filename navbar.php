@@ -40,101 +40,103 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
             Log In
             </a>
 
-            <!-- TODO: Go through and integrate these dialogs -->
-            <!-- Login Popup -->
-            <div id="login" class="modal">
-
-                <form class="modal-content animate" method="post" action="user/login.php">
-                <!-- CHANGE TO DB LOGIN -->
-
-                    <div class="container">
-                        <span onclick="document.getElementById('login').style.display='none'"
-                        class="close" title="Close">&times;</span>
-                        <h1>Login</h1>
-                        <hr>
-                        <label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username"
-                            name="username" required>
-
-                        <label for="password"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password"
-                            name="password" required>
-                        <br>
-
-                        <input type="hidden" name="return" value="<?php echo $returnto; ?>">
-                        <button type="button" onclick="document.getElementById('login').style.display='none'"
-                                class="cancelbtn">
-                            Cancel
-                        </button>
-                        <button type="submit" name="submit">Login</button>
-                    </div>
-                </form>
-            </div>
-
-            <script>
-                // Get the modal
-                var modal = document.getElementById('login');
-
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-            </script>
-
-            <!-- Register Popup -->
-            <div id="register" class="modal">
-
-                <form class="modal-content animate" method="post" action="user/register.php">
-                    <!-- CHANGE TO DB NEW USER -->
-                    <div class="container">
-                        <span onclick="document.getElementById('register').style.display='none'"
-                            class="close" title="Close">&times;</span>
-                        <h1>Register</h1>
-                        <p>Please fill in this form to create an account.</p>
-                        <hr>
-                        <label for="username"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username"
-                            name="username" required />
-
-                        <label for="pass_1"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password"
-                            name="pass_1" required>
-
-                        <label for="pass_2"><b>Repeat Password</b></label>
-                        <input type="password" placeholder="Repeat Password"
-                            name="pass_2" required>
-
-                        <p>By creating an account you agree to absolutely no privacy or exclusivity of content.</p>
-
-                        <div class="clearfix">
-                        <input type="hidden" name="return" value="<?php echo $returnto; ?>">
-                        <button type="button" onclick="document.getElementById('register').style.display='none'"
-                        class="cancelbtn">
-                        Cancel
-                        </button>
-                        <button name="register" type="submit" class="registerbtn">Register</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <script>
-                // Get the modal
-                var modal = document.getElementById('register');
-
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-            </script>
-
         <?php } ?>
         <a href="javascript:void(0);" class="icon" top="true" onclick="openNavbar()">&#9776;</a>
     </div>
+
+    <?php if (!isset($_SESSION['username'])) { ?>
+    <!-- TODO: Go through and integrate these dialogs -->
+    <!-- Login Popup -->
+    <div id="login" class="modal">
+
+        <form class="modal-content animate" method="post" action="user/login.php">
+        <!-- CHANGE TO DB LOGIN -->
+
+            <div class="container">
+                <span onclick="document.getElementById('login').style.display='none'"
+                class="close" title="Close">&times;</span>
+                <h1>Login</h1>
+                <hr>
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username"
+                    name="username" required>
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password"
+                    name="password" required>
+                <br>
+
+                <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+                <button type="button" onclick="document.getElementById('login').style.display='none'"
+                        class="cancelbtn">
+                    Cancel
+                </button>
+                <button type="submit" name="submit">Login</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('login');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <!-- Register Popup -->
+    <div id="register" class="modal">
+
+        <form class="modal-content animate" method="post" action="user/register.php">
+            <!-- CHANGE TO DB NEW USER -->
+            <div class="container">
+                <span onclick="document.getElementById('register').style.display='none'"
+                    class="close" title="Close">&times;</span>
+                <h1>Register</h1>
+                <p>Please fill in this form to create an account.</p>
+                <hr>
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username"
+                    name="username" required />
+
+                <label for="pass_1"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password"
+                    name="pass_1" required>
+
+                <label for="pass_2"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password"
+                    name="pass_2" required>
+
+                <p>By creating an account you agree to absolutely no privacy or exclusivity of content.</p>
+
+                <div class="clearfix">
+                <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+                <button type="button" onclick="document.getElementById('register').style.display='none'"
+                class="cancelbtn">
+                Cancel
+                </button>
+                <button name="register" type="submit" class="registerbtn">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('register');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <?php } ?>
     <script>
     // toggles the responsive version of the Navbar
     function openNavbar() {
