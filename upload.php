@@ -114,7 +114,8 @@
 				
 				$db->custom_sql($query);
 				
-				$keywords = array_map($db->conn->real_escape_string,explode(" ",$_POST['keywords']));
+				// this needs to ba a lambda function to avoid warnings
+				$keywords = array_map(function ($temp) use ($db) { return $db->conn->real_escape_string($temp); },explode(" ",$_POST['keywords']));
 
 				$query = "INSERT INTO keywords VALUES ";
 				foreach ($keywords as $word) if (strlen($word) < 30)
