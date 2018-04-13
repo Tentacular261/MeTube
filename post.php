@@ -8,7 +8,8 @@ if (!isset($_GET['id'])) header("Location: index.php"); // go back to the index 
 
 $db = new DatabaseConnection();
 $getting = $db->conn->real_escape_string($_GET['id']);
-$result = $db->custom_sql("SELECT file,title,type,description,privacy,uploaded_by FROM media WHERE id = \"".$getting."\"");
+$user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SESSION['username']);
+$result = $db->custom_sql("SELECT file,title,type,description,privacy,uploaded_by,friend FROM media LEFT JOIN (SELECT * FROM friends WHERE friend='$user') AS fre ON media.uploaded_by=fre.user WHERE id = \"".$getting."\"");
 
 if ($result->num_rows != 1) {
     include_once 'navbar.php';
@@ -22,6 +23,7 @@ if ($result->num_rows != 1) {
     $description = $row['description'];
     $privacy     = $row['privacy'];
     $uploader    = $row['uploaded_by'];
+    $friend      = $row['friend'];
     
     include "post/comment.php";
 
@@ -29,7 +31,9 @@ if ($result->num_rows != 1) {
 
     if ($privacy != "public" &&
             (!isset($_SESSION['username']) ||
-            $_SESSION['username'] != $uploader)) {
+            $_SESSION['username'] != $uploader) &&
+            (!isset($_SESSION['username']) ||
+            $_SESSION['username'] != $friend)) {
         include 'post/noaccess.php';
     } else {
         include 'post/normal.php';

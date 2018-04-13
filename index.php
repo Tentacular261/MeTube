@@ -98,13 +98,13 @@ include_once "navbar.php";
 					$page_number = ((int)$_GET['pg']);
 				$query_offset = $post_count * ($page_number-1);
 				
-				$MAIN_QUERY = "SELECT SQL_CALC_FOUND_ROWS id,file,type,title,uploaded_by FROM media LEFT JOIN friends ON media.uploaded_by=friends.user WHERE privacy='public'";
-				if (!empty($_SESSION['username']))
-					$MAIN_QUERY .= " OR (privacy IN ('private','friend') AND uploaded_by='"
-								.$db->conn->real_escape_string($_SESSION['username'])
-								."') OR (privacy='friend' AND friend='"
-								.$db->conn->real_escape_string($_SESSION['username'])
-								."')";
+				$MAIN_QUERY = "";
+				if (empty($_SESSION['username']))
+					$MAIN_QUERY = "SELECT SQL_CALC_FOUND_ROWS id,file,type,title,uploaded_by FROM media WHERE privacy='public'";
+				else {
+					$user = $db->conn->real_escape_string($_SESSION['username']);
+					$MAIN_QUERY = "SELECT SQL_CALC_FOUND_ROWS id,file,type,title,uploaded_by FROM media LEFT JOIN (SELECT * FROM friends WHERE friend='$user') AS fre ON media.uploaded_by=fre.user WHERE privacy='public' OR (privacy IN ('private','friend') AND uploaded_by='$user') OR (privacy='friend' AND friend='$user')";
+				}
 
 				$MID_QUERY = ""; // TODO: Add the search functionality
 				
