@@ -29,8 +29,8 @@ include_once "navbar.php";
             <!-- Search Bar -->
             <div class="search-col">
                 <div class="main-search">
-						<form action="/action_page.php">   <!-- TODO: CHANGE TO GIVE RESULTS -->
-							<input type="text" placeholder="Search" name="search" required>
+						<form method="get" action="index.php">   <!-- TODO: CHANGE TO GIVE RESULTS -->
+							<input type="text" placeholder="Search" name="keywords">
 
 							<!-- Advanced Search Collapsible Menu -->
 							<div class="advSearchCollapse">
@@ -57,23 +57,23 @@ include_once "navbar.php";
 
 									<!-- TODO: SEARCH BY FILE TYPE -->
 									File Type: </br>
-									<input type="checkbox" name="file" value="image" checked>Images
-									<input type="checkbox" name="file" value="video" checked>Video
-									<input type="checkbox" name="file" value="audio" checked>Audio <br/>
+									<input type="checkbox" name="image" checked>Images
+									<input type="checkbox" name="video" checked>Video
+									<input type="checkbox" name="audio" checked>Audio <br/>
 									Rating: </br>
-									<input type="checkbox" name="rating" value="1">1
-									<input type="checkbox" name="rating" value="2">2
-									<input type="checkbox" name="rating" value="3">3 
-									<input type="checkbox" name="rating" value="4">4 
-									<input type="checkbox" name="rating" value="5">5 </br>
+									<input type="checkbox" name="rating1" checked>1
+									<input type="checkbox" name="rating2" checked>2
+									<input type="checkbox" name="rating3" checked>3 
+									<input type="checkbox" name="rating4" checked>4 
+									<input type="checkbox" name="rating5" checked>5 </br>
 									Privacy: </br> 
-									<input type="checkbox" name="privacy" value="public" checked>Public               
-									<input type="checkbox" name="privacy" value="private" checked>Private
-									<input type="checkbox" name="privacy" value="contacts" checked>Friends <br/></br>
+									<input type="checkbox" name="public" checked>Public               
+									<input type="checkbox" name="private" checked>Private
+									<input type="checkbox" name="contacts" checked>Friends <br/></br>
 
 									Uploaded: </br>
-									<input type="date" name="date">
-									<input type="date" name="date">
+									<input type="date" name="startdate">
+									<input type="date" name="enddate">
 
 									<!-- TODO: NEW ACTION FOR RESET -->
 									<input type="submit" name="reset" value="Reset" />
@@ -117,6 +117,7 @@ include_once "navbar.php";
 				$rowcount = $db->custom_sql($GET_TOTAL)->fetch_array()[0];
 
 				echo "Displaying results ".($post_count*$page_number-($post_count-1))."-".min($post_count*$page_number,$rowcount)." of ".$rowcount."<br>";
+				//echo "<pre>".var_dump($_GET)."</pre><br>";
 
                 while ($row = $result->fetch_array()) {
 					$id = $row['id'];
