@@ -1,126 +1,154 @@
-/* Profile Content Area */
-.profileContent {
-   display: flex;
-   padding: 20px 10px;
-   text-align: left;
-   background: var(--drkgrayblue);
-   color: var(--orange);
+.userSocial {
+    
 }
 
-.userRow {
-   display: flex;
+/****************Start Tab CSS*****************/
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid var(--drkbluegray);
+    background-color: var(--drkgray);
 }
 
-input[type=password] {
-   width: 100%;
-   padding: 5px 5px;
-   margin: 8px 0px 8px;
-   display: inline-block;
-   border: 1px solid var(--midgray);
-   border-radius: 4px;
-   box-sizing: border-box;
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    transition: 0.3s;
+    font-size: 16px;
 }
 
-/* Style all submit buttons */
-button[type=submit] {
-   width: 100%;
-   background-color: var(--purple);
-   color: white;
-   padding: 10px 10px;
-   margin: 8px 0px;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: var(--orange);
 }
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: var(--purple);
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 10px 10px;
+    border: none;
+    border-top: none;
+    height: 350px;
+    background-color: var(--midgray);
+}
+/****************Stop Tab CSS******************/
+
+/****************Start Menu CSS******************/
+.vertical-menu {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.vertical-menu a {
+    background-color: var(--midgray);
+    color: black;
+    display: block;
+    padding: 10px; 
+    text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+    background-color: var(--ltgray); /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+    background-color: var(--drkgray); /* Add a green color to the "active/current" link */
+    color: white;
+}
+/****************Stop Menu CSS******************/
 
 /****************Start Modal CSS***************/
+
+/* Center the image and position the close button */
+.closeContainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+.modalContainer {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
 /* The Modal (background) */
 .modal {
-   display: none; /* Hidden by default */
-   position: relative; /* Stay in place */
-   z-index: 1; /* Sit on top */
-   left: 0;
-   top: 0;
-   width: 100%; /* Full width */
-   height: 100%; /* Full height */
-   overflow: auto; /* Enable scroll if needed */
-   background-color: rgb(0,0,0); /* Fallback color */
-   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
 }
 
 /* Modal Content/Box */
-.passModalContent {
-   background-color: var(--ltgray);
-   margin: 15% auto; 
-   padding: 16px;
-   border: 1px solid var(--midgray);
-   width: 40%; 
-   color: black;
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
 }
 
+/* The Close Button (x) */
 .close {
-   position: absolute;
-   right: 25px;
-   top: 0;
-   color: black;
-   font-size: 35px;
-   font-weight: bold;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
 }
 
-/* Change color when hover over close button */
-.close:hover, .close:focus {
-   color: red;
-   cursor: pointer;
-}
-
-/* Clear floats */
-.clearfix::after {
-   content: "";
-   clear: both;
-   display: table;
-}
-
-/* Style default button hover */
-button:hover {
-   opacity: 0.8;
-}
-
-/* Style cancel button */
-.cancelbtn {
-   width: 100px;
-   background-color: var(--purple);
-}
-
-/* Style horizontal ruler */
-hr {
-   border: 1px solid #f1f1f1;
-   margin-bottom: 25px;
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
 }
 
 /* Add Zoom Animation */
 .animate {
-   -webkit-animation: animatezoom 0.6s;
-   animation: animatezoom 0.6s
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
 }
 
 @-webkit-keyframes animatezoom {
-   from {
-      -webkit-transform: scale(0)
-   }
-
-   to {
-      -webkit-transform: scale(1)
-   }
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
 }
-
+    
 @keyframes animatezoom {
-   from {
-      transform: scale(0)
-   }
-
-   to {
-      transform: scale(1)
-   }
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
 }
 
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
 /****************End Modal CSS***************/

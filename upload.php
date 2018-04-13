@@ -125,36 +125,7 @@
 	include_once "navbar.php";
 ?>
 
-<?php // We also don't need to send commented out code to the user.
-/**SADIE NOT GONNA DELETE ZACK'S CODE
-<form method="post" action="upload.php" enctype="multipart/form-data" >
-
-    <p style="margin:0; padding:0">
-        <input type="hidden" name="MAX_FILE_SIZE" value="104857600" />
-        Uplaod Media: <label style="color:#663399"><em> (Each file limit 100MiB)</em></label><br/>
-        <input  name="file" type="file" size="50" />
-        <table width="100%">
-    		<tr>
-    			<td  width="20%">Post Title:</td>
-    			<td width="80%"><input type="text" name="title"><br /></td>
-    		</tr>
-    		<tr>
-    			<td  width="20%">Post Description:</td>
-    			<td width="80%"><textarea name="description" rows="10" cols="50"></textarea><br /></td>
-    		</tr>
-            <tr>
-                <td width="20%">Visibility:</td>
-                <td width="80%"><select name="privacy">
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                    <option value="contacts">Contacts</option>
-                </select></td>
-            </tr>
-        </table>
-        <input value="Upload" name="upload" type="submit" />
-    </p>
-</form>
-**/
+<?php 
 ?>
 
 <html>
