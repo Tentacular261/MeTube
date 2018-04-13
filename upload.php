@@ -202,7 +202,7 @@
 
 						<input type="radio" name="privacy" value="public" checked>Public               
 						<input type="radio" name="privacy" value="private">Private
-						<input type="radio" name="privacy" value="contacts">Friends <br/>
+						<input type="radio" name="privacy" value="friend">Friends <br/>
 
 						<!-- TODO: NEW RATED -->
 						<input type="checkbox" name="rated" value="rated" checked>OK to Rate <br/>

@@ -91,22 +91,38 @@ include_once "navbar.php";
                 <?php
                 $db = new DatabaseConnection();
 
+				$post_count = 25;
+
+				$page_number = 1;
+				if (!empty($_GET['pg']) && ctype_digit($_GET['pg']))
+					$page_number = ((int)$_GET['pg']);
+				$query_offset = $post_count * ($page_number-1);
+				
+				$MAIN_QUERY = "SELECT SQL_CALC_FOUND_ROWS id,file,type,title,uploaded_by FROM media LEFT JOIN friends ON media.uploaded_by=friends.user WHERE privacy='public'";
+				if (!empty($_SESSION['username']))
+					$MAIN_QUERY .= " OR (privacy='private' AND uploaded_by='"
+								.$db->conn->real_escape_string($_SESSION['username'])
+								."') OR (privacy='friend' AND friend='"
+								.$db->conn->real_escape_string($_SESSION['username'])
+								."')";
+
+				$MID_QUERY = ""; // TODO: Add the search functionality
+				
+				$POST_QUERY = " ORDER BY date DESC LIMIT $post_count OFFSET $query_offset;";
+
+				$GET_TOTAL = "SELECT FOUND_ROWS();";
                 // TODO: Allow paging of the results
-                $result = $db->custom_sql("SELECT id,file,type,title,privacy,uploaded_by FROM media ORDER BY date DESC");
 
-                for ($i=0;$i<25;$i++) {
-                    do {
-                        $rows = $result->fetch_array();
-                    } while ($rows != NULL && $rows['privacy'] != "public" && (empty($_SESSION['username']) || $rows['uploaded_by'] != $_SESSION['username']));
-                    // TODO: handle seeing friends posts that can be seen once that is added
-					if ($rows==NULL) break;
+				$result = $db->custom_sql($MAIN_QUERY.$MID_QUERY.$POST_QUERY);
+				$rowcount = $db->custom_sql($GET_TOTAL)->fetch_array()[0];
 
-					$id = $rows['id'];
-					$title = $rows['title'];
-					$thumb = ($rows['type'] === "image")
-								? $rows['file']
-								: (($rows['type'] === "video")
-									? preg_replace('/.[^.]*$/', '', $rows['file']).".png"
+                while ($row = $result->fetch_array()) {
+					$id = $row['id'];
+					$title = $row['title'];
+					$thumb = ($row['type'] === "image")
+								? $row['file']
+								: (($row['type'] === "video")
+									? preg_replace('/.[^.]*$/', '', $row['file']).".png"
 									: "../../assets/AUDIOTHING.png");
 					
                     echo "\n<a href=\"post.php?id="
