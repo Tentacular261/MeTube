@@ -116,6 +116,8 @@ include_once "navbar.php";
 				$result = $db->custom_sql($MAIN_QUERY.$MID_QUERY.$POST_QUERY);
 				$rowcount = $db->custom_sql($GET_TOTAL)->fetch_array()[0];
 
+				echo "Displaying results ".($post_count*$page_number-($post_count-1))."-".min($post_count*$page_number,$rowcount)." of ".$rowcount."<br>";
+
                 while ($row = $result->fetch_array()) {
 					$id = $row['id'];
 					$title = $row['title'];
