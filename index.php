@@ -89,7 +89,7 @@ include_once "navbar.php";
             <!-- Media Container -->
             <div class="media-col">
                 <?php
-                $db = new DatabaseConnection();
+				$db = new DatabaseConnection();
 
 				$post_count = 25;
 
@@ -111,8 +111,8 @@ include_once "navbar.php";
 				$POST_QUERY = " ORDER BY date DESC LIMIT $post_count OFFSET $query_offset;";
 
 				$GET_TOTAL = "SELECT FOUND_ROWS();";
-                // TODO: Allow paging of the results
-
+				// TODO: Allow paging of the results
+				
 				$result = $db->custom_sql($MAIN_QUERY.$MID_QUERY.$POST_QUERY);
 				$rowcount = $db->custom_sql($GET_TOTAL)->fetch_array()[0];
 
@@ -132,10 +132,16 @@ include_once "navbar.php";
                         ."\" alt=\""
                         .$title
                         ."\"></a>";
-                }
-                ?>
-                <!-- TODO: Add the paging controls -->
-                <p>&#x25C0; PG &#x25B6;</p>
+				}
+				
+				$_GET['pg'] = max($page_number-1,1);
+				echo "<p><a href=\"index.php?".http_build_query($_GET)."\">&#x25C0;</a>";
+
+				echo " PG $page_number ";
+
+				$_GET['pg'] = min($page_number+1,ceil($rowcount/$post_count));
+				echo "<a href=\"index.php?".http_build_query($_GET)."\">&#x25B6;</a></p>";
+				?>
             </div>
         </div>
 
