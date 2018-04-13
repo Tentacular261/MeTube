@@ -29,8 +29,8 @@ include_once "navbar.php";
             <!-- Search Bar -->
             <div class="search-col">
                 <div class="main-search">
-						<form action="/action_page.php">   <!-- TODO: CHANGE TO GIVE RESULTS -->
-							<input type="text" placeholder="Search" name="search" required>
+						<form method="get" action="index.php">   <!-- TODO: CHANGE TO GIVE RESULTS -->
+							<input type="text" placeholder="Search" name="keywords">
 
 							<!-- Advanced Search Collapsible Menu -->
 							<div class="advSearchCollapse">
@@ -57,23 +57,23 @@ include_once "navbar.php";
 
 									<!-- TODO: SEARCH BY FILE TYPE -->
 									File Type: </br>
-									<input type="checkbox" name="file" value="image" checked>Images
-									<input type="checkbox" name="file" value="video" checked>Video
-									<input type="checkbox" name="file" value="audio" checked>Audio <br/>
+									<input type="checkbox" name="image" checked>Images
+									<input type="checkbox" name="video" checked>Video
+									<input type="checkbox" name="audio" checked>Audio <br/>
 									Rating: </br>
-									<input type="checkbox" name="rating" value="1">1
-									<input type="checkbox" name="rating" value="2">2
-									<input type="checkbox" name="rating" value="3">3 
-									<input type="checkbox" name="rating" value="4">4 
-									<input type="checkbox" name="rating" value="5">5 </br>
+									<input type="checkbox" name="rating1" checked>1
+									<input type="checkbox" name="rating2" checked>2
+									<input type="checkbox" name="rating3" checked>3 
+									<input type="checkbox" name="rating4" checked>4 
+									<input type="checkbox" name="rating5" checked>5 </br>
 									Privacy: </br> 
-									<input type="checkbox" name="privacy" value="public" checked>Public               
-									<input type="checkbox" name="privacy" value="private" checked>Private
-									<input type="checkbox" name="privacy" value="contacts" checked>Friends <br/></br>
+									<input type="checkbox" name="public" checked>Public               
+									<input type="checkbox" name="private" checked>Private
+									<input type="checkbox" name="contacts" checked>Friends <br/></br>
 
 									Uploaded: </br>
-									<input type="date" name="date">
-									<input type="date" name="date">
+									<input type="date" name="startdate">
+									<input type="date" name="enddate">
 
 									<!-- TODO: NEW ACTION FOR RESET -->
 									<input type="submit" name="reset" value="Reset" />
@@ -98,25 +98,41 @@ include_once "navbar.php";
 					$page_number = ((int)$_GET['pg']);
 				$query_offset = $post_count * ($page_number-1);
 				
+				// This first query set are the queries that returns every post this user is capable of seeing
 				$MAIN_QUERY = "";
 				if (empty($_SESSION['username']))
-					$MAIN_QUERY = "SELECT SQL_CALC_FOUND_ROWS id,file,type,title,uploaded_by FROM media WHERE privacy='public'";
+					$MAIN_QUERY = "SELECT id,file,type,title,uploaded_by FROM media WHERE privacy='public'";
 				else {
 					$user = $db->conn->real_escape_string($_SESSION['username']);
-					$MAIN_QUERY = "SELECT SQL_CALC_FOUND_ROWS id,file,type,title,uploaded_by FROM media LEFT JOIN (SELECT * FROM friends WHERE friend='$user') AS fre ON media.uploaded_by=fre.user WHERE privacy='public' OR (privacy IN ('private','friend') AND uploaded_by='$user') OR (privacy='friend' AND friend='$user')";
+					$MAIN_QUERY = "SELECT id,file,type,title,uploaded_by FROM media LEFT JOIN (SELECT * FROM friends WHERE friend='$user') AS fre ON media.uploaded_by=fre.user WHERE (privacy='public' OR (privacy IN ('private','friend') AND uploaded_by='$user') OR (privacy='friend' AND friend='$user'))";
 				}
 
-				$MID_QUERY = ""; // TODO: Add the search functionality
-				
-				$POST_QUERY = " ORDER BY date DESC LIMIT $post_count OFFSET $query_offset;";
+				if (!empty($_GET['keywords'])) { // select posts that have any of the keywords
+					// this needs to ba a lambda function to avoid warnings
+					$keywords_arr = array_map(function ($temp) use ($db) { return $db->conn->real_escape_string($temp); },explode(" ",$_GET['keywords']));
+					$keywords_str = "";
+					foreach ($keywords_arr as $word) if (strlen($word) < 30) // build the list of keywords we are looking for
+						$keywords_str .= "'$word',";
+					$keywords_str = rtrim($keywords_str,",");
 
+					// TODO: Add the search functionality
+					$MAIN_QUERY .= " AND EXISTS (SELECT * FROM keywords WHERE (keyword IN ($keywords_str)) AND keywords.media_id=media.id)";
+				}
+				
+				// Add the result limit
+				$MAIN_QUERY .= " ORDER BY date DESC LIMIT $post_count OFFSET $query_offset;";
+
+				// allow the return of the total number of results without reciving all of them
+				$MAIN_QUERY = substr_replace($MAIN_QUERY," SQL_CALC_FOUND_ROWS",6,0);
 				$GET_TOTAL = "SELECT FOUND_ROWS();";
-				// TODO: Allow paging of the results
-				
-				$result = $db->custom_sql($MAIN_QUERY.$MID_QUERY.$POST_QUERY);
-				$rowcount = $db->custom_sql($GET_TOTAL)->fetch_array()[0];
 
+				
+				$result = $db->custom_sql($MAIN_QUERY);
+				//echo "<br>".$MAIN_QUERY."<br>".$db->conn->error."<br>";
+				$rowcount = $db->custom_sql($GET_TOTAL)->fetch_array()[0];
+				
 				echo "Displaying results ".($post_count*$page_number-($post_count-1))."-".min($post_count*$page_number,$rowcount)." of ".$rowcount."<br>";
+				//echo "<pre>".var_dump($_GET)."</pre><br>";
 
                 while ($row = $result->fetch_array()) {
 					$id = $row['id'];

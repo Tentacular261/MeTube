@@ -102,14 +102,25 @@
 				$db = new DatabaseConnection();
 
 				$utime = time();
+				$id = substr($utime.$filename,0,32);
 				$title = $db->conn->real_escape_string($_POST['title']);
 				$description = $db->conn->real_escape_string($_POST['description']);
 				$category = $db->conn->real_escape_string($_POST['category']);
 				$un = $db->conn->real_escape_string($_SESSION['username']);
 
 				$query = "INSERT INTO media (id,date,file,uploaded_by,category,type,privacy,title,description)"
-					."VALUES ('".$utime.$filename."','".$utime."','".$filename."','".$un."','".$category
-					."','".$filetype."','".$_POST['privacy']."','".$title."','".$description."')";
+				."VALUES ('".$id."','".$utime."','".$filename."','".$un."','".$category
+				."','".$filetype."','".$_POST['privacy']."','".$title."','".$description."')";
+				
+				$db->custom_sql($query);
+				
+				// this needs to ba a lambda function to avoid warnings
+				$keywords = array_map(function ($temp) use ($db) { return $db->conn->real_escape_string($temp); },explode(" ",$_POST['keywords']));
+
+				$query = "INSERT INTO keywords VALUES ";
+				foreach ($keywords as $word) if (strlen($word) < 30)
+					$query .= "('".$word."','".$id."'), ";
+				$query = rtrim($query,", ");
 
 				$db->custom_sql($query);
 
