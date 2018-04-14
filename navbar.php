@@ -76,97 +76,78 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         </form>
     </div>
 
-    <script>
-        // Get the modal
-        var modal = document.getElementById('login');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-
     <!-- Register Popup -->
     <div id="register" class="modal">
-
+        
         <form class="modal-content animate" method="post" action="user/register.php">
-            <!-- CHANGE TO DB NEW USER -->
-            <div class="container">
-                <span onclick="document.getElementById('register').style.display='none'"
-                    class="close" title="Close">&times;</span>
-                <h1>Register</h1>
-                <p>Please fill in this form to create an account.</p>
-                <hr>
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username"
-                    name="username" required />
-
-                <label for="pass_1"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password"
-                    name="pass_1" required>
-
-                <label for="pass_2"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password"
-                    name="pass_2" required>
-
-                <p>By creating an account you agree to absolutely no privacy or exclusivity of content.</p>
-
-                <div class="clearfix">
+        <!-- CHANGE TO DB NEW USER -->
+        <div class="container">
+            <span onclick="document.getElementById('register').style.display='none'"
+            class="close" title="Close">&times;</span>
+            <h1>Register</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr>
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username"
+            name="username" required />
+            
+            <label for="pass_1"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password"
+            name="pass_1" required>
+            
+            <label for="pass_2"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password"
+            name="pass_2" required>
+            
+            <p>By creating an account you agree to absolutely no privacy or exclusivity of content.</p>
+            
+            <div class="clearfix">
                 <input type="hidden" name="return" value="<?php echo $returnto; ?>">
                 <button type="button" onclick="document.getElementById('register').style.display='none'"
                 class="cancelbtn">
                 Cancel
-                </button>
-                <button name="register" type="submit" class="registerbtn">Register</button>
-                </div>
-            </div>
-        </form>
+            </button>
+            <button name="register" type="submit" class="registerbtn">Register</button>
+        </div>
     </div>
-
-    <script>
-        // Get the modal
-        var modal = document.getElementById('register');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+</form>
+</div>
     <?php
     } 
     
     if (!empty($_SESSION['error_message'])) {
-    ?>
+        ?>
     <!-- Error Popup -->
     <div id="error" class="modal" style="display:block;">
         <!-- CHANGE TO DB NEW USER -->
         <div class="modal-content animate"><div class="container">
             <span onclick="document.getElementById('error').style.display='none'"
-                class="close" title="Close">&times;</span>
+            class="close" title="Close">&times;</span>
             <h1>Error</h1>
             <?php echo $_SESSION['error_message']; ?>
         </div></div>
     </div>
-
-    <script>
-        // Get the modal
-        var modal = document.getElementById('error');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+    
     <?php
     }
     unset($_SESSION['error_message']);
     ?>
+    <script>
+        // Get the modal
+        var modal_boxes = [];
+        modal_boxes.push(document.getElementById('login'));
+        modal_boxes.push(document.getElementById('register'));
+        modal_boxes.push(document.getElementById('error'));
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            modal_boxes.forEach(function (elem) {
+                if (event.target == elem) {
+                elem.style.display = "none";
+                }
+            });
+        }
+    </script>
     <script>
     // toggles the responsive version of the Navbar
     function openNavbar() {

@@ -152,18 +152,9 @@
 
 	<!-- Modal script -->
 	<script>
-		// Get the modal
-		var passModal = document.getElementById('passModal');
-		var proPicModal = document.getElementById('proPicModal');
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-			if (event.target == passModal) {
-				modal.style.display = "none";
-			} else if (event.target == proPicModal) {
-				modal.style.display = "none";
-			}
-		}
+		// add the modals to the close list
+		modal_boxes.push(document.getElementById('passModal'));
+		modal_boxes.push(document.getElementById('proPicModal'));
 	</script>
 
 	<!-- Tabbing Script -->
