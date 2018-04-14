@@ -20,6 +20,7 @@
         <div class="title"><?php echo $title; ?></div><br>
         <div class="user"><?php echo $uploader; ?></div><br>
         <div class="description"><?php echo $description; ?></div>
+        <div class="download"><a href="media/<?php echo $file; ?>" download="<?php echo $title; ?>">Download</a></div>
     </div>
     <div class="comment_section">
         <?php if (isset($_SESSION['username'])) { ?>
