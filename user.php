@@ -31,9 +31,21 @@
 
 		<!-- Tab content -->
 		<div id="manageProfile" class="tabcontent">
-			<img src="profilePic.jpg" alt="Your profile pic is broken like your life">
+			<?php
+			    $db = new DatabaseConnection();
+			    $username = $db->conn->real_escape_string($_SESSION["username"]);
+			    $query_str = "SELECT picture FROM users WHERE username=\"" . $username . "\"";
+			    $result = $db->custom_sql($query_str) or die(mysql_error());
+			    $row = $result->fetch_row();
+			    $file = "user/profile_pictures/" . $row[0];
+			?>
+			<img src=<?php echo "\"" . $file . "\"" ?> alt="Profile picture"/> <br/>
 			<!-- TODO: Change action for change profile pic -->
-			<button type="button" id="profilePic">Update Profile Pic</button>
+			<!-- temporary button -->
+			<form method="link" action="user/upload_profile_picture.php">
+				<input type="submit" id="profilePic" value="Update Profile Pic" />
+			</form>
+			<!-- <button type="button" id="profilePic">Update Profile Pic</button> -->
 			<button onclick="document.getElementById('passModal').style.display='block'" style="width:auto;">Change Password</button>
 
 			<div id="passModal" class="modal">
@@ -200,7 +212,7 @@
 	<div class="footer">
         <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan,  Sadie Sweetman</i></h6>
     </div>
-	
+
 </body>
 
 </html>
