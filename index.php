@@ -37,6 +37,7 @@ include_once "navbar.php";
 								<a class="advSearchCollapse" href="javascript:toggleAdvSearch()">Filter</a>
 							</div>
 								<div class="advSearchContent" id="advSearchContent">
+									<input type="text" placeholder="Limit To User" name="user">
 									<select id="category" name="category" />
 										<option value="" disabled selected>Filter by Category</option>
 										<option value="entertainment">Entertainment</option>
@@ -50,6 +51,7 @@ include_once "navbar.php";
 										<option value="sports">Sports</option>
 										<option value="travel">Travel & Outdoors</option> </select>
 									<select id="lists" name="lists" />
+									<!-- TODO: Fill in the lists from the user's lists -->
 										<option value="" disabled selected>Filter by List</option>
 										<option value="favorites">Favorites </option>
 										<option value="haha">Haha (Example) </option>
@@ -117,6 +119,11 @@ include_once "navbar.php";
 
 					// TODO: Add the search functionality
 					$MAIN_QUERY .= " AND EXISTS (SELECT * FROM keywords WHERE (keyword IN ($keywords_str)) AND keywords.media_id=media.id)";
+				}
+
+				if (!empty($_GET['user'])) {
+					$un = $db->conn->real_escape_string($_GET['user']);
+					$MAIN_QUERY .= " AND uploaded_by='$un'";
 				}
 				
 				// Add the result limit
