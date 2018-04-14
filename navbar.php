@@ -136,7 +136,37 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
             }
         }
     </script>
-    <?php } ?>
+    <?php
+    } 
+    
+    if (!empty($_SESSION['error_message'])) {
+    ?>
+    <!-- Error Popup -->
+    <div id="error" class="modal" style="display:block;">
+        <!-- CHANGE TO DB NEW USER -->
+        <div class="modal-content animate"><div class="container">
+            <span onclick="document.getElementById('error').style.display='none'"
+                class="close" title="Close">&times;</span>
+            <h1>Error</h1>
+            <?php echo $_SESSION['error_message']; ?>
+        </div></div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('error');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <?php
+    }
+    unset($_SESSION['error_message']);
+    ?>
     <script>
     // toggles the responsive version of the Navbar
     function openNavbar() {
