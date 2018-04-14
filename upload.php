@@ -114,15 +114,17 @@
 				
 				$db->custom_sql($query);
 				
-				// this needs to ba a lambda function to avoid warnings
-				$keywords = array_map(function ($temp) use ($db) { return $db->conn->real_escape_string($temp); },explode(" ",$_POST['keywords']));
+				if (!empty($_POST['keywords'])) {
+					// this needs to ba a lambda function to avoid warnings
+					$keywords = array_map(function ($temp) use ($db) { return $db->conn->real_escape_string($temp); },explode(" ",$_POST['keywords']));
 
-				$query = "INSERT INTO keywords VALUES ";
-				foreach ($keywords as $word) if (strlen($word) < 30)
-					$query .= "('".$word."','".$id."'), ";
-				$query = rtrim($query,", ");
+					$query = "INSERT INTO keywords VALUES ";
+					foreach ($keywords as $word) if (strlen($word) < 30)
+						$query .= "('".$word."','".$id."'), ";
+					$query = rtrim($query,", ");
 
-				$db->custom_sql($query);
+					$db->custom_sql($query);
+				}
 
 				header("Location: index.php"); // TODO: change this to go to the media's page
 			} else {
