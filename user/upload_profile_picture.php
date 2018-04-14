@@ -38,75 +38,56 @@
         $is_file_accepted = false;
 
         // Check if the uploaded picture is of an acceptable format
-        for ($index = 0; $index <= count($accepted_file_formats); $index++)
-            if (strcmp($ext, strtolower($accepted_file_formats[$index])))
+        for ($index = 0; $index < count($accepted_file_formats); $index++)
+            if (!strcmp(strtolower($ext), $accepted_file_formats[$index]))
                 $is_file_accepted = true;
 
-        if ($_FILES["new_profile_pic"]["error"] > 0) { // check if anything was wrong with the file upload
-			switch ($_FILES["file"]["error"]){
-			case 1:
-				$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
-			case 2:
-				$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
-			case 3:
-				$ErrorMessage = "UPLOAD_ERR_PARTIAL";
-			case 4:
-				$ErrorMessage = "UPLOAD_ERR_NO_FILE";
-			}
-        } else if (is_uploaded_file($target_file)) {
-            $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            $target_dir = "profile_pictures/";
-            $hash = md5_file($target_file);
-            $utime = time();
-            $file_name = $utime . $hash . "." . $ext;
-            $full_file_name = $target_dir . $file_name;
+        if ($is_file_accepted) {
+            if ($_FILES["new_profile_pic"]["error"] > 0) { // check if anything was wrong with the file upload
+    			switch ($_FILES["file"]["error"]){
+    			case 1:
+    				$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
+    			case 2:
+    				$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
+    			case 3:
+    				$ErrorMessage = "UPLOAD_ERR_PARTIAL";
+    			case 4:
+    				$ErrorMessage = "UPLOAD_ERR_NO_FILE";
+    			}
+            } else if (is_uploaded_file($target_file)) {
+                $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                $target_dir = "profile_pictures/";
+                $hash = md5_file($target_file);
+                $utime = time();
+                $file_name = $utime . $hash . "." . $ext;
+                $full_file_name = $target_dir . $file_name;
 
-            if (move_uploaded_file($target_file, $full_file_name)) {
-                chmod($full_file_name, 0755);
+                if (move_uploaded_file($target_file, $full_file_name)) {
+                    chmod($full_file_name, 0755);
 
-                // Use Zack's resize code to make picture the right size
-                list($w,$h) = getimagesize($full_file_name);
-                $scale = max($w,$h);
-                $w = round(($w/$scale)*256);
-                $h = round(($h/$scale)*256);
-                system("/usr/bin/convert $full_file_name -resize $w"."x"."$h $full_file_name 2>&1");
+                    // Use Zack's resize code to make picture the right size
+                    list($w,$h) = getimagesize($full_file_name);
+                    $scale = max($w,$h);
+                    $w = round(($w/$scale)*256);
+                    $h = round(($h/$scale)*256);
+                    system("/usr/bin/convert $full_file_name -resize $w"."x"."$h $full_file_name 2>&1");
 
-                $db = new DatabaseConnection();
+                    $db = new DatabaseConnection();
 
-                $username = $db->conn->real_escape_string($_SESSION["username"]);
+                    $username = $db->conn->real_escape_string($_SESSION["username"]);
 
-                del_old_profile_pic($db, $username);
-                $query = "UPDATE users SET picture=\"" . $file_name . "\" WHERE username=\"" . $username . "\"";
-                $db->custom_sql($query);
+                    del_old_profile_pic($db, $username);
+                    $query = "UPDATE users SET picture=\"" . $file_name . "\" WHERE username=\"" . $username . "\"";
+                    $db->custom_sql($query);
+                } else
+                    $ErrorMessage = "Problem uploading file";
 
-                // return to user page
-                header('Location: '.$_POST['return']);
-            } else
-                $ErrorMessage = "Problem uploading file";
-
-        } else {
-            $ErrorMessage = "Uploading the file failed.";
+            } else {
+                $ErrorMessage = "Uploading the file failed.";
+            }
         }
+
+        // return to user page
+        header('Location: '.$_POST['return']);
     }
-
-    include_once "../navbar.php";
 ?>
-
-<html>
-
-    <head>
-        <title>| Profile Picture |</title>
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/upload.css">
-    </head>
-
-    <body>
-        <form action="upload_profile_picture.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="MAX_FILE_SIZE" value="31457280" />
-            <h4>Upload new profile picture:</h4>
-            <input type="file" name="new_profile_pic" id="new_profile_pic" required/>
-            <br /><br />
-            <button type="submit" name="upload">Change Picture</button>
-        </form>
-    </body>
-</html>
