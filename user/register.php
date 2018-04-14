@@ -20,12 +20,16 @@ if(isset($_POST['register'])) { // process POST data if it exists
         } else if ($result->num_rows != 0) { // any results means username is unavailable
             $register_error = "User ".$_POST['username']." already exists.";
         } else {
-            // username checks out - insert it into the database.
-            // TODO: hash passwords (possibly before leaving client, that may require JS though, and if we are using JS for that then we could do a fancy realtime check for the two password feilds matching)
-            $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$un."','".$ps."')");
-            $_SESSION['username']=$_POST['username']; // log the user in
-            header('Location: '.$_POST['return']); // go back to the previous page
-            exit;
+            if (preg_match("/.*@.*\..*/",$_POST['username'])) { // check is username is following the correct format
+                // username checks out - insert it into the database.
+                // TODO: hash passwords (possibly before leaving client, that may require JS though, and if we are using JS for that then we could do a fancy realtime check for the two password feilds matching)
+                $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$un."','".$ps."')");
+                $_SESSION['username']=$_POST['username']; // log the user in
+                header('Location: '.$_POST['return']); // go back to the previous page
+                exit;
+            } else {
+                $register_error = "The username ".$_POST['username']." doesn't follow proper username format.";
+            }
         }
     }
 }
