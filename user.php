@@ -47,45 +47,12 @@
 			</form> -->
 			<button onclick="document.getElementById('proPicModal').style.display='block'" style="width:auto;">Update Profile Pic</button>
 
-			<div id="proPicModal" class="modal">
-				<form class="modal-content animate" action="user/upload_profile_picture.php" method="post" enctype="multipart/form-data">
-					<div class="closeContainer">
-						<span onclick="document.getElementById('proPicModal').style.display='none'" class="close" title="Close">&times;</span>
-						<h4>Update Profile Picture:</h4>
-					</div>
-
-					<div class="modalContainer">
-						<input type="hidden" name="MAX_FILE_SIZE" value="31457280" />
-			            <input type="file" name="new_profile_pic" id="new_profile_pic" required/>
-			            <br /><br />
-						<input type="hidden" name="return" value="<?php echo $returnto; ?>">
-			            <button type="submit" name="upload">Change Picture</button>
-					</div>
-				</form>
-			</div>
-
 			<button onclick="document.getElementById('passModal').style.display='block'" style="width:auto;">Change Password</button>
-
-			<div id="passModal" class="modal">
-				<!-- TODO: Change action of change password -->
-				<form class="modal-content animate" action="/change_password.php">
-					<div class="closeContainer">
-						<span onclick="document.getElementById('passModal').style.display='none'" class="close" title="Close">&times;</span>
-						<h4>Change your password:</h4>
-					</div>
-
-					<div class="modalContainer">
-						<input type="password" name="password" placeholder="Current Password">
-						<input type="password" name="new_password" placeholder="New Password">
-						<input type="password" name="new_password_again" placeholder="New Password (Again)">
-						<button type="submit" name="submit" onclick="submit_form()">Change Password</button>
-					</div>
-				</form>
-			</div>
+			
 		</div>
 
 		<div id="friends" class="tabcontent">
-			<button type="button" id="addFriend" onclick="/addfriendmodal">Add</button>
+			<button type="button" id="addFriend" onclick="document.getElementById('addFriendModal').style.display='block'">Add</button>
 			<button type="button" id="deleteFriend" onclick="/deleteFriend">Delete</button>
 			<button type="button" id="blockFriend" onclick="/blockFriend">Block</button>
 			<button type="botton" id="unblockFriend" onclick="/unblockFriend">Unblock</button>
@@ -150,11 +117,70 @@
 		</div>
 	</div>
 
+	<div id="proPicModal" class="modal">
+		<form class="modal-content animate" action="user/upload_profile_picture.php" method="post" enctype="multipart/form-data">
+			<div class="closeContainer">
+				<span onclick="document.getElementById('proPicModal').style.display='none'" class="close" title="Close">&times;</span>
+				<h4>Update Profile Picture:</h4>
+			</div>
+
+			<div class="modalContainer">
+				<input type="hidden" name="MAX_FILE_SIZE" value="31457280" />
+				<input type="file" name="new_profile_pic" id="new_profile_pic" required/>
+				<br /><br />
+				<input type="hidden" name="return" value="<?php echo $returnto; ?>">
+				<button type="submit" name="upload">Change Picture</button>
+			</div>
+		</form>
+	</div>
+
+	<div id="passModal" class="modal">
+		<!-- TODO: Change action of change password -->
+		<form class="modal-content animate" action="/change_password.php">
+			<div class="closeContainer">
+				<span onclick="document.getElementById('passModal').style.display='none'" class="close" title="Close">&times;</span>
+				<h4>Change your password:</h4>
+			</div>
+
+			<div class="modalContainer">
+				<input type="password" name="password" placeholder="Current Password">
+				<input type="password" name="new_password" placeholder="New Password">
+				<input type="password" name="new_password_again" placeholder="New Password (Again)">
+				<button type="submit" name="submit" onclick="submit_form()">Change Password</button>
+			</div>
+		</form>
+	</div>
+
+	<div id="addFriendModal" class="modal">
+        <form class="modal-content animate" method="post" action="user/addfriend.php">
+        <!-- CHANGE TO DB NEW USER -->
+        <div class="container">
+            <span onclick="document.getElementById('addFriendModal').style.display='none'"
+            class="close" title="Close">&times;</span>
+            <h1>Add Friend</h1>
+            <hr>
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username of Friend"
+            name="username" required />
+            
+            <div class="clearfix">
+                <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+                <button type="button" onclick="document.getElementById('register').style.display='none'"
+                class="cancelbtn">
+                Cancel
+                </button>
+                <button name="addfriend" type="submit" class="registerbtn">Add</button>
+            </div>
+        </div>
+        </form>
+    </div>
+
 	<!-- Modal script -->
 	<script>
 		// add the modals to the close list
 		modal_boxes.push(document.getElementById('passModal'));
 		modal_boxes.push(document.getElementById('proPicModal'));
+		modal_boxes.push(document.getElementById('addFriendModal'));
 	</script>
 
 	<!-- Tabbing Script -->
