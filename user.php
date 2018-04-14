@@ -53,35 +53,26 @@
 
 		<!-- Friends Tab -->
 		<div id="friends" class="tabcontent">
+			<form method="post" action="user/addremovefriend.php">
 			<button type="button" id="addFriend" onclick="document.getElementById('addFriendModal').style.display='block'">Add</button>
-			<button type="button" id="deleteFriend" onclick="/deleteFriend">Delete</button>
-			<button type="button" id="blockFriend" onclick="/blockFriend">Block</button>
-			<button type="botton" id="unblockFriend" onclick="/unblockFriend">Unblock</button>
+			<button type="submit" id="deleteFriend" name="deleteFriend">Delete</button>
+			<input type="hidden" name="return" value="<?php echo $returnto; ?>">
 
-			<div class="vertical-menu">
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
-				<a href="#">Link 4</a>
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
-				<a href="#">Link 4</a>
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
-				<a href="#">Link 4</a>
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
-				<a href="#">Link 4</a>
-				<a href="#">Link 1</a>
-				<a href="#">Link 1</a>
-				<a href="#">Link 2</a>
-				<a href="#">Link 3</a>
-				<a href="#">Link 4</a>
-				<a href="#">Link 1</a>
-			</div>
+			<div class="vertical-menu" name="username">
+				<?php
+				$friends = $db->custom_sql("SELECT friend FROM friends WHERE user='$username'");
+				while ($friend = $friends->fetch_array()) {
+					// TODO: fix bug that allows the user '; to break the javascript
+					$fname = $friend['friend'];
+					echo "<a href=\"javascript:selectSelectOption('select_$fname')\"><input id=\"select_$fname\" type=\"radio\" name=\"username\" value=\"$fname\"> $fname</a>\n";
+				}
+				?>
+			<script>
+			function selectSelectOption(selectid) {
+				document.getElementById(selectid).checked = true;
+			}
+			</script>
+			</div></form>
 		</div>
 
 		<!-- Groups Tab -->
@@ -156,7 +147,7 @@
 	</div>
 
 	<div id="addFriendModal" class="modal">
-        <form class="modal-content animate" method="post" action="user/addfriend.php">
+        <form class="modal-content animate" method="post" action="user/addremovefriend.php">
         <!-- CHANGE TO DB NEW USER -->
         <div class="container">
             <span onclick="document.getElementById('addFriendModal').style.display='none'"
