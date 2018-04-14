@@ -46,7 +46,7 @@ input, textarea, select {
 
 /* Style footer */
 .footer {
-   width: 100%;
+   width: 90%;
    text-align: left;
    background: var(--drkgrayblue);
    padding: 2px 5px;

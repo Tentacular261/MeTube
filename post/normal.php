@@ -1,8 +1,11 @@
 <head>
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="css/viewing.css">
+    <link rel="stylesheet" href="css/general.css">
 </head>
+
 <body>
+    <!-- Main Image Section -->
     <div class="main_image">
         <?php if ($type === "image") { ?>
             <img class="main" src="media/<?php echo $file; ?>">
@@ -17,11 +20,13 @@
                 Your browser does not support this audio element.
             </audio>
         <?php } ?>
-        <div class="title"><?php echo $title; ?></div><br>
-        <div class="user"><?php echo $uploader; ?></div><br>
+        <div class="title">" <?php echo $title; ?> "</div>
+        <div class="user">Uploaded by: <?php echo $uploader; ?></div>
         <div class="description"><?php echo $description; ?></div>
         <div class="download"><a href="media/<?php echo $file; ?>" download="<?php echo $title; ?>">Download</a></div>
     </div>
+
+    <!-- Comments Section -->
     <div class="comment_section">
         <?php if (isset($_SESSION['username'])) { ?>
             <form class="comment_form" method="post" action="post.php?id=<?php echo $_GET['id']; ?>">
@@ -39,5 +44,10 @@
                 <pre><?php echo $row['comment']; ?></pre>
             </div>
         <?php } ?>
+    </div>
+
+    <!-- Footer Content -->
+    <div class="footer">
+            <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan,  Sadie Sweetman</i></h6>
     </div>
 </body>

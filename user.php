@@ -22,11 +22,11 @@
 	<div class="userSocial">
 		<!-- Tab links -->
 		<div class="tab">
-		<button class="tablinks" onclick="openSocial(event, 'manageProfile')" id="defaultOpen">Manage Profile</button>
-		<button class="tablinks" onclick="openSocial(event, 'friends')">Friends</button>
-		<button class="tablinks" onclick="openSocial(event, 'subscriptions')">Subscriptions</button>
-		<button class="tablinks" onclick="openSocial(event, 'groups')">Groups</button>
-		<button class="tablinks" onclick="openSocial(event, 'subscriptions')">Chat</button>
+			<button class="tablinks" onclick="openSocial(event, 'manageProfile')" id="defaultOpen">Manage Profile</button>
+			<button class="tablinks" onclick="openSocial(event, 'friends')">Friends</button>
+			<button class="tablinks" onclick="openSocial(event, 'subscriptions')">Subscriptions</button>
+			<button class="tablinks" onclick="openSocial(event, 'groups')">Groups</button>
+			<button class="tablinks" onclick="openSocial(event, 'subscriptions')">Chat</button>
 		</div>
 
 		<!-- Tab content -->
