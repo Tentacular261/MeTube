@@ -16,7 +16,7 @@ if [ $(echo $USER) !=  "micah6" ]
 then
     echo "copy micah6"
     cp -rf /home/micah6/public_html/MeTube/media .
-    cp -rf /home/micah6/public_html/metube/user/profile_pictures .
+    cp -rf /home/micah6/public_html/MeTube/user/profile_pictures .
 fi
 
 chmod 755 media media/*
