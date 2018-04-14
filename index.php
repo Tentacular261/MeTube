@@ -115,9 +115,14 @@ include_once "navbar.php";
 					$MAIN_QUERY .= " AND EXISTS (SELECT * FROM keywords WHERE (keyword IN ($keywords_str)) AND keywords.media_id=media.id)";
 				}
 
-				if (!empty($_GET['user'])) {
+				if (!empty($_GET['user'])) { // select posts by this user
 					$un = $db->conn->real_escape_string($_GET['user']);
 					$MAIN_QUERY .= " AND uploaded_by='$un'";
+				}
+
+				if (!empty($_GET['category'])) { // select posts in this category
+					$un = $db->conn->real_escape_string($_GET['category']);
+					$MAIN_QUERY .= " AND category='$un'";
 				}
 				
 				// Add the result limit
