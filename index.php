@@ -62,12 +62,6 @@ include_once "navbar.php";
 									<input type="checkbox" name="image" checked>Images
 									<input type="checkbox" name="video" checked>Video
 									<input type="checkbox" name="audio" checked>Audio <br/>
-									Rating: </br>
-									<input type="checkbox" name="rating1" checked>1
-									<input type="checkbox" name="rating2" checked>2
-									<input type="checkbox" name="rating3" checked>3 
-									<input type="checkbox" name="rating4" checked>4 
-									<input type="checkbox" name="rating5" checked>5 </br>
 									Privacy: </br> 
 									<input type="checkbox" name="public" checked>Public               
 									<input type="checkbox" name="private" checked>Private
