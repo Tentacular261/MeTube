@@ -25,6 +25,8 @@
     if (!isset($_SESSION['username']))
         header('Location: login.php');
 
+    $target_file = $_FILES["new_profile_pic"]["tmp_name"];
+
     if (isset($_POST['upload'])) {
         if(!file_exists("profile_pictures/"))
             mkdir("profile_pictures/", 0755);
@@ -51,15 +53,15 @@
 			case 4:
 				$ErrorMessage = "UPLOAD_ERR_NO_FILE";
 			}
-        } else if (is_uploaded_file($_FILES["new_profile_pic"]["tmp_name"])) {
+        } else if (is_uploaded_file($target_file)) {
             $image_file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             $target_dir = "profile_pictures/";
-            $hash = md5_file($_FILES["new_profile_pic"]["tmp_name"]);
+            $hash = md5_file($target_file);
             $utime = time();
             $file_name = $utime . $hash . "." . $ext;
             $full_file_name = $target_dir . $file_name;
 
-            if (move_uploaded_file($_FILES["new_profile_pic"]["tmp_name"], $full_file_name)) {
+            if (move_uploaded_file($target_file, $full_file_name)) {
                 chmod($full_file_name, 0755);
 
                 // Use Zack's resize code to make picture the right size
@@ -76,10 +78,12 @@
                 del_old_profile_pic($db, $username);
                 $query = "UPDATE users SET picture=\"" . $file_name . "\" WHERE username=\"" . $username . "\"";
                 $db->custom_sql($query);
+
+                // return to user page
+                header('Location: '.$_POST['return']);
             } else
                 $ErrorMessage = "Problem uploading file";
 
-            header("Location: ../user.php");
         } else {
             $ErrorMessage = "Uploading the file failed.";
         }

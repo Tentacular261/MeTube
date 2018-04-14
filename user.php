@@ -42,10 +42,28 @@
 			<img src=<?php echo "\"" . $file . "\"" ?> alt="Profile picture"/> <br/>
 			<!-- TODO: Change action for change profile pic -->
 			<!-- temporary button -->
-			<form method="link" action="user/upload_profile_picture.php">
+			<!-- <form method="link" action="user/upload_profile_picture.php">
 				<input type="submit" id="profilePic" value="Update Profile Pic" />
-			</form>
-			<!-- <button type="button" id="profilePic">Update Profile Pic</button> -->
+			</form> -->
+			<button onclick="document.getElementById('proPicModal').style.display='block'" style="width:auto;">Update Profile Pic</button>
+
+			<div id="proPicModal" class="modal">
+				<form class="modal-content animate" action="user/upload_profile_picture.php" method="post" enctype="multipart/form-data">
+					<div class="closeContainer">
+						<span onclick="document.getElementById('proPicModal').style.display='none'" class="close" title="Close">&times;</span>
+						<h4>Update Profile Picture:</h4>
+					</div>
+
+					<div class="modalContainer">
+						<input type="hidden" name="MAX_FILE_SIZE" value="31457280" />
+			            <input type="file" name="new_profile_pic" id="new_profile_pic" required/>
+			            <br /><br />
+						<input type="hidden" name="return" value="<?php echo $returnto; ?>">
+			            <button type="submit" name="upload">Change Picture</button>
+					</div>
+				</form>
+			</div>
+
 			<button onclick="document.getElementById('passModal').style.display='block'" style="width:auto;">Change Password</button>
 
 			<div id="passModal" class="modal">
@@ -135,11 +153,14 @@
 	<!-- Modal script -->
 	<script>
 		// Get the modal
-		var modal = document.getElementById('passModal');
+		var passModal = document.getElementById('passModal');
+		var proPicModal = document.getElementById('proPicModal');
 
 		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function(event) {
-			if (event.target == modal) {
+			if (event.target == passModal) {
+				modal.style.display = "none";
+			} else if (event.target == proPicModal) {
 				modal.style.display = "none";
 			}
 		}
@@ -205,7 +226,6 @@
                xhr.send(formData);
          });
       }
-		// TODO: RETURN TO USER.PHP WHEN PASSWORD CHANGES -->
     </script>
 
 	<!-- Footer Content -->
