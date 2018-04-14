@@ -76,17 +76,17 @@
 		chmod('media/thumb',0755); // make sure the thumb folder has R access to the public
 
 		if ($_POST['title'] == "") {
-			$ErrorMessage = "Title Field Required";
+			$_SESSION['error_message'] = "Title Field Required";
 		} else if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
 			switch ($_FILES["file"]["error"]){
 			case 1:
-				$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
+				$_SESSION['error_message'] = "UPLOAD_ERR_INI_SIZE";
 			case 2:
-				$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
+				$_SESSION['error_message'] = "UPLOAD_ERR_FORM_SIZE";
 			case 3:
-				$ErrorMessage = "UPLOAD_ERR_PARTIAL";
+				$_SESSION['error_message'] = "UPLOAD_ERR_PARTIAL";
 			case 4:
-				$ErrorMessage = "UPLOAD_ERR_NO_FILE";
+				$_SESSION['error_message'] = "UPLOAD_ERR_NO_FILE";
 			}
 		} else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
 			$hash = md5_file($_FILES["file"]["tmp_name"]);
@@ -127,12 +127,15 @@
 				}
 
 				header("Location: index.php"); // TODO: change this to go to the media's page
+				exit;
 			} else {
-				$ErrorMessage = "Failed to move the file into the media directory of the server.";
+				$_SESSION['error_message'] = "Failed to move the file into the media directory of the server.";
 			}
 		} else {
-			$ErrorMessage = "Uploading the file failed.";
+			$_SESSION['error_message'] = "Uploading the file failed.";
 		}
+		header("Location: upload.php");
+		exit;
 	}
 
 	include_once "navbar.php";
@@ -223,7 +226,3 @@
 	</body>
 
 </html>
-
-<p>
-    <?php if (isset($ErrorMessage)) echo $ErrorMessage; // tell the user of any errors from the last attempted upload ?>
-</p>
