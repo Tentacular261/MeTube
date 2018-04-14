@@ -6,9 +6,9 @@ include_once "../database.php";
 
 if(isset($_POST['register'])) { // process POST data if it exists
     if($_POST['username'] == "" || $_POST['pass_1'] == "" || $_POST['pass_2'] == "") { // check if all feilds filled out
-        $register_error = "One or more fields are missing.";
+        $_SESSION['error_message'] = "One or more fields are missing.";
     } else if ($_POST['pass_1'] != $_POST['pass_2']) { // check for matching passwords
-        $register_error = "The passwords do not match.";
+        $_SESSION['error_message'] = "The passwords do not match.";
     } else {
         $db = new DatabaseConnection();
         $un = $db->conn->real_escape_string($_POST['username']);
@@ -18,14 +18,18 @@ if(isset($_POST['register'])) { // process POST data if it exists
         if (!$result) {
             die ("user_pass_check() failed. Could not query the database: <br />");
         } else if ($result->num_rows != 0) { // any results means username is unavailable
-            $register_error = "User ".$_POST['username']." already exists.";
+            $_SESSION['error_message'] = "User ".$_POST['username']." already exists.";
         } else {
-            // username checks out - insert it into the database.
-            // TODO: hash passwords (possibly before leaving client, that may require JS though, and if we are using JS for that then we could do a fancy realtime check for the two password feilds matching)
-            $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$un."','".$ps."')");
-            $_SESSION['username']=$_POST['username']; // log the user in
-            header('Location: '.$_POST['return']); // go back to the previous page
-            exit;
+            if (preg_match("/.*@.*\..*/",$_POST['username'])) { // check is username is following the correct format
+                // username checks out - insert it into the database.
+                // TODO: hash passwords (possibly before leaving client, that may require JS though, and if we are using JS for that then we could do a fancy realtime check for the two password feilds matching)
+                $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$un."','".$ps."')");
+                $_SESSION['username']=$_POST['username']; // log the user in
+                header('Location: '.$_POST['return']); // go back to the previous page
+                exit;
+            } else {
+                $_SESSION['error_message'] = "The username ".$_POST['username']." doesn't follow proper username format.";
+            }
         }
     }
 }

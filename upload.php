@@ -76,17 +76,17 @@
 		chmod('media/thumb',0755); // make sure the thumb folder has R access to the public
 
 		if ($_POST['title'] == "") {
-			$ErrorMessage = "Title Field Required";
+			$_SESSION['error_message'] = "Title Field Required";
 		} else if ($_FILES["file"]["error"] > 0) { // check if anything was wrong with the file upload
 			switch ($_FILES["file"]["error"]){
 			case 1:
-				$ErrorMessage = "UPLOAD_ERR_INI_SIZE";
+				$_SESSION['error_message'] = "UPLOAD_ERR_INI_SIZE";
 			case 2:
-				$ErrorMessage = "UPLOAD_ERR_FORM_SIZE";
+				$_SESSION['error_message'] = "UPLOAD_ERR_FORM_SIZE";
 			case 3:
-				$ErrorMessage = "UPLOAD_ERR_PARTIAL";
+				$_SESSION['error_message'] = "UPLOAD_ERR_PARTIAL";
 			case 4:
-				$ErrorMessage = "UPLOAD_ERR_NO_FILE";
+				$_SESSION['error_message'] = "UPLOAD_ERR_NO_FILE";
 			}
 		} else if (is_uploaded_file($_FILES["file"]["tmp_name"])) { // make sure this is the file that got uploaded
 			$hash = md5_file($_FILES["file"]["tmp_name"]);
@@ -127,12 +127,15 @@
 				}
 
 				header("Location: index.php"); // TODO: change this to go to the media's page
+				exit;
 			} else {
-				$ErrorMessage = "Failed to move the file into the media directory of the server.";
+				$_SESSION['error_message'] = "Failed to move the file into the media directory of the server.";
 			}
 		} else {
-			$ErrorMessage = "Uploading the file failed.";
+			$_SESSION['error_message'] = "Uploading the file failed.";
 		}
+		header("Location: upload.php");
+		exit;
 	}
 
 	include_once "navbar.php";
@@ -204,69 +207,6 @@
 			</div>
 		</div>
 
-		<div class="userContent">
-			<div class="userContentRow">
-				<div class="userContentCol">
-					<div class="main-search">
-						<form action="/action_page.php">   <!-- TODO: CHANGE TO GIVE RESULTS -->
-							<input type="text" placeholder="Search your media..." name="search">
-							<select id="category" name="category" />
-								<option value="" disabled selected>Filter by Category</option>
-								<option value="entertainment">Entertainment</option>
-								<option value="food">Food</option>
-								<option value="funny">Funny</option>
-								<option value="gaming">Gaming</option>
-								<option value="news">News & Politics</option>
-								<option value="people">People</option>
-								<option value="pets">Pets & Animals</option>
-								<option value="science">Science & Tech</option>
-								<option value="sports">Sports</option>
-								<option value="travel">Travel & Outdoors</option> </select>
-							<select id="lists" name="lists" />
-								<option value="" disabled selected>Filter by List</option>
-								<option value="favorites">Favorites </option>
-								<option value="haha">Haha (Example) </option>
-								<option value="rip">RIP (Example) </option> </select>
-
-							<!-- TODO: SEARCH BY FILE TYPE -->
-							File Type: 
-							<input type="checkbox" name="file" value="image" checked>Images
-							<input type="checkbox" name="file" value="video" checked>Video
-							<input type="checkbox" name="file" value="audio" checked>Audio <br/>
-							Rating:
-							<input type="checkbox" name="rating" value="1">1
-							<input type="checkbox" name="rating" value="2">2
-							<input type="checkbox" name="rating" value="3">3 
-							<input type="checkbox" name="rating" value="4">4 
-							<input type="checkbox" name="rating" value="5">5 </br>
-							Privacy:
-							<input type="checkbox" name="privacy" value="public" checked>Public               
-							<input type="checkbox" name="privacy" value="private" checked>Private
-							<input type="checkbox" name="privacy" value="contacts" checked>Friends <br/>
-
-							Uploaded: </br>
-							Between<input type="date" name="date">
-							And<input type="date" name="date">
-
-							<div class="userContentRow">
-								<div class="userContentCol">
-									<!-- TODO: NEW ACTION FOR SEARCH-->
-									<button type="submit" name="search">Search</button>
-								</div>
-								<div class="userContentCol">
-									<!-- TODO: NEW ACTION FOR RESET -->
-									<button type="submit" name="reset">Reset</button>
-								</div>
-							</div>
-                  </form>
-               </div>
-				</div>
-
-				<div class="userContentCol">
-				</div>
-			</div>
-		</div>
-
 		<!-- Footer Content -->
       <div class="footer">
             <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan,  Sadie Sweetman</i></h6>
@@ -286,7 +226,3 @@
 	</body>
 
 </html>
-
-<p>
-    <?php if (isset($ErrorMessage)) echo $ErrorMessage; // tell the user of any errors from the last attempted upload ?>
-</p>
