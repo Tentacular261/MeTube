@@ -64,7 +64,9 @@
 				while ($friend = $friends->fetch_array()) {
 					// TODO: fix bug that allows the user '; to break the javascript
 					$fname = $friend['friend'];
-					echo "<a href=\"javascript:selectSelectOption('select_$fname')\"><input id=\"select_$fname\" type=\"radio\" name=\"username\" value=\"$fname\"> $fname</a>\n";
+					echo "<a href=\"javascript:selectSelectOption('select_$fname')\">"
+							."<input id=\"select_$fname\" type=\"radio\" name=\"username\" value=\"$fname\"> $fname"
+						."</a>\n";
 				}
 				?>
 			<script>
