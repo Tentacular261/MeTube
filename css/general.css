@@ -46,6 +46,9 @@ input, textarea, select {
 
 /* Style footer */
 .footer {
+   position: absolute;
+   bottom: 0;
+   height: 55px;
    width: 90%;
    text-align: left;
    background: var(--drkgrayblue);

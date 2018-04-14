@@ -24,12 +24,12 @@
 		<div class="tab">
 			<button class="tablinks" onclick="openSocial(event, 'manageProfile')" id="defaultOpen">Manage Profile</button>
 			<button class="tablinks" onclick="openSocial(event, 'friends')">Friends</button>
-			<button class="tablinks" onclick="openSocial(event, 'subscriptions')">Subscriptions</button>
 			<button class="tablinks" onclick="openSocial(event, 'groups')">Groups</button>
-			<button class="tablinks" onclick="openSocial(event, 'subscriptions')">Chat</button>
+			<button class="tablinks" onclick="openSocial(event, 'playlists')">Playlists</button>
+			<button class="tablinks" onclick="openSocial(event, 'chat')">Chat</button>
 		</div>
 
-		<!-- Tab content -->
+		<!-- Manage Profile Tab -->
 		<div id="manageProfile" class="tabcontent">
 			<?php
 			    $db = new DatabaseConnection();
@@ -51,6 +51,7 @@
 			
 		</div>
 
+		<!-- Friends Tab -->
 		<div id="friends" class="tabcontent">
 			<button type="button" id="addFriend" onclick="document.getElementById('addFriendModal').style.display='block'">Add</button>
 			<button type="button" id="deleteFriend" onclick="/deleteFriend">Delete</button>
@@ -83,18 +84,7 @@
 			</div>
 		</div>
 
-		<div id="subscriptions" class="tabcontent">
-			<button type="button" id="addSub" onclick="/addSubModal">Subscribe</button>
-			<button type="button" id="deleteSub" onclick="/deleteSub">Unsubscribe</button>
-
-			<div class="vertical-menu">
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
-			</div>
-		</div>
-
+		<!-- Groups Tab -->
 		<div id="groups" class="tabcontent">
 			<button type="button" id="addGroup" onclick="/addGroupModal">Create Group</button>
 			<button type="button" id="addGroupFriend" onclick="/addGroupFriendModal">Add To Group</button>
@@ -112,6 +102,20 @@
 			</div>
 		</div>
 
+		<!-- Playlists Tab -->
+		<div id="playlists" class="tabcontent">
+			<button type="button" id="addPlay" onclick="/addSubModal">New Playlist</button>
+			<button type="button" id="deletePlay" onclick="/deleteSub">Delete Playlist</button>
+
+			<div class="vertical-menu">
+			<a href="#">Link 1</a>
+			<a href="#">Link 2</a>
+			<a href="#">Link 3</a>
+			<a href="#">Link 4</a>
+			</div>
+		</div>
+
+		<!-- Chat Tab -->
 		<div id="chat" class="tabcontent">
 			<p>This is where we put chat shit.</p>
 		</div>
