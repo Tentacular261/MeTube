@@ -9,6 +9,10 @@ session_start();
 include_once "database.php";
 
 include_once "navbar.php";
+
+$db = new DatabaseConnection();
+
+$user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SESSION['username']);
 ?>
 
     <head>
@@ -50,13 +54,17 @@ include_once "navbar.php";
 										<option value="science">Science & Tech</option>
 										<option value="sports">Sports</option>
 										<option value="travel">Travel & Outdoors</option> </select>
+									<?php if (!empty($_SESSION['username'])) { ?>
 									<select id="lists" name="lists" />
-									<!-- TODO: Fill in the lists from the user's lists -->
 										<option value="" disabled selected>Filter by List</option>
-										<option value="favorites">Favorites </option>
-										<option value="haha">Haha (Example) </option>
-										<option value="rip">RIP (Example) </option> </select>
-
+										<?php
+										$lists = $db->custom_sql("SELECT DISTINCT list FROM playlists WHERE user='$user'");
+										while ($list = $lists->fetch_array()) {
+											$lname = $list['list'];
+											echo "<option value=\"$lname\">$lname</option>\n";
+										}
+									}
+									?>
 									<!-- TODO: SEARCH BY FILE TYPE -->
 									File Type: </br>
 									<input type="checkbox" name="image" checked>Images
@@ -85,8 +93,6 @@ include_once "navbar.php";
             <!-- Media Container -->
             <div class="media-col">
                 <?php
-				$db = new DatabaseConnection();
-
 				$post_count = 25;
 
 				$page_number = 1;
@@ -123,6 +129,11 @@ include_once "navbar.php";
 				if (!empty($_GET['category'])) { // select posts in this category
 					$un = $db->conn->real_escape_string($_GET['category']);
 					$MAIN_QUERY .= " AND category='$un'";
+				}
+
+				if (!empty($_GET['lists'])) { // select posts in this category
+					$list = $db->conn->real_escape_string($_GET['lists']);
+					$MAIN_QUERY .= " AND EXISTS (SELECT * FROM playlists WHERE user='$user' AND list='$list' AND playlists.media_id=media.id)";
 				}
 				
 				// Add the result limit
@@ -175,6 +186,7 @@ include_once "navbar.php";
         </div>
 
 		  <script>
+		  console.log("<?php echo $MAIN_QUERY; ?>");
 			/* Script to collapse advanced search menu */  
 			function toggleAdvSearch() {
 				var content = document.getElementById("advSearchContent");
