@@ -42,9 +42,12 @@
                 <button type="submit" name="addtolist">Add</button>
             </form>
         </div>
+        <?php if ($user == $uploader) { ?>
         <div class="download">
         <a href="javascript:void(0);" onclick="document.getElementById('editpost').style.display='block'">Edit</a>
+        <a href="javascript:void(0);" onclick="document.getElementById('deletepost').style.display='block'">Delete</a>
         </div>
+        <?php } ?>
     </div>
 
     <!-- Comments Section -->
@@ -67,7 +70,7 @@
         <?php } ?>
     </div>
 
-    <?php if ($user == $uploader) include "post/edit.php"; ?>
+    <?php if ($user == $uploader) include "post/edit.php"; include "post/delete.php"; ?>
 
     <!-- Footer Content -->
     <div class="footer">
