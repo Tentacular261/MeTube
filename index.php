@@ -33,7 +33,7 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
             <!-- Search Bar -->
             <div class="search-col">
                 <div class="main-search">
-						<form method="get" action="index.php">   <!-- TODO: CHANGE TO GIVE RESULTS -->
+						<form id="searchform" method="get" action="index.php" onsubmit="Invertchecks(this); return false;">   <!-- TODO: CHANGE TO GIVE RESULTS -->
 							<input type="text" placeholder="Search" name="keywords">
 
 							<!-- Advanced Search Collapsible Menu -->
@@ -73,7 +73,7 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 									Privacy: </br> 
 									<input type="checkbox" name="public" checked>Public               
 									<input type="checkbox" name="private" checked>Private
-									<input type="checkbox" name="contacts" checked>Friends <br/></br>
+									<input type="checkbox" name="friend" checked>Friends <br/></br>
 
 									Uploaded: </br>
 									<input type="date" name="startdate">
@@ -86,7 +86,15 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 							<!-- TODO: NEW ACTION FOR SEARCH-->
 							<input type="submit" name="search" value="Search" />
 
-                  </form>
+						</form>
+					<script>
+						function Invertchecks(obj) { // oh my god it finally worked!
+							for(var i=0; i<obj.length; i++) {
+								obj.elements[i].checked=!obj.elements[i].checked;
+							}
+							obj.submit();
+						}
+					</script>
                 </div>
             </div>
 
@@ -134,6 +142,30 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 				if (!empty($_GET['lists'])) { // select posts in this category
 					$list = $db->conn->real_escape_string($_GET['lists']);
 					$MAIN_QUERY .= " AND EXISTS (SELECT * FROM playlists WHERE user='$user' AND list='$list' AND playlists.media_id=media.id)";
+				}
+
+				if (!empty($_GET['image'])) {
+					$MAIN_QUERY .= " AND type<>'image'";
+				}
+
+				if (!empty($_GET['video'])) {
+					$MAIN_QUERY .= " AND type<>'video'";
+				}
+
+				if (!empty($_GET['audio'])) {
+					$MAIN_QUERY .= " AND type<>'audio'";
+				}
+
+				if (!empty($_GET['public'])) {
+					$MAIN_QUERY .= " AND privacy<>'public'";
+				}
+
+				if (!empty($_GET['friend'])) {
+					$MAIN_QUERY .= " AND privacy<>'friend'";
+				}
+
+				if (!empty($_GET['private'])) {
+					$MAIN_QUERY .= " AND privacy<>'private'";
 				}
 				
 				// Add the result limit
@@ -186,7 +218,6 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
         </div>
 
 		  <script>
-		  console.log("<?php echo $MAIN_QUERY; ?>");
 			/* Script to collapse advanced search menu */  
 			function toggleAdvSearch() {
 				var content = document.getElementById("advSearchContent");
