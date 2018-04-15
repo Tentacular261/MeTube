@@ -41,6 +41,10 @@ input, textarea, select {
    display: inline-block;
    box-sizing: border-box;
    border-radius: 4px;
+   color: black;
+}
+
+input::placeholder, textarea::placeholder, select::placeholder {
    color: var(--midgray);
 }
 
