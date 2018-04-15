@@ -13,6 +13,10 @@ if (empty($_GET['list'])) { // stop if there is no way to see things
     echo "There are missing arguments for viewing this page.";
     exit;
 }
+$returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+$user = $db->conn->real_escape_string($_SESSION['username']);
+$list = $db->conn->real_escape_string($_GET['list']);
 ?>
 <head>
     <link rel="stylesheet" href="css/playlist.css">
@@ -21,9 +25,12 @@ if (empty($_GET['list'])) { // stop if there is no way to see things
 </head>
 <body style="padding: 0px">
 <div class="message_section">
+    <form class="message_form" method="post" action="user/clearplaylist.php">
+        <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+        <input type="hidden" name="listname" value="<?php echo $list ?>">
+        <button class="message_button" type="submit" name="clearlist">Clear Playlist</button>
+    </form>
     <?php
-    $user = $db->conn->real_escape_string($_SESSION['username']);
-    $list = $db->conn->real_escape_string($_GET['list']);
     
     $result = $db->custom_sql("SELECT id,file,type,title,uploaded_by FROM ((SELECT media_id FROM playlists WHERE user='$user' AND list='$list' AND l_index>0 ORDER BY l_index) as list) JOIN media ON list.media_id=media.id");
 
