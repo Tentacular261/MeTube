@@ -148,6 +148,7 @@
 
 	<head>
 		<title>Upload</title>
+		<link rel="shortcut icon" href="assets/metubeIcon.png" type="image/x-icon">
 		<link rel="stylesheet" href="css/general.css">
 		<link rel="stylesheet" href="css/upload.css">
 	</head>

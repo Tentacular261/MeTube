@@ -1,5 +1,6 @@
 <head>
     <title><?php echo $title; ?></title>
+    <link rel="shortcut icon" href="assets/metubeIcon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/viewing.css">
     <link rel="stylesheet" href="css/general.css">
 </head>

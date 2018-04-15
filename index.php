@@ -17,6 +17,7 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 
     <head>
         <title>Team14 MeTube</title>
+		<link rel="shortcut icon" href="assets/metubeIcon.png" type="image/x-icon">
 		<link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/browsing.css">
     </head>
