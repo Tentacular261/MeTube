@@ -99,7 +99,7 @@
 															+ encodeURIComponent(selectid);
 			}
 			</script>
-			<iframe id="list-window" class="vertical-menu" src="" frameBorder="0"></iframe>
+			<iframe id="list-window" class="vertical-menu" src="" frameBorder="0" onload="resizeIframe(this)"></iframe>
 		</div>
 
 		<!-- Chat Tab -->
@@ -129,7 +129,7 @@
 															+ encodeURIComponent(selectid);
 			}
 			</script>
-			<iframe id="chat-window" class="vertical-menu" src="" frameBorder="0"></iframe>
+			<iframe id="chat-window" class="vertical-menu" src="" frameBorder="0" onload="resizeIframe(this)"></iframe>
 		</div>
 	</div>
 
@@ -272,6 +272,35 @@
 		document.getElementById(socialTab).style.display = "block";
 		if (socialTab == "chat" || socialTab == "playlists") document.getElementById(socialTab).style.display = "flex";
 		evt.currentTarget.className += " active";
+		}
+	</script>
+
+	<!-- resize iframe script -->
+	<script>
+		function resizeIframe(frame) {
+			frame.style.height = "0px";
+			
+			var parent = frame.parentElement;
+			var padding = parseInt(window.getComputedStyle(parent, null).getPropertyValue('padding-top'))
+						+ parseInt(window.getComputedStyle(parent, null).getPropertyValue('padding-bottom'));
+			var elemH = parent.scrollHeight - padding;
+			var bodyH = document.documentElement.scrollHeight
+			var windH = window.innerHeight;
+			var vpad = (bodyH - elemH);
+			var maxH = Math.max(windH-vpad,elemH);
+			console.log('START NEW');
+			console.log(padding);
+			console.log('elemH ' + elemH);
+			console.log('bodyH ' + bodyH);
+			console.log('windH ' + windH);
+			console.log('vpad ' + vpad);
+			console.log('maxH ' + maxH);
+			
+			var contH = frame.contentWindow.document.documentElement.getElementsByTagName('body')[0].scrollHeight
+			console.log('contH ' + contH);
+
+			frame.style.height = Math.min(maxH,contH) + 'px';
+			console.log('height ' + frame.style.height);
 		}
 	</script>
 
