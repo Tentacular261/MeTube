@@ -20,7 +20,7 @@
                 Your browser does not support this audio element.
             </audio>
         <?php } ?>
-        <div class="title">" <?php echo $title; ?> "</div>
+        <div class="title"><?php echo $title; ?></div>
         <div class="user">Uploaded by: <?php echo $uploader; ?></div>
         <div class="description"><?php echo $description; ?></div>
         <div class="download"><a href="media/<?php echo $file; ?>" download="<?php echo $title; ?>">Download</a></div>
