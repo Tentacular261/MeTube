@@ -25,7 +25,7 @@ if (empty($_GET['list'])) { // stop if there is no way to see things
     $user = $db->conn->real_escape_string($_SESSION['username']);
     $list = $db->conn->real_escape_string($_GET['list']);
     
-    $result = $db->custom_sql("SELECT file,type,title,uploaded_by FROM ((SELECT media_id FROM playlists WHERE user='$user' AND list='$list' AND l_index>0 ORDER BY l_index) as list) JOIN media ON list.media_id=media.id");
+    $result = $db->custom_sql("SELECT id,file,type,title,uploaded_by FROM ((SELECT media_id FROM playlists WHERE user='$user' AND list='$list' AND l_index>0 ORDER BY l_index) as list) JOIN media ON list.media_id=media.id");
 
     while ($row = $result->fetch_array()) {
         $title = $row['title'];
@@ -35,7 +35,7 @@ if (empty($_GET['list'])) { // stop if there is no way to see things
                         ? preg_replace('/.[^.]*$/', '', $row['file']).".png"
                         : "../../assets/AUDIOTHING.png");
         ?>
-        <div class="message_flexwrapper">
+        <a href="post.php?id=<?php echo $row['id']; ?>" target="_parent" class="message_flexwrapper">
             <div class="message_img">
                 <img src="media/thumb/<?php echo $thumb; ?>" alt="<?php echo $title; ?>"/>
             </div>
@@ -44,7 +44,7 @@ if (empty($_GET['list'])) { // stop if there is no way to see things
                 <br>
                 <pre><?php echo $row['uploaded_by']; ?></pre>
             </div>
-        </div>
+        </a>
     <?php } ?>
 </div>
 </body>
