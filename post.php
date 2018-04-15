@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) header("Location: index.php"); // go back to the index 
 $db = new DatabaseConnection();
 $getting = $db->conn->real_escape_string($_GET['id']);
 $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SESSION['username']);
-$result = $db->custom_sql("SELECT id,file,title,type,description,privacy,uploaded_by,friend FROM media LEFT JOIN (SELECT * FROM friends WHERE friend='$user') AS fre ON media.uploaded_by=fre.user WHERE id = \"".$getting."\"");
+$result = $db->custom_sql("SELECT id,file,title,type,category,description,privacy,uploaded_by,friend FROM media LEFT JOIN (SELECT * FROM friends WHERE friend='$user') AS fre ON media.uploaded_by=fre.user WHERE id = \"".$getting."\"");
 
 if ($result->num_rows != 1) {
     include_once 'navbar.php';
@@ -19,6 +19,7 @@ if ($result->num_rows != 1) {
     
     $id          = $row['id'];
     $type        = $row['type'];
+    $category    = $row['category'];
     $file        = $row['file'];
     $title       = $row['title'];
     $description = $row['description'];

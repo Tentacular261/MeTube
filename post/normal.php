@@ -42,6 +42,9 @@
                 <button type="submit" name="addtolist">Add</button>
             </form>
         </div>
+        <div class="download">
+        <a href="javascript:void(0);" onclick="document.getElementById('editpost').style.display='block'">Edit</a>
+        </div>
     </div>
 
     <!-- Comments Section -->
@@ -63,6 +66,8 @@
             </div>
         <?php } ?>
     </div>
+
+    <?php if ($user == $uploader) include "post/edit.php"; ?>
 
     <!-- Footer Content -->
     <div class="footer">
