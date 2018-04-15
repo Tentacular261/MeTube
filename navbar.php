@@ -1,5 +1,8 @@
 <?php
 $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+include_once "database.php";
+$dbnav = new DatabaseConnection();
+$user = (empty($_SESSION['username'])) ? "" : $dbnav->conn->real_escape_string($_SESSION['username']);
 ?>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +17,14 @@ $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
     <div class="topnav" id="myTopnav">
         <a class="user" href="user.php" top="true"> <!--TODO: create the user account control page -->
-            <img src="https://cdn.iconscout.com/public/images/icon/free/png-512/avatar-user-teacher-312a499a08079a12-512x512.png"/>
+            <img src="<?php
+            if ($user == "")
+                echo "https://cdn.iconscout.com/public/images/icon/free/png-512/avatar-user-teacher-312a499a08079a12-512x512.png";
+            else {
+                $ret = $dbnav->custom_sql("SELECT picture FROM users WHERE username='$user'")->fetch_array()['picture'];
+                echo "user/profile_pictures/$ret";
+            }
+            ?>"/>
             <!-- TODO: CHANGE FOR UNIQUE USER AVATAR -->
             <span>Welcome <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : "Guest" ?></span>
         </a>
