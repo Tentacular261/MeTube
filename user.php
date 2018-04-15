@@ -24,7 +24,6 @@
 		<div class="tab">
 			<button class="tablinks" onclick="openSocial(event, 'manageProfile')" id="defaultOpen">Manage Profile</button>
 			<button class="tablinks" onclick="openSocial(event, 'friends')">Friends</button>
-			<button class="tablinks" onclick="openSocial(event, 'groups')">Groups</button>
 			<button class="tablinks" onclick="openSocial(event, 'playlists')">Playlists</button>
 			<button class="tablinks" onclick="openSocial(event, 'chat')">Chat</button>
 		</div>
@@ -77,35 +76,30 @@
 			</div></form>
 		</div>
 
-		<!-- Groups Tab -->
-		<div id="groups" class="tabcontent">
-			<button type="button" id="addGroup" onclick="/addGroupModal">Create Group</button>
-			<button type="button" id="addGroupFriend" onclick="/addGroupFriendModal">Add To Group</button>
-			<button type="button" id="deleteGroupFriend" onclick="/deleteGroupFriend">Remove From Group</button>
-			<button type="botton" id="deleteGroup" onclick="/deleteGroup">Delete Group</button>
-
-			<div class="vertical-menu">
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
-			<a href="#">Link 1</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
-			</div>
-		</div>
-
 		<!-- Playlists Tab -->
 		<div id="playlists" class="tabcontent">
-			<button type="button" id="addPlay" onclick="/addSubModal">New Playlist</button>
-			<button type="button" id="deletePlay" onclick="/deleteSub">Delete Playlist</button>
-
-			<div class="vertical-menu">
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-			<a href="#">Link 4</a>
-			</div>
+			<form class="vertical-menu left" method="post" action="user/addremoveplaylist.php">
+				<button type="button" id="addlist" onclick="document.getElementById('addListModal').style.display='block'">New Playlist</button>
+				<button type="submit" id="deletelist" name="deletelist">Delete Playlist</button>
+				<input type="hidden" name="return" value="<?php echo $returnto; ?>">
+				<?php
+				$lists = $db->custom_sql("SELECT DISTINCT list FROM playlists WHERE user='$username'");
+				while ($list = $lists->fetch_array()) {
+					$lname = $list['list'];
+					echo "<a href=\"javascript:selectListOption('$lname')\">"
+							."<input id=\"list_select_$lname\" type=\"radio\" name=\"listname\" value=\"$lname\"> $lname"
+						."</a>\n";
+				}
+				?>
+			</form>
+			<script>
+			function selectListOption(selectid) {
+				document.getElementById('list_select_' + selectid).checked = true;
+				document.getElementById('list-window').src = "playlist.php?list="
+															+ encodeURIComponent(selectid);
+			}
+			</script>
+			<iframe id="list-window" class="vertical-menu" src="" frameBorder="0"></iframe>
 		</div>
 
 		<!-- Chat Tab -->
@@ -219,6 +213,30 @@
             </div>
         </div>
         </form>
+	</div>
+	
+	<div id="addListModal" class="modal">
+        <form class="modal-content animate" method="post" action="user/addremoveplaylist.php">
+        <!-- CHANGE TO DB NEW USER -->
+        <div class="container">
+            <span onclick="document.getElementById('addListModal').style.display='none'"
+            class="close" title="Close">&times;</span>
+            <h1>Add New Playlist</h1>
+            <hr>
+            <label for="listname"><b>Playlist Name</b></label>
+            <input type="text" placeholder="Enter Playlist Name"
+            name="listname" required />
+            
+            <div class="clearfix">
+                <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+                <button type="button" onclick="document.getElementById('addListModal').style.display='none'"
+                class="cancelbtn">
+                Cancel
+                </button>
+                <button name="addlist" type="submit" class="registerbtn">Add</button>
+            </div>
+        </div>
+        </form>
     </div>
 
 	<!-- Modal script -->
@@ -252,7 +270,7 @@
 
 		// Show the current tab, and add an "active" class to the button that opened the tab
 		document.getElementById(socialTab).style.display = "block";
-		if (socialTab == "chat") document.getElementById(socialTab).style.display = "flex";
+		if (socialTab == "chat" || socialTab == "playlists") document.getElementById(socialTab).style.display = "flex";
 		evt.currentTarget.className += " active";
 		}
 	</script>
