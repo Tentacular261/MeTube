@@ -23,7 +23,24 @@
         <div class="title"><?php echo $title; ?></div>
         <div class="user">Uploaded by: <?php echo $uploader; ?></div>
         <div class="description"><?php echo $description; ?></div>
-        <div class="download"><a href="media/<?php echo $file; ?>" download="<?php echo $title; ?>">Download</a></div>
+        <div class="download">
+            <a href="media/<?php echo $file; ?>" download="<?php echo $title; ?>">Download</a>
+            <form method="post" action="user/addtoplaylist.php">
+                <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+                <input type="hidden" name="media_id" value="<?php echo $id; ?>">
+                <select name="listname">
+                    <option value="" disabled selected>Add to List</option>
+                    <?php
+                    $lists = $db->custom_sql("SELECT DISTINCT list FROM playlists WHERE user='$user'");
+                    while ($list = $lists->fetch_array()) {
+                        $lname = $list['list'];
+                        echo "<option value=\"$lname\">$lname</option>\n";
+                    }
+                    ?>
+                </select>
+                <button type="submit" name="addtolist">Add</button>
+            </form>
+        </div>
     </div>
 
     <!-- Comments Section -->
