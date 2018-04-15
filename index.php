@@ -167,6 +167,16 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 				if (!empty($_GET['private'])) {
 					$MAIN_QUERY .= " AND privacy<>'private'";
 				}
+
+				if (!empty($_GET['startdate'])) {
+					$tms = strtotime($_GET['startdate']);
+					$MAIN_QUERY .= " AND date>='$tms'";
+				}
+
+				if (!empty($_GET['enddate'])) {
+					$tms = strtotime($_GET['enddate']);
+					$MAIN_QUERY .= " AND date<='$tms'";
+				}
 				
 				// Add the result limit
 				$MAIN_QUERY .= " ORDER BY date DESC LIMIT $post_count OFFSET $query_offset;";
