@@ -64,13 +64,13 @@
 				while ($friend = $friends->fetch_array()) {
 					// TODO: fix bug that allows the user '; to break the javascript
 					$fname = $friend['friend'];
-					echo "<a href=\"javascript:selectSelectOption('select_$fname')\">"
-							."<input id=\"select_$fname\" type=\"radio\" name=\"username\" value=\"$fname\"> $fname"
+					echo "<a href=\"javascript:selectFriendOption('friend_select_$fname')\">"
+							."<input id=\"friend_select_$fname\" type=\"radio\" name=\"username\" value=\"$fname\"> $fname"
 						."</a>\n";
 				}
 				?>
 			<script>
-			function selectSelectOption(selectid) {
+			function selectFriendOption(selectid) {
 				document.getElementById(selectid).checked = true;
 			}
 			</script>
@@ -110,7 +110,32 @@
 
 		<!-- Chat Tab -->
 		<div id="chat" class="tabcontent">
-			<p>This is where we put chat shit.</p>
+			<form class="vertical-menu left" method="post" action="user/addremovechat.php">
+				<button type="button" id="addchat" onclick="document.getElementById('addChatModal').style.display='block'">New Chat</button>
+				<button type="submit" id="deletechat" name="deletechat">Delete Chat</button>
+				<input type="hidden" name="return" value="<?php echo $returnto; ?>">
+				<?php
+				$chats = $db->custom_sql("SELECT DISTINCT user1,user2 FROM messages WHERE user1='$username' OR user2='$username'");
+				while ($chat = $chats->fetch_array()) {
+					// TODO: fix bug that allows the user '; to break the javascript
+					$otherUser = ($chat['user1'] == $_SESSION['username']) ? $chat['user2'] : $chat['user1'];
+					echo "<a href=\"javascript:selectChatOption('$otherUser')\">"
+							."<input id=\"chat_select_$otherUser\" type=\"radio\" name=\"username\" value=\"$otherUser\"> $otherUser"
+						."</a>\n";
+				}
+				?>
+			</form>
+			<script>
+			function selectChatOption(selectid) {
+				document.getElementById('chat_select_' + selectid).checked = true;
+				var user1 = "<?php echo $_SESSION['username']; ?>";
+				document.getElementById('chat-window').src = "chat.php?user1="
+															+ encodeURIComponent(user1)
+															+ "&user2="
+															+ encodeURIComponent(selectid);
+			}
+			</script>
+			<iframe id="chat-window" class="vertical-menu" src="" frameBorder="0"></iframe>
 		</div>
 	</div>
 
@@ -162,11 +187,35 @@
             
             <div class="clearfix">
                 <input type="hidden" name="return" value="<?php echo $returnto; ?>">
-                <button type="button" onclick="document.getElementById('register').style.display='none'"
+                <button type="button" onclick="document.getElementById('addFriendModal').style.display='none'"
                 class="cancelbtn">
                 Cancel
                 </button>
                 <button name="addfriend" type="submit" class="registerbtn">Add</button>
+            </div>
+        </div>
+        </form>
+	</div>
+	
+	<div id="addChatModal" class="modal">
+        <form class="modal-content animate" method="post" action="user/addremovechat.php">
+        <!-- CHANGE TO DB NEW USER -->
+        <div class="container">
+            <span onclick="document.getElementById('addChatModal').style.display='none'"
+            class="close" title="Close">&times;</span>
+            <h1>Add Chat With User</h1>
+            <hr>
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username To Chat With"
+            name="username" required />
+            
+            <div class="clearfix">
+                <input type="hidden" name="return" value="<?php echo $returnto; ?>">
+                <button type="button" onclick="document.getElementById('addChatModal').style.display='none'"
+                class="cancelbtn">
+                Cancel
+                </button>
+                <button name="addchat" type="submit" class="registerbtn">Add</button>
             </div>
         </div>
         </form>
@@ -203,6 +252,7 @@
 
 		// Show the current tab, and add an "active" class to the button that opened the tab
 		document.getElementById(socialTab).style.display = "block";
+		if (socialTab == "chat") document.getElementById(socialTab).style.display = "flex";
 		evt.currentTarget.className += " active";
 		}
 	</script>
