@@ -9,6 +9,7 @@ $user = (empty($_SESSION['username'])) ? "" : $dbnav->conn->real_escape_string($
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/navbar.css">
 </head>
+
 <body>
     <form id="logout" class="modal" method="post" action="user/logout.php">
         <input type="hidden" name="return" value="<?php echo $returnto; ?>">

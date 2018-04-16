@@ -21,7 +21,7 @@
 
 <body>
 	<div class="userSocial">
-		<!-- Tab links -->
+		<!-- Tab Links -->
 		<div class="tab">
 			<button class="tablinks" onclick="openSocial(event, 'manageProfile')" id="defaultOpen">Manage Profile</button>
 			<button class="tablinks" onclick="openSocial(event, 'friends')">Friends</button>
@@ -134,6 +134,7 @@
 		</div>
 	</div>
 
+	<!-- Change Profile Pic Modal -->
 	<div id="proPicModal" class="modal">
 		<form class="modal-content animate" action="user/upload_profile_picture.php" method="post" enctype="multipart/form-data">
 			<div class="closeContainer">
@@ -151,6 +152,7 @@
 		</form>
 	</div>
 
+	<!-- Change Password Modal -->
 	<div id="passModal" class="modal">
 		<!-- TODO: Change action of change password -->
 		<form class="modal-content animate" method="post" action="user/changepassword.php">
@@ -168,6 +170,7 @@
 		</form>
 	</div>
 
+	<!-- Add Friend Modal -->
 	<div id="addFriendModal" class="modal">
         <form class="modal-content animate" method="post" action="user/addremovefriend.php">
         <!-- CHANGE TO DB NEW USER -->
@@ -192,6 +195,7 @@
         </form>
 	</div>
 	
+	<!-- Add Chat Modal -->
 	<div id="addChatModal" class="modal">
         <form class="modal-content animate" method="post" action="user/addremovechat.php">
         <!-- CHANGE TO DB NEW USER -->
@@ -216,6 +220,7 @@
         </form>
 	</div>
 	
+	<!-- Add List Modal -->
 	<div id="addListModal" class="modal">
         <form class="modal-content animate" method="post" action="user/addremoveplaylist.php">
         <!-- CHANGE TO DB NEW USER -->
@@ -240,7 +245,7 @@
         </form>
     </div>
 
-	<!-- Modal script -->
+	<!-- Modal Script -->
 	<script>
 		// add the modals to the close list
 		modal_boxes.push(document.getElementById('passModal'));
@@ -276,7 +281,7 @@
 		}
 	</script>
 
-	<!-- resize iframe script -->
+	<!-- Resize iframe Script -->
 	<script>
 		function resizeIframe(frame) {
 			frame.style.height = "0px";
@@ -307,7 +312,7 @@
 
 	<!-- Footer Content -->
 	<div class="footer">
-        <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan,  Sadie Sweetman</i></h6>
+        <h6><b>CPSC 4620-001 Spring 2018</b><br><i>Micah Johnson, Zackary Sullivan, Sadie Sweetman</i></h6>
     </div>
 
 </body>
