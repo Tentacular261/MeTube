@@ -58,6 +58,7 @@ body {
     width: 49px;
     height: 49px;
     padding: 10px;
+    border-radius: 50%;
  }
 
 /* User Greeting */
