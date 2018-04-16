@@ -2,10 +2,6 @@
 <html>
 
 <?php
-// these two lines are needed at the start of each page
-session_save_path("session");
-session_start();
-
 include_once "database.php";
 
 include_once "navbar.php";

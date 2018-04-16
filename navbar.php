@@ -1,4 +1,11 @@
 <?php
+if(!file_exists('session/')) // create media folder if it doesn't exist
+    mkdir('session/',0755);
+chmod('session/',0755); // make sure the media folder has R access to the public
+// these two lines are needed at the start of each page
+session_save_path("session");
+session_start();
+
 $returnto = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 include_once "database.php";
 $dbnav = new DatabaseConnection();
