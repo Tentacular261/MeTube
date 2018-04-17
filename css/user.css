@@ -155,3 +155,17 @@ span.psw {
     }
 }
 /****************End Modal CSS***************/
+
+.specialLink a:link, a:visited {
+    background-color: var(--purple);
+    color: var(--ltgray);
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 3px;
+}
+
+.specialLink a:hover, a:active {
+    color: var(--orange);
+}

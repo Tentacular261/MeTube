@@ -48,6 +48,11 @@
 			<button onclick="document.getElementById('proPicModal').style.display='block'" style="width:auto;">Update Profile Pic</button>
 
 			<button onclick="document.getElementById('passModal').style.display='block'" style="width:auto;">Change Password</button>
+
+			<?php $direct['user'] = $_SESSION["username"]; ?>
+			<div class="specialLink">
+				<a href="index.php?<?php echo http_build_query($direct); ?>">Manage Channel Posts</a>
+			</div>
 			
 		</div>
 
