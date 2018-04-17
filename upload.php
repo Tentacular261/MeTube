@@ -180,20 +180,10 @@
 							<option value="science">Science & Tech</option>
 							<option value="sports">Sports</option>
 							<option value="travel">Travel & Outdoors</option> </select>
-						<!-- TODO: NEW LISTS -->
-						<select id="lists" name="lists" />
-							<option value="" disabled selected>Add to List</option>
-							<option value="createList">Create New List... </options>
-							<option value="favorites">Favorites </option>
-							<option value="haha">Haha (Example) </option>
-							<option value="rip">RIP (Example) </option> </select>
 
 						<input type="radio" name="privacy" value="public" checked>Public               
 						<input type="radio" name="privacy" value="private">Private
 						<input type="radio" name="privacy" value="friend">Friends <br/>
-
-						<!-- TODO: NEW RATED -->
-						<input type="checkbox" name="rated" value="rated" checked>OK to Rate <br/>
 
 						<button type="submit" name="upload">Upload</button>
 					</form>
