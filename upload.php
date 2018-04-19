@@ -12,7 +12,6 @@
 			$ext == "jpg" ||
 			$ext == "jpeg"||
 			$ext == "gif" ||
-			$ext == "svg" ||
 			$ext == "mp4" ||
 			$ext == "mp3"  )
 		if ($preexisting || move_uploaded_file($_FILES["file"]["tmp_name"],$uppath)) {
@@ -22,7 +21,6 @@
 				case "jpg"  :
 				case "jpeg" :
 				case "gif"  :
-				case "svg"  :
 					// do the picture things
 					$filetype = "image";
 					if (!$preexisting) { // create the thumbnail if it doesn't exist
@@ -49,7 +47,7 @@
 					}
 					return true;
 					break;
-				
+
 				case "mp3" :
 					// do the audio things
 					$filetype = "audio";
@@ -110,9 +108,9 @@
 				$query = "INSERT INTO media (id,date,file,uploaded_by,category,type,privacy,title,description)"
 				."VALUES ('".$id."','".$utime."','".$filename."','".$un."','".$category
 				."','".$filetype."','".$_POST['privacy']."','".$title."','".$description."')";
-				
+
 				$db->custom_sql($query);
-				
+
 				if (!empty($_POST['keywords'])) {
 					// this needs to ba a lambda function to avoid warnings
 					$keywords = array_map(function ($temp) use ($db) { return $db->conn->real_escape_string($temp); },explode(" ",$_POST['keywords']));
@@ -140,7 +138,7 @@
 	include_once "navbar.php";
 ?>
 
-<?php 
+<?php
 ?>
 
 <html>
@@ -179,7 +177,7 @@
 							<option value="sports">Sports</option>
 							<option value="travel">Travel & Outdoors</option> </select>
 
-						<input type="radio" name="privacy" value="public" checked>Public               
+						<input type="radio" name="privacy" value="public" checked>Public
 						<input type="radio" name="privacy" value="private">Private
 						<input type="radio" name="privacy" value="friend">Friends <br/>
 
