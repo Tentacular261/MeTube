@@ -49,7 +49,7 @@ if (isset($_POST['message'])) {
 
     while ($row = $result->fetch_array()) { ?>
         <div class="message">
-            <?php echo $row['sender']; // TODO: add timestamp and user img once added ?>
+            <?php echo $row['sender']; ?>
             <br>
             <pre><?php echo $row['message']; ?></pre>
         </div>

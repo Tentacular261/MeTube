@@ -63,7 +63,7 @@
 
         while ($row = $result->fetch_array()) { ?>
             <div class="comment">
-                <?php echo $row['username']; // TODO: add timestamp and user img once added ?>
+                <?php echo $row['username']; ?>
                 <br>
                 <pre><?php echo $row['comment']; ?></pre>
             </div>

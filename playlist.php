@@ -47,7 +47,7 @@ $list = $db->conn->real_escape_string($_GET['list']);
                 <img src="media/thumb/<?php echo $thumb; ?>" alt="<?php echo $title; ?>"/>
             </div>
             <div class="message_info">
-                <?php echo $row['title']; // TODO: add timestamp and user img once added ?>
+                <?php echo $row['title']; ?>
                 <br>
                 <pre><?php echo $row['uploaded_by']; ?></pre>
             </div>

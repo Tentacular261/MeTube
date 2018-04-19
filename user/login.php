@@ -22,7 +22,6 @@ if(isset($_POST['submit'])) { // process POST data if it exists
             	$_SESSION['error_message'] = "Incorrect password.";
             else {
                 $_SESSION['username']=$_POST['username']; //Set the $_SESSION['username'] (Log the user in)
-                // TODO: load the last page the user was on
                 header('Location: '.$_POST['return']);
                 exit;
             }

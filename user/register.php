@@ -22,7 +22,6 @@ if(isset($_POST['register'])) { // process POST data if it exists
         } else {
             if (preg_match("/.*@.*\..*/",$_POST['username'])) { // check is username is following the correct format
                 // username checks out - insert it into the database.
-                // TODO: hash passwords (possibly before leaving client, that may require JS though, and if we are using JS for that then we could do a fancy realtime check for the two password feilds matching)
                 $db->custom_sql("INSERT INTO users (username, password) VALUES ('".$un."','".$ps."')");
                 $db->custom_sql("INSERT INTO playlists VALUES ('$un','favorites','0',NULL)");
                 $_SESSION['username']=$_POST['username']; // log the user in

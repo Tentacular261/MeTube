@@ -71,7 +71,6 @@ img {
    max-width: 500px;
 }
 
-/* TODO: Responsive layout for mobile */
 @media (max-width: 600px) {
    .uploadContent { flex-direction: column; }
 }

@@ -26,7 +26,7 @@ $user = (empty($_SESSION['username'])) ? "" : $dbnav->conn->real_escape_string($
     </form>
 
     <div class="topnav" id="myTopnav">
-        <a class="user" href="user.php" top="true"> <!--TODO: create the user account control page -->
+        <a class="user" href="user.php" top="true">
             <img src="<?php
             if ($user == "")
                 echo "https://cdn.iconscout.com/public/images/icon/free/png-512/avatar-user-teacher-312a499a08079a12-512x512.png";
@@ -35,7 +35,7 @@ $user = (empty($_SESSION['username'])) ? "" : $dbnav->conn->real_escape_string($
                 echo "user/profile_pictures/$ret";
             }
             ?>"/>
-            <!-- TODO: CHANGE FOR UNIQUE USER AVATAR -->
+            
             <span>Welcome <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : "Guest" ?></span>
         </a>
         <a href="index.php">Home</a>
@@ -43,7 +43,7 @@ $user = (empty($_SESSION['username'])) ? "" : $dbnav->conn->real_escape_string($
         if (isset($_SESSION['username'])) {
         ?>
             <a href="upload.php">Upload</a>
-            <!-- TODO: make log out work -->
+            
             <a class="right" href="javascript:void(0);"
             onclick="document.getElementById(&quot;logout&quot;).submit()">
             Log Out
@@ -65,7 +65,7 @@ $user = (empty($_SESSION['username'])) ? "" : $dbnav->conn->real_escape_string($
     </div>
 
     <?php if (!isset($_SESSION['username'])) { ?>
-    <!-- TODO: Go through and integrate these dialogs -->
+    
     <!-- Login Popup -->
     <div id="login" class="modal">
 
@@ -179,5 +179,4 @@ $user = (empty($_SESSION['username'])) ? "" : $dbnav->conn->real_escape_string($
         }
     }
     </script>
-    <!-- TODO: add an error display for debugging purposes -->
 </body>

@@ -30,7 +30,7 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
             <!-- Search Bar -->
             <div class="search-col">
                 <div class="main-search">
-						<form id="searchform" method="get" action="index.php" onsubmit="Invertchecks(this); return false;">   <!-- TODO: CHANGE TO GIVE RESULTS -->
+						<form id="searchform" method="get" action="index.php" onsubmit="Invertchecks(this); return false;">
 							<input type="text" placeholder="Search" name="keywords">
 
 							<!-- Advanced Search Collapsible Menu -->
@@ -62,7 +62,7 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 										}
 									}
 									?>
-									<!-- TODO: SEARCH BY FILE TYPE -->
+									
 									File Type: </br>
 									<input type="checkbox" name="image" checked>Images
 									<input type="checkbox" name="video" checked>Video
@@ -76,11 +76,9 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 									<input type="date" name="startdate">
 									<input type="date" name="enddate">
 
-									<!-- TODO: NEW ACTION FOR RESET -->
 									<input type="submit" name="reset" value="Reset" />
 								</div>
 
-							<!-- TODO: NEW ACTION FOR SEARCH-->
 							<input type="submit" name="search" value="Search" />
 
 						</form>
@@ -122,7 +120,6 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 						$keywords_str .= "'$word',";
 					$keywords_str = rtrim($keywords_str,",");
 
-					// TODO: Add the search functionality
 					$MAIN_QUERY .= " AND EXISTS (SELECT * FROM keywords WHERE (keyword IN ($keywords_str)) AND keywords.media_id=media.id)";
 				}
 
@@ -184,11 +181,10 @@ $user = (empty($_SESSION['username'])) ? "" : $db->conn->real_escape_string($_SE
 
 				
 				$result = $db->custom_sql($MAIN_QUERY);
-				//echo "<br>".$MAIN_QUERY."<br>".$db->conn->error."<br>";
+
 				$rowcount = $db->custom_sql($GET_TOTAL)->fetch_array()[0];
 				
 				echo "Displaying results ".($post_count*$page_number-($post_count-1))."-".min($post_count*$page_number,$rowcount)." of ".$rowcount."<br>";
-				//echo "<pre>".var_dump($_GET)."</pre><br>";
 
                 while ($row = $result->fetch_array()) {
 					$id = $row['id'];

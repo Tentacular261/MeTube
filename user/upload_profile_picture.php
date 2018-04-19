@@ -4,11 +4,6 @@
 
     include_once "../database.php";
 
-    /*
-     * $db = DatabaseConnection
-     * $escaped_username = a username that has been passed to
-     * db->conn->real_escape_string()
-     */
     function del_old_profile_pic($db, $escaped_username) {
         $query_str = "SELECT picture FROM users WHERE username=\"" . $escaped_username . "\"";
         $result = $db->custom_sql($query_str);

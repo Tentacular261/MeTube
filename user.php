@@ -40,11 +40,7 @@
 			    $file = "user/profile_pictures/" . $row[0];
 			?>
 			<img src=<?php echo "\"" . $file . "\"" ?> alt="Profile picture"/> <br/>
-			<!-- TODO: Change action for change profile pic -->
-			<!-- temporary button -->
-			<!-- <form method="link" action="user/upload_profile_picture.php">
-				<input type="submit" id="profilePic" value="Update Profile Pic" />
-			</form> -->
+
 			<button onclick="document.getElementById('proPicModal').style.display='block'" style="width:auto;">Update Profile Pic</button>
 
 			<button onclick="document.getElementById('passModal').style.display='block'" style="width:auto;">Change Password</button>
@@ -159,7 +155,6 @@
 
 	<!-- Change Password Modal -->
 	<div id="passModal" class="modal">
-		<!-- TODO: Change action of change password -->
 		<form class="modal-content animate" method="post" action="user/changepassword.php">
 			<div class="closeContainer">
 				<span onclick="document.getElementById('passModal').style.display='none'" class="close" title="Close">&times;</span>
@@ -203,7 +198,6 @@
 	<!-- Add Chat Modal -->
 	<div id="addChatModal" class="modal">
         <form class="modal-content animate" method="post" action="user/addremovechat.php">
-        <!-- CHANGE TO DB NEW USER -->
         <div class="container">
             <span onclick="document.getElementById('addChatModal').style.display='none'"
             class="close" title="Close">&times;</span>
@@ -228,7 +222,6 @@
 	<!-- Add List Modal -->
 	<div id="addListModal" class="modal">
         <form class="modal-content animate" method="post" action="user/addremoveplaylist.php">
-        <!-- CHANGE TO DB NEW USER -->
         <div class="container">
             <span onclick="document.getElementById('addListModal').style.display='none'"
             class="close" title="Close">&times;</span>
@@ -299,19 +292,10 @@
 			var windH = window.innerHeight;
 			var vpad = (bodyH - elemH);
 			var maxH = Math.max(windH-vpad,elemH);
-			console.log('START NEW');
-			console.log(padding);
-			console.log('elemH ' + elemH);
-			console.log('bodyH ' + bodyH);
-			console.log('windH ' + windH);
-			console.log('vpad ' + vpad);
-			console.log('maxH ' + maxH);
 			
 			var contH = frame.contentWindow.document.documentElement.getElementsByTagName('body')[0].scrollHeight
-			console.log('contH ' + contH);
 
 			frame.style.height = Math.min(maxH,contH) + 'px';
-			console.log('height ' + frame.style.height);
 		}
 	</script>
 

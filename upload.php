@@ -57,7 +57,6 @@
 					break;
 
 				default : return false;
-				// TODO: figure out the type of file and what to use as a thumbnail
 			}
 		}
 		return false;
@@ -164,10 +163,9 @@
 
 						<input type="text" name="title" placeholder="Media Title" required/>
 						<textarea name="description" placeholder="Description" rows="20"/></textarea>
-						<!-- TODO: NEW KEYWORDS -->
+
 						<input type="text" name="keywords" placeholder="Keywords" />
 
-						<!-- TODO: NEW CATEGORY -->
 						<select id="category" name="category" required/>
 							<option value="" disabled selected>Category</option>
 							<option value="entertainment">Entertainment</option>
@@ -190,10 +188,7 @@
 				</div>
 
 				<div class="displayMediaCol">
-					<!-- Preview Image 
-					<input type="file" accept="image/*, audio/*, video/*" onchange="preview_image(event)"> -->
 					<img id="img"/>
-
 				</div>
 			</div>
 		</div>
