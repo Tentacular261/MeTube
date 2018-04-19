@@ -165,6 +165,7 @@
 				<input type="password" name="password" placeholder="Current Password">
 				<input type="password" name="new_password" placeholder="New Password">
 				<input type="password" name="new_password_again" placeholder="New Password (Again)">
+				<input type="hidden" name="return" value="<?php echo $returnto; ?>">
 				<button type="submit" name="submit">Change Password</button>
 			</div>
 		</form>
