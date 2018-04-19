@@ -18,7 +18,7 @@ if(isset($_POST['submit'])) { // process POST data if it exists
             $_SESSION['error_message'] = "User ".$_POST['username']." not found.";
         } else { // The user exists check password now
             $row = $result->fetch_assoc();
-            if(!strcmp($row['password'],$password))
+            if(strcmp($row['password'],$_POST['password']) != 0)
             	$_SESSION['error_message'] = "Incorrect password.";
             else {
                 $_SESSION['username']=$_POST['username']; //Set the $_SESSION['username'] (Log the user in)
