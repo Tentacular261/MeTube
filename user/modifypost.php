@@ -32,7 +32,6 @@ if(isset($_POST['modify']) && !empty($_SESSION['username'])) { // process POST d
                 $db->custom_sql("UPDATE media SET title='$title', description='$description', privacy='$privacy', category='$category' WHERE id='$id'");
 
                 if (!empty($keywords)) {
-                $_SESSION['error_message'] = "Made it here";
                     $db->custom_sql("DELETE FROM keywords WHERE media_id='$id'");
 
 					// this needs to ba a lambda function to avoid warnings
